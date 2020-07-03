@@ -2,7 +2,6 @@
 clear
 domain=https://raw.githubusercontent.com/anonymosX/SKTPro/master
 t=`date`
-#note
 printf "========================================================================\n"
 printf "Server Timezone: $t | IP: `hostname -I | awk '{print $1}'`\n"
 printf "========================================================================\n"
