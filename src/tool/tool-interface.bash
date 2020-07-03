@@ -1,5 +1,5 @@
 #!/bin/bash
-domain=https://raw.githubusercontent.com/anonymosX/SKTPro/master
+domain=https://raw.githubusercontent.com/anonymosX/SKTPro/master/src
 printf "       -----------------------------\n"
 printf "        SKT TOOL | `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` domains\n"
 printf "       -----------------------------\n"
