@@ -48,6 +48,7 @@ if [ ${slc} = 2 ]; then
 rm -f /etc/skt.d/web/*
 rm -f /etc/skt.d/system/*
 rm -f /etc/skt.d/ssl/*
+rm -f /etc/skt.d/tool/*
 # Tool
 curl -N ${domain}/tool/tool-interface.bash | cat >> /etc/skt.d/tool/tool-interface.bash
 
