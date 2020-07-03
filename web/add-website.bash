@@ -6,7 +6,7 @@ printf "2. Enter Business Address: "
 read add
 printf "3. Enter phone for customer support: "
 read phone
-printf "4. Select themes:(1 or 2)\n 1/Konte\n2/Shoptimized\n"
+printf "4. Select themes:(1 or 2)\n1/Konte\n2/Shoptimized\n"
 printf "My Select: "
 read vrs
 #   Thong tin MYSQL
