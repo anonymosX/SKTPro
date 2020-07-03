@@ -40,7 +40,7 @@ curl -N ${domain}/web/delete-website.bash | cat >> /etc/skt.d/web/delete-website
 # 
 
 chmod +x /etc/skt.d/ssl/* ; chmod +x /etc/skt.d/web/* ; chmod +x /etc/skt.d/system/* ; chmod +x /etc/skt.d/tool/*
-
+clear
 }
 fi
 if [ ${slc} = 2 ]; then
@@ -70,6 +70,7 @@ curl -N ${domain}/web/web-interface.bash | cat >> /etc/skt.d/web/web-interface.b
 curl -N ${domain}/web/delete-website.bash | cat >> /etc/skt.d/web/delete-website.bash 
 
 chmod +x /etc/skt.d/ssl/* ; chmod +x /etc/skt.d/web/* ; chmod +x /etc/skt.d/system/* ; chmod +x /etc/skt.d/tool/*
+clear
 cd /etc/skt.d/tool && ./tool-interface.bash
 }
 fi
