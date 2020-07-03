@@ -3,9 +3,10 @@ clear
 printf "       -----------------------------\n"
 printf "        VPS MANAGE | `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` domains\n"
 printf "       -----------------------------\n"
+printf "Options: \n"
 printf "1. Install LEMP\n"
 printf "2. Update VPS\n"
-printf "My Select: (Ctril + C to Cancel) "
+printf "Select: "
 read slc
 if [ ${slc} = 0 ]; then
 cd /root && ./install
