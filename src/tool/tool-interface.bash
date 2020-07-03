@@ -49,7 +49,7 @@ rm -f /etc/skt.d/web/*
 rm -f /etc/skt.d/system/*
 rm -f /etc/skt.d/ssl/*
 # Tool
-cur.l -N ${domain}/tool/tool-interface.bash | cat >> /etc/skt.d/tool/tool-interface.bash
+curl -N ${domain}/tool/tool-interface.bash | cat >> /etc/skt.d/tool/tool-interface.bash
 
 # SSL
 curl -N ${domain}/ssl/ssl-install.bash | cat >> /etc/skt.d/ssl/ssl-install.bash
