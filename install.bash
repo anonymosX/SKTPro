@@ -1,5 +1,6 @@
 #!/bin/bash
 clear
+domain=https://raw.githubusercontent.com/anonymosX/SKTPro/master
 t=`date`
 
 printf "========================================================================\n"
@@ -31,7 +32,7 @@ fi
 if [ ${slc} = 3 ]; then
 clear
 if [ ! -f /etc/skt.d/tool/tool-interface.bash ];then
-curl -N ${d}/tool/tool-interface.bash | cat >> /etc/skt.d/tool/tool-interface.bash
+curl -N ${domain}/src/tool/tool-interface.bash | cat >> /etc/skt.d/tool/tool-interface.bash
 chmod +x /etc/skt.d/tool/tool-interface.bash
 fi
 cd /etc/skt.d/tool && ./tool-interface.bash
