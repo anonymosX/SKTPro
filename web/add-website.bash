@@ -1,5 +1,4 @@
 #!/bin/bash
-clear
 domain=https://quocngo.net
 printf "1. Enter URL(example:quocngo.net): "
 read d
@@ -33,8 +32,19 @@ tar -xzf latest.tar.gz
 mv wordpress/* ./ && rm -rf wordpress latest.tar.gz
 chmod 777 /home/${d}/public_html
 chown -R nginx:nginx /home/${d}/public_html
+# Create database
 source /etc/skt.d/${d}/${d}.mariadb
-printf "create database ${dbn}; create user '${dbu}'@'localhost' identified by '${dbp}'; grant all on ${dbn}.* to ${dbu}@localhost; flush privileges; exit"  | mysql
+printf "create database ${dbn}" | mysql
+printf "create user '${dbu}'@'localhost' identified by '${dbp}'" | mysql
+printf "grant all on ${dbn}.* to ${dbu}@localhost" | mysql
+printf "flush privileges" | mysql
+printf "exit" | mysql
+
+
+
+
+
+
 
 cat > /etc/nginx/conf.d/${d}.conf<<"EOF"
 server {
@@ -324,9 +334,8 @@ wp search-replace 'changedomainhere' ${d^^} wp_posts --path=/home/${d}/public_ht
 wp search-replace 'changeaddresshere' ${add} wp_posts --path=/home/${d}/public_html
 wp search-replace 'changebusinessnamehere' ${d^^} wp_posts --path=/home/${d}/public_html
 wp search-replace 'changemailhere' $e wp_posts --path=/home/${d}/public_html
-wp search-replace 'changedomainhere' ${d^^} wp_posts --path=/home/${d}/public_html
 chmod 777 -R /home/${d}/public_html/wp-content
 
-printf "${d^^} login detail:\n Username: ${wp_usr}\n Password: ${wp_pass}\n Email: ${e}\n"
-printf "MySql detail ${d^^}:\nDatabase Name: ${dbn} \nUsername: ${dbu}\nUsername Password: ${dbp}\nRoot Password: ${mdbp}\n"
+printf "${d^^} login\n Username: ${wp_usr}\n Password: ${wp_pass}\n Email: ${e}\n"
+printf "${d^^}\nDatabase Name: ${dbn} \nUsername: ${dbu}\nUsername Password: ${dbp}\nRoot Password: ${mdbp}\n"
 systemctl restart nginx
