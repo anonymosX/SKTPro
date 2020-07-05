@@ -5,8 +5,8 @@ t=`date`
 printf "========================================================================\n"
 printf "Server Timezone: $t | IP: `hostname -I | awk '{print $1}'`\n"
 printf "========================================================================\n"
-printf "1. Website                       3. Tool\n"
-printf "2. SSL                           4. System\n"
+printf "1. Website                       2. SSL\n"
+printf "3. Tool                          4. System\n"
 printf "Select: "
 read slc
 # Check folder source status
