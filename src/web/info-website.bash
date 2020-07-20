@@ -50,5 +50,5 @@ fi
 # Else
 if [ ${slc} != 0 -a ${slc} != 1 -a ${slc} != 2 ]; then
 clear
-cd /etc/skt.d/web && ./web-website.bash
+cd /etc/skt.d/web && ./info-website.bash
 fi
