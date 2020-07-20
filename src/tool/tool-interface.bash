@@ -37,6 +37,7 @@ curl -N ${domain}/web/backup-website.bash | cat >> /etc/skt.d/web/backup-website
 curl -N ${domain}/web/restore-website.bash | cat >> /etc/skt.d/web/restore-website.bash
 curl -N ${domain}/web/web-interface.bash | cat >> /etc/skt.d/web/web-interface.bash
 curl -N ${domain}/web/delete-website.bash | cat >> /etc/skt.d/web/delete-website.bash
+curl -N ${domain}/web/info-website.bash | cat >> /etc/skt.d/web/info-website.bash
 # 
 
 chmod +x /etc/skt.d/ssl/* ; chmod +x /etc/skt.d/web/* ; chmod +x /etc/skt.d/system/* ; chmod +x /etc/skt.d/tool/*
@@ -68,7 +69,7 @@ curl -N ${domain}/web/backup-website.bash | cat >> /etc/skt.d/web/backup-website
 curl -N ${domain}/web/restore-website.bash | cat >> /etc/skt.d/web/restore-website.bash
 curl -N ${domain}/web/web-interface.bash | cat >> /etc/skt.d/web/web-interface.bash
 curl -N ${domain}/web/delete-website.bash | cat >> /etc/skt.d/web/delete-website.bash 
-
+curl -N ${domain}/web/info-website.bash | cat >> /etc/skt.d/web/info-website.bash
 chmod +x /etc/skt.d/ssl/* ; chmod +x /etc/skt.d/web/* ; chmod +x /etc/skt.d/system/* ; chmod +x /etc/skt.d/tool/*
 clear
 cd /etc/skt.d/tool && ./tool-interface.bash
