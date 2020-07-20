@@ -2,7 +2,7 @@
 #workflow: show login info, database info <- show all website
 #count how many domain in server: find /home -mindepth 1 -maxdepth 1 -type d | wc -l` domains\n"
 printf "       -----------------------------\n"
-printf "                 Have `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` domains\n"
+printf "                Have `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` domains\n"
 printf "       -----------------------------\n" 
 printf "Option: \n"
 printf "1. Login                  2. Database\n"
@@ -11,7 +11,7 @@ printf "Select: "
 read slc
 # Return Home
 if [ ${slc} = 0 ]; then
-clear
+clearcd
 cd /root && ./install
 fi
 # Show Login
@@ -31,7 +31,7 @@ printf "${enter^^} login\n Username: ${wp_usr}\n Password: ${wp_pass}\n Email: $
 cd /etc/skt.d/web && ./info-interface.bash
 fi
 
-# Show Database
+# Show DataBase
 if [ $slc = 2 ]; then
 printf "List domains:\n"
 for D in /home/* ; do
