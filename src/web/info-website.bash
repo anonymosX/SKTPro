@@ -26,7 +26,7 @@ printf "Enter: "
 read enter
 printf "\n"
 source /etc/skt.d/${enter}/${enter}.login
-printf "----------------\n"
+printf " ----------------\n"
 printf "Result:\n"
 printf "${enter^^} login\n Username: ${wp_usr}\n Password: ${wp_pass}\n Email: ${e}\n"
 printf "\n"
@@ -46,7 +46,7 @@ printf "Enter: "
 read enter
 printf "\n"
 source /etc/skt.d/${enter}/${enter}.mariadb
-printf "----------------\n"
+printf " ----------------\n"
 printf "Result:\n"
 printf "${enter^^}\nDatabase Name: ${dbn} \nUsername: ${dbu}\nUsername Password: ${dbp}\nRoot Password: ${mdbp}\n"
 printf "\n"
