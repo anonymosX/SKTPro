@@ -8,6 +8,7 @@ printf "Option: \n"
 printf "1. Login                  2. Database\n"
 printf "Select: "
 read slc
+printf "\n"
 # Return Home
 if [ ${slc} = 0 ]; then
 clearcd
@@ -19,7 +20,7 @@ printf "List domains:\n"
 for D in /home/* ; do
 if [ -d ${D} ];then
 d=${D##*/}
-printf "* ${d}\n"
+printf " * ${d}\n"
 fi
 done
 printf "Enter: "
@@ -29,7 +30,7 @@ source /etc/skt.d/${enter}/${enter}.login
 printf " ----------------\n"
 printf "Result:\n"
 printf "${enter^^} login\n Username: ${wp_usr}\n Password: ${wp_pass}\n Email: ${e}\n"
-printf "\n"
+printf "End Result.\n"
 cd /etc/skt.d/web && ./info-website.bash
 fi
 
@@ -48,8 +49,9 @@ printf "\n"
 source /etc/skt.d/${enter}/${enter}.mariadb
 printf " ----------------\n"
 printf "Result:\n"
-printf "${enter^^}\nDatabase Name: ${dbn} \nUsername: ${dbu}\nUsername Password: ${dbp}\nRoot Password: ${mdbp}\n"
 printf "\n"
+printf "${enter^^}\nDatabase Name: ${dbn} \nUsername: ${dbu}\nUsername Password: ${dbp}\nRoot Password: ${mdbp}\n"
+printf "End Result.\n"
 cd /etc/skt.d/web && ./info-website.bash
 fi
 # Else
