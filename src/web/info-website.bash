@@ -3,7 +3,7 @@
 #count how many domain in server: find /home -mindepth 1 -maxdepth 1 -type d | wc -l` domains\n"
 printf "       -----------------------------\n"
 printf "      Have `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` domains\n"
-printf "       -----------------------------\n"
+printf "       -----------------------------\n" 
 printf "Option: \n"
 printf "1. Login                  2. Database\n"
 printf "Select: "
