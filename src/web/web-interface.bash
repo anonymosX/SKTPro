@@ -7,7 +7,7 @@ printf "\n"
 printf "Options:\n"
 printf "1. Add                        3. Backup\n"
 printf "2. Delete                     4. Restore\n"
-printf "5. Infor\n"
+printf "5. Info\n"
 printf "Select: "
 read slc
 if [ ${slc} = 0 ]; then
@@ -30,7 +30,11 @@ if [ ${slc} = 4 ]; then
 clear
 cd /etc/skt.d/web && ./restore-website.bash
 fi
-if [ ${slc} != 0 -a ${slc} != 1 -a ${slc} != 2 -a ${slc} != 3 -a ${slc} != 4 ]; then
+if [ ${slc} = 5 ]; then
+clear
+cd /etc/skt.d/web && ./info-website.bash
+fi
+if [ ${slc} != 0 -a ${slc} != 1 -a ${slc} != 2 -a ${slc} != 3 -a ${slc} != 4 -a ${slc} != 5 ]; then
 clear
 cd /etc/skt.d/web && ./web-interface.bash
 fi
