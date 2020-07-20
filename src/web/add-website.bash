@@ -336,6 +336,9 @@ wp search-replace 'changebusinessnamehere' ${d^^} wp_posts --path=/home/${d}/pub
 wp search-replace 'changemailhere' $e wp_posts --path=/home/${d}/public_html
 chmod 777 -R /home/${d}/public_html/wp-content
 
+#source /etc/skt.d/${d}/${d}.mariadb
+#source /etc/skt.d/${d}/${d}.login
+
 printf "${d^^} login\n Username: ${wp_usr}\n Password: ${wp_pass}\n Email: ${e}\n"
 printf "${d^^}\nDatabase Name: ${dbn} \nUsername: ${dbu}\nUsername Password: ${dbp}\nRoot Password: ${mdbp}\n"
 systemctl restart nginx
