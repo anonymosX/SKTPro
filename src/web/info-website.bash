@@ -6,7 +6,6 @@ printf " INFORMATION WEBSITE | Have `find /home -mindepth 1 -maxdepth 1 -type d 
 printf " ------------------------------------\n" 
 printf "Option: \n"
 printf "1. Login                  2. Database\n"
-printf "\n"
 printf "Select: "
 read slc
 # Return Home
