@@ -28,7 +28,7 @@ read enter
 printf "\n"
 source /etc/skt.d/${enter}/${enter}.login
 printf "${enter^^} login\n Username: ${wp_usr}\n Password: ${wp_pass}\n Email: ${e}\n"
-cd /etc/skt.d/web && ./info-interface.bash
+cd /etc/skt.d/web && ./info-website.bash
 fi
 
 # Show DataBase
@@ -45,10 +45,10 @@ read enter
 printf "\n"
 source /etc/skt.d/${enter}/${enter}.mariadb
 printf "${enter^^}\nDatabase Name: ${dbn} \nUsername: ${dbu}\nUsername Password: ${dbp}\nRoot Password: ${mdbp}\n"
-cd /etc/skt.d/web && ./info-interface.bash
+cd /etc/skt.d/web && ./info-website.bash
 fi
 # Else
 if [ ${slc} != 0 -a ${slc} != 1 -a ${slc} != 2 ]; then
 clear
-cd /etc/skt.d/web && ./web-interface.bash
+cd /etc/skt.d/web && ./web-website.bash
 fi
