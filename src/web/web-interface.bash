@@ -5,9 +5,10 @@ printf "        WEBSITE MANAGE | `find /home -mindepth 1 -maxdepth 1 -type d | w
 printf "       -----------------------------\n"
 printf "\n"
 printf "Options:\n"
-printf "1. Add                        3. Backup\n"
-printf "2. Delete                     4. Restore\n"
-printf "5. Info\n" 
+printf "1. Add                        5. Info\n"
+printf "2. Delete                            \n"
+printf "3. Backup                            \n"
+printf "4. Restore\n" 
 printf "Select: " 
 read slc
 if [ ${slc} = 0 ]; then
