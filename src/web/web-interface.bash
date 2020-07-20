@@ -7,6 +7,7 @@ printf "\n"
 printf "Options:\n"
 printf "1. Add                        3. Backup\n"
 printf "2. Delete                     4. Restore\n"
+printf "5. Infor\n"
 printf "Select: "
 read slc
 if [ ${slc} = 0 ]; then

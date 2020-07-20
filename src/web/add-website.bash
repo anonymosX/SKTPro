@@ -17,14 +17,10 @@ wp_pass="`openssl rand -base64 32 | tr -d /=+ | cut -c -25`"
 wp_usr="qqteam_`openssl rand -base64 32 | tr -d /=+ | cut -c -5`"
 
 mkdir -p /etc/skt.d/${d} && cd /root
-shuf -n 1 /etc/skt.d/data/random-mail > /etc/skt.d/${d}/${d}.mail
-email="`cat /etc/skt.d/${d}/${d}.mail`"
-e="${email}@${d}"
+e="`shuf -n 1 /etc/skt.d/data/random-mail`@${d}"
 source /root/.my.cnf
-printf "#Thong tin MYSQL ${d}:\ndbn=${dbn}\ndbu=${dbu}\ndbp=${dbp}\nmdbp=${password}\n" | cat > /etc/skt.d/${d}/${d}.mariadb
-
-
-printf "wp_usr=${wp_usr}\nwp_pass=${wp_pass}" | cat > /etc/skt.d/${d}/${d}.login
+printf "#Thong tin MYSQL:\ndbn=${dbn}\ndbu=${dbu}\ndbp=${dbp}\nmdbp=${password}\n" | cat > /etc/skt.d/${d}/${d}.mariadb
+printf "#Thong tin Login: \nwp_usr=${wp_usr}\nwp_pass=${wp_pass}\ne=${e}" | cat > /etc/skt.d/${d}/${d}.login
 #   Tai WordPress Open Source
 mkdir -p /home/${d}/public_html && cd /home/${d}/public_html
 wget https://wordpress.org/latest.tar.gz
