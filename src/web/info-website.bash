@@ -1,14 +1,14 @@
 #!/bin/bash
 #workflow: show login info, database info <- show all website
 #count how many domain in server: find /home -mindepth 1 -maxdepth 1 -type d | wc -l` domains\n"
-printf " ------------------------------------\n"
+printf " -------------------------------------\n"
 printf " INFORMATION WEBSITE | Have `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` domains\n"
-printf " ------------------------------------\n" 
+printf " -------------------------------------\n" 
 printf "Option: \n"
 printf "1. Login                  2. Database\n"
 printf "Select: "
 read slc
-printf "\n"
+printf " ---------\n"
 # Return Home
 if [ ${slc} = 0 ]; then
 clearcd

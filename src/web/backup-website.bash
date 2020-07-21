@@ -1,15 +1,15 @@
 #!/bin/bash
-printf "Have `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` domain on server\n"
+printf "Found `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` domains\n"
 for D in /home/* ; do
 if [ -d $D ]; then
 d=${D##*/}
-printf " $i. $d\n"
+printf " * $d\n"
 fi
 done
 printf " -------------------------------\n"
-printf "Enter BackUp Domain: "
+printf "Enter domain: "
 read d
-printf "Do you want to back up ${d^^}? - Y/N\n"
+printf "Want back up ${d^^}? - Y/N\n"
 read qs
 if [ ${qs} = 'Y' ]; then
 {
