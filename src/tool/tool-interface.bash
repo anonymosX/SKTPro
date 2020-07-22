@@ -57,6 +57,7 @@ rm -f /etc/skt.d/web/*
 rm -f /etc/skt.d/system/*
 rm -f /etc/skt.d/ssl/*
 rm -f /etc/skt.d/tool/*
+rm -f /root/install
 # Tool
 curl -N ${domain}/tool/tool-interface.bash | cat >> /etc/skt.d/tool/tool-interface.bash
 
@@ -79,6 +80,8 @@ curl -N ${domain}/web/delete-website.bash | cat >> /etc/skt.d/web/delete-website
 curl -N ${domain}/web/info-website.bash | cat >> /etc/skt.d/web/info-website.bash
 # MARIADB
 curl -N ${domain}/mariadb/rename-mariadb.bash | cat >> /etc/skt.d/mariadb/mariadb.bash
+# INSTALL 
+curl -N ${domain}/install.bash | cat >> /root/install
 chmod +x /etc/skt.d/ssl/* ; chmod +x /etc/skt.d/web/* ; chmod +x /etc/skt.d/system/* ; chmod +x /etc/skt.d/tool/* ; chmod +x /etc/skt.d/mariadb/*
 clear
 cd /etc/skt.d/tool && ./tool-interface.bash
