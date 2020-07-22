@@ -12,11 +12,17 @@ cd /root && ./install
 fi
 if [ ${slc} = 1 ]; then
 {
+if [ -!d /etc/skt.d/tool ];then 
+{
+mkdir -p /etc/skt.d/tool
+}
+fi
 yum install -y wget
 mkdir -p /etc/skt.d/web/
 mkdir -p /etc/skt.d/system/
 mkdir -p /etc/skt.d/ssl/
 mkdir -p /etc/skt.d/tool/
+mkdir -p /etc/skt.d/mariadb/
 # Install necessary files
 # Tool
 curl -N ${domain}/tool/tool-interface.bash | cat >> /etc/skt.d/tool/tool-interface.bash
@@ -38,10 +44,11 @@ curl -N ${domain}/web/restore-website.bash | cat >> /etc/skt.d/web/restore-websi
 curl -N ${domain}/web/web-interface.bash | cat >> /etc/skt.d/web/web-interface.bash
 curl -N ${domain}/web/delete-website.bash | cat >> /etc/skt.d/web/delete-website.bash
 curl -N ${domain}/web/info-website.bash | cat >> /etc/skt.d/web/info-website.bash
-# 
-
+# MARIADB
+curl -N ${domain}/mariadb/rename-mariadb.bash | cat >> /etc/skt.d/mariadb/rename-mariadb.bash
 chmod +x /etc/skt.d/ssl/* ; chmod +x /etc/skt.d/web/* ; chmod +x /etc/skt.d/system/* ; chmod +x /etc/skt.d/tool/*
 clear
+
 }
 fi
 if [ ${slc} = 2 ]; then
@@ -70,6 +77,8 @@ curl -N ${domain}/web/restore-website.bash | cat >> /etc/skt.d/web/restore-websi
 curl -N ${domain}/web/web-interface.bash | cat >> /etc/skt.d/web/web-interface.bash
 curl -N ${domain}/web/delete-website.bash | cat >> /etc/skt.d/web/delete-website.bash 
 curl -N ${domain}/web/info-website.bash | cat >> /etc/skt.d/web/info-website.bash
+# MARIADB
+curl -N ${domain}/mariadb/rename-mariadb.bash | cat >> /etc/skt.d/mariadb/rename-mariadb.bash
 chmod +x /etc/skt.d/ssl/* ; chmod +x /etc/skt.d/web/* ; chmod +x /etc/skt.d/system/* ; chmod +x /etc/skt.d/tool/*
 clear
 cd /etc/skt.d/tool && ./tool-interface.bash
