@@ -14,7 +14,7 @@ sh /root/install
 
 elif [ ${slc} = 1 ]; then
 {
-if [ -!d /etc/skt.d/tool ];then 
+if [ ! -d /etc/skt.d/tool ];then 
 {
 mkdir -p /etc/skt.d/tool
 }
@@ -75,7 +75,7 @@ curl -N ${domain}/web/info-website.bash | cat >> /etc/skt.d/web/info-website.bas
 # MARIADB
 curl -N ${domain}/mariadb/rename-mariadb.bash | cat >> /etc/skt.d/mariadb/mariadb.bash
 # INSTALL 
-curl -N ttps://raw.githubusercontent.com/anonymosX/SKTPro/master/install.bash | cat >> /root/install
+curl -N https://raw.githubusercontent.com/anonymosX/SKTPro/master/install.bash | cat >> /root/install
 chmod +x /etc/skt.d/ssl/* ; chmod +x /etc/skt.d/web/* ; chmod +x /etc/skt.d/system/* ; chmod +x /etc/skt.d/tool/* ; chmod +x /etc/skt.d/mariadb/* ; chmod +x /root/install
 sh /etc/skt.d/tool/tool-interface.bash
 }

@@ -29,7 +29,7 @@ elif [ ${slc} = 4 ]; then
 	curl -N ${domain}/src/tool/tool-interface.bash | cat >> /etc/skt.d/tool/tool-interface.bash
 	chmod +x /etc/skt.d/tool/tool-interface.bash
 	fi
-    sh /etc/skt.d/too/tool-interface.bash
+    sh /etc/skt.d/tool/tool-interface.bash
 elif [ ${slc} = 5 ]; then
 	sh /etc/skt.d/system/system-interface.bash
 else
