@@ -108,7 +108,6 @@ elif [ $answer = '2' ]; then
 	source /etc/skt.d/${d}/${d}.mariadb
 	printf " ----------------\n"
 	printf "Result:\n"
-	printf "\n"
 	printf "${d^^}\nDatabase Name: ${dbn} \nUsername: ${dbu}\nUsername Password: ${dbp}\nRoot Password: ${mdbp}\n"
 	printf "End Result.\n"
 	sh /etc/skt.d/mariadb/mariadb.bash

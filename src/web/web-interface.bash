@@ -39,9 +39,7 @@ elif  [ ${slc} = 5 ]; then
 		printf "${d^^} login\n Username: ${wp_usr}\n Password: ${wp_pass}\n Email: ${e}\n"
 		printf "End Result.\n"
 	sh /etc/skt.d/web/web-interface.bash
-}
+
 else
-{	
 	sh /etc/skt.d/web/web-interface.bash
-}
 fi
