@@ -1,5 +1,5 @@
 #!/bin/bash
-sh /root
+clear
 printf "       -----------------------------\n"
 printf "        WEBSITE MANAGE | `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` domains\n"
 printf "       -----------------------------\n"
@@ -39,7 +39,6 @@ elif  [ ${slc} = 5 ]; then
 		printf "${d^^} login\n Username: ${wp_usr}\n Password: ${wp_pass}\n Email: ${e}\n"
 		printf "End Result.\n"
 	sh /etc/skt.d/web/web-interface.bash
-
 else
 	sh /etc/skt.d/web/web-interface.bash
 fi
