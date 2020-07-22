@@ -1,5 +1,4 @@
 #!/bin/bash
-clear
 domain=https://raw.githubusercontent.com/anonymosX/SKTPro/master/src
 printf "       -----------------------------\n"
 printf "        SKT TOOL | `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` domains\n"
@@ -11,6 +10,7 @@ printf "Enter: "
 read slc
 clear
 if [ ${slc} = 0 ]; then
+
 sh /root/install
 
 elif [ ${slc} = 1 ]; then
@@ -43,7 +43,7 @@ curl -N ${domain}/web/restore-website.bash | cat >> /etc/skt.d/web/restore-websi
 curl -N ${domain}/web/web-interface.bash | cat >> /etc/skt.d/web/web-interface.bash
 curl -N ${domain}/web/delete-website.bash | cat >> /etc/skt.d/web/delete-website.bash
 # MARIADB
-curl -N ${domain}/mariadb/rename-mariadb.bash | cat >> /etc/skt.d/mariadb/mariadb.bash
+curl -N ${domain}/mariadb/mariadb.bash | cat >> /etc/skt.d/mariadb/mariadb.bash
 chmod +x /etc/skt.d/ssl/* ; chmod +x /etc/skt.d/web/* ; chmod +x /etc/skt.d/system/* ; chmod +x /etc/skt.d/tool/* ; chmod +x /etc/skt.d/mariadb/*
 
 
@@ -72,7 +72,7 @@ curl -N ${domain}/web/restore-website.bash | cat >> /etc/skt.d/web/restore-websi
 curl -N ${domain}/web/web-interface.bash | cat >> /etc/skt.d/web/web-interface.bash
 curl -N ${domain}/web/delete-website.bash | cat >> /etc/skt.d/web/delete-website.bash 
 # MARIADB
-curl -N ${domain}/mariadb/rename-mariadb.bash | cat >> /etc/skt.d/mariadb/mariadb.bash
+curl -N ${domain}/mariadb/mariadb.bash | cat >> /etc/skt.d/mariadb/mariadb.bash
 # INSTALL 
 curl -N https://raw.githubusercontent.com/anonymosX/SKTPro/master/install.bash | cat >> /root/install
 chmod +x /etc/skt.d/ssl/* ; chmod +x /etc/skt.d/web/* ; chmod +x /etc/skt.d/system/* ; chmod +x /etc/skt.d/tool/* ; chmod +x /etc/skt.d/mariadb/* ; chmod +x /root/install
