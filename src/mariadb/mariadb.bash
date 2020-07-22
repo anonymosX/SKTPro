@@ -9,21 +9,20 @@ printf "1. Rename\n"
 printf "2. View\n"
 printf "Enter: "
 read answer
+clear
 # RETURN HOME
 if [ $answer = '0' ]; then
 {
-	clear
-	cd /root && sh install
+	sh /root/install
 }
 # RENAME DB
 elif [ $answer = '1' ]; then
 {
-	clear
 	printf " 				--------------------\n"
 	printf "				RENAME DATABASE NAME\n"
 	printf " 				--------------------\n"
 	printf "\n"
-	# Available domains
+	# LIST DOMAINS
 	printf "List domains: \n"
 	for D in /home/* ; do
 	if [ -d $D ]; then
@@ -80,20 +79,19 @@ if [ ${YN} = Y -o ${YN} = y ]; then
 elif [ ${YN} = N -o ${YN} = n ]; then
 {
 	printf "You have cancel RENAME database\n"
-	cd /root && sh mariadb.bash
+	sh /etc/skt.d/mariadb.bashh
 }
 else 
 {
 	printf "Code: Invaild Anwers\n"
 }
 fi
-cd /etc/skt.d/ && sh mariadb.bash
+	sh /etc/skt.d/mariadb.bash
 }
 
 # VIEW DB
 elif [ $answer = '2' ]; then
 {
-	clear
 	printf " 				--------------------\n"
 	printf "				VIEW DATABASE NAME\n"
 	printf " 				--------------------\n"
@@ -113,11 +111,10 @@ elif [ $answer = '2' ]; then
 	printf "\n"
 	printf "${d^^}\nDatabase Name: ${dbn} \nUsername: ${dbu}\nUsername Password: ${dbp}\nRoot Password: ${mdbp}\n"
 	printf "End Result.\n"
-	cd /etc/skt.d/ && sh mariadb.bash
+	sh /etc/skt.d/mariadb.bash
 }
 # ELSE
-else
-	clear
+else	
 	printf "Code: Invaild Answer!\n"
-	cd /etc/skt.d/ && sh mariadb.bash
+	sh /etc/skt.d/mariadb.bash
 fi

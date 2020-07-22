@@ -1,49 +1,38 @@
 #!/bin/bash
 clear
 domain=https://raw.githubusercontent.com/anonymosX/SKTPro/master
-t=`date`
 printf "========================================================================\n"
-printf "Server Timezone: $t | IP: `hostname -I | awk '{print $1}'`\n"
+printf " Server Timezone: `date` | IP: `hostname -I | awk '{print $1}'`\n"
 printf "========================================================================\n"
 printf "1. Website                       \n"
 printf "2. Database                       \n"
-printf "3. Tool                           \n"
-printf "4. System                       \n"
-printf "Select: "
+printf "3. SSL                       \n"
+printf "4. Tool                           \n"
+printf "5. System                       \n"
+printf "Enter: "
 read slc
+clear
 # Check folder source status
 if [ ! -d /etc/skt.d ]; then
-mkdir -p /etc/skt.d/web
-mkdir -p /etc/skt.d/ssl
-mkdir -p /etc/skt.d/tool
-mkdir -p /etc/skt.d/system
-mkdir -p /etc/skt.d/mariadb
+	mkdir -p /etc/skt.d/web /etc/skt.d/ssl /etc/skt.d/mariadb /etc/skt.d/tool /etc/skt.d/system
 fi
 if [ ${slc} = 0 ]; then
-clear
-cd /root && ./install
-fi
-if [ ${slc} = 1 ]; then
-clear
-cd /etc/skt.d/web && ./web-interface.bash
-fi
-if [ ${slc} = 2 ]; then
-clear
-cd /etc/skt.d/ssl && ./ssl-interface.bash
-fi
-if [ ${slc} = 3 ]; then
-clear
-if [ ! -f /etc/skt.d/tool/tool-interface.bash ];then
-curl -N ${domain}/src/tool/tool-interface.bash | cat >> /etc/skt.d/tool/tool-interface.bash
-chmod +x /etc/skt.d/tool/tool-interface.bash
-fi
-cd /etc/skt.d/tool && ./tool-interface.bash
-fi
-if [ ${slc} = 4 ]; then
-clear
-cd /etc/skt.d/system && ./system-interface.bash
-fi
-if [ ${slc} != 0 -a ${slc} != 1 -a ${slc} != 2 -a ${slc} != 3 -a ${slc} != 4 ]; then
-clear
-cd /root && ./install
+	sh /root/install
+elif [ ${slc} = 1 ]; then
+	sh /etc/skt.d/web/web-interface.bash
+elif [ ${slc} = 2 ]; then	
+	sh /etc/skt.d/mariadb/mariadb.bash 
+elif [ ${slc} = 3 ]; then
+	sh /etc/skt.d/ssl/ssl-interface.bash
+elif [ ${slc} = 4 ]; then
+	if [ ! -f /etc/skt.d/tool/tool-interface.bash ];then
+	curl -N ${domain}/src/tool/tool-interface.bash | cat >> /etc/skt.d/tool/tool-interface.bash
+	chmod +x /etc/skt.d/tool/tool-interface.bash
+	fi
+    sh /etc/skt.d/too/tool-interface.bash
+elif [ ${slc} = 5 ]; then
+	sh /etc/skt.d/system/system-interface.bash
+else
+	printf "CODE: INVALID ANSWER\n"
+	sh /root/install
 fi
