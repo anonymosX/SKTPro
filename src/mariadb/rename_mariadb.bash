@@ -5,7 +5,7 @@ printf "				RENAME DATABASE NAME\n"
 printf " 				--------------------\n"
 printf "\n"
 # Available domains
-printf "Domain: \n"
+printf "List domains: \n"
 for D in /home/* ; do
 if [ -d $D ]; then
 d=${D##*/}

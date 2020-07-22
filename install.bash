@@ -5,8 +5,10 @@ t=`date`
 printf "========================================================================\n"
 printf "Server Timezone: $t | IP: `hostname -I | awk '{print $1}'`\n"
 printf "========================================================================\n"
-printf "1. Website                       2. SSL\n"
-printf "3. Tool                          4. System\n"
+printf "1. Website                       \n"
+printf "2. Database                       \n"
+printf "3. Tool                           \n"
+printf "4. System                       \n"
 printf "Select: "
 read slc
 # Check folder source status
@@ -15,6 +17,7 @@ mkdir -p /etc/skt.d/web
 mkdir -p /etc/skt.d/ssl
 mkdir -p /etc/skt.d/tool
 mkdir -p /etc/skt.d/system
+mkdir -p /etc/skt.d/mariadb
 fi
 if [ ${slc} = 0 ]; then
 clear
