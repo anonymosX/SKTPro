@@ -3,12 +3,14 @@ domain=https://raw.githubusercontent.com/anonymosX/SKTPro/master/src
 printf "       -----------------------------\n"
 printf "        SKT TOOL | `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` domains\n"
 printf "       -----------------------------\n"
+printf "OPTIONS: \n"
 printf "1. Install\n"
 printf "2. Update\n"
-printf "Select: "
+printf "Enter: "
 read slc
+clear
 if [ ${slc} = 0 ]; then
-cd /root && ./install
+sh /root/install
 
 elif [ ${slc} = 1 ]; then
 {
@@ -18,11 +20,7 @@ mkdir -p /etc/skt.d/tool
 }
 fi
 yum install -y wget
-mkdir -p /etc/skt.d/web/
-mkdir -p /etc/skt.d/system/
-mkdir -p /etc/skt.d/ssl/
-mkdir -p /etc/skt.d/tool/
-mkdir -p /etc/skt.d/mariadb/
+mkdir -p /etc/skt.d/web/ /etc/skt.d/system/ /etc/skt.d/ssl/ /etc/skt.d/tool/ /etc/skt.d/mariadb/
 # Install necessary files
 # Tool
 curl -N ${domain}/tool/tool-interface.bash | cat >> /etc/skt.d/tool/tool-interface.bash
@@ -47,17 +45,13 @@ curl -N ${domain}/web/info-website.bash | cat >> /etc/skt.d/web/info-website.bas
 # MARIADB
 curl -N ${domain}/mariadb/rename-mariadb.bash | cat >> /etc/skt.d/mariadb/mariadb.bash
 chmod +x /etc/skt.d/ssl/* ; chmod +x /etc/skt.d/web/* ; chmod +x /etc/skt.d/system/* ; chmod +x /etc/skt.d/tool/* ; chmod +x /etc/skt.d/mariadb/*
-clear
+
 
 }
 
 elif [ ${slc} = 2 ]; then
 {
-rm -f /etc/skt.d/web/*
-rm -f /etc/skt.d/system/*
-rm -f /etc/skt.d/ssl/*
-rm -f /etc/skt.d/tool/*
-rm -f /root/install
+rm -f /etc/skt.d/web/* /etc/skt.d/system/* /etc/skt.d/ssl/* /etc/skt.d/tool/* /root/install
 # Tool
 curl -N ${domain}/tool/tool-interface.bash | cat >> /etc/skt.d/tool/tool-interface.bash
 
@@ -82,14 +76,11 @@ curl -N ${domain}/web/info-website.bash | cat >> /etc/skt.d/web/info-website.bas
 curl -N ${domain}/mariadb/rename-mariadb.bash | cat >> /etc/skt.d/mariadb/mariadb.bash
 # INSTALL 
 curl -N ${domain}/install.bash | cat >> /root/install
-chmod +x /etc/skt.d/ssl/* ; chmod +x /etc/skt.d/web/* ; chmod +x /etc/skt.d/system/* ; chmod +x /etc/skt.d/tool/* ; chmod +x /etc/skt.d/mariadb/*
-clear
-cd /etc/skt.d/tool && ./tool-interface.bash
+chmod +x /etc/skt.d/ssl/* ; chmod +x /etc/skt.d/web/* ; chmod +x /etc/skt.d/system/* ; chmod +x /etc/skt.d/tool/* ; chmod +x /etc/skt.d/mariadb/* ; chmod +x /root/install
+sh /etc/skt.d/tool/tool-interface.bash
 }
-
 else 
 {
-clear
-cd /etc/skt.d/tool && ./tool-interface.bash
+sh /etc/skt.d/tool/tool-interface.bash
 }
 fi
