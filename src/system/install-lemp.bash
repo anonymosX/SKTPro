@@ -257,7 +257,7 @@ exit
 fi
 EOF
 chmod +x /etc/skt.d/mariadb/automysql
-(crontab -u root -l ; echo "*/5 * * * * /etc/mariadb/automysql") | crontab -u root -
+(crontab -u root -l ; echo "*/5 * * * * /etc/skt.d/mariadb/automysql") | crontab -u root -
 
 # INSTALL MOD_PAGESPEED
 source /etc/skt.d/system/mod_pagespeed.bash
