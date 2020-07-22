@@ -9,8 +9,8 @@ printf "Select: "
 read slc
 if [ ${slc} = 0 ]; then
 cd /root && ./install
-fi
-if [ ${slc} = 1 ]; then
+
+elif [ ${slc} = 1 ]; then
 {
 if [ -!d /etc/skt.d/tool ];then 
 {
@@ -45,13 +45,13 @@ curl -N ${domain}/web/web-interface.bash | cat >> /etc/skt.d/web/web-interface.b
 curl -N ${domain}/web/delete-website.bash | cat >> /etc/skt.d/web/delete-website.bash
 curl -N ${domain}/web/info-website.bash | cat >> /etc/skt.d/web/info-website.bash
 # MARIADB
-curl -N ${domain}/mariadb/rename-mariadb.bash | cat >> /etc/skt.d/mariadb/rename-mariadb.bash
-chmod +x /etc/skt.d/ssl/* ; chmod +x /etc/skt.d/web/* ; chmod +x /etc/skt.d/system/* ; chmod +x /etc/skt.d/tool/*
+curl -N ${domain}/mariadb/rename-mariadb.bash | cat >> /etc/skt.d/mariadb/mariadb.bash
+chmod +x /etc/skt.d/ssl/* ; chmod +x /etc/skt.d/web/* ; chmod +x /etc/skt.d/system/* ; chmod +x /etc/skt.d/tool/* ; chmod +x /etc/skt.d/mariadb/*
 clear
 
 }
-fi
-if [ ${slc} = 2 ]; then
+
+elif [ ${slc} = 2 ]; then
 {
 rm -f /etc/skt.d/web/*
 rm -f /etc/skt.d/system/*
@@ -78,13 +78,13 @@ curl -N ${domain}/web/web-interface.bash | cat >> /etc/skt.d/web/web-interface.b
 curl -N ${domain}/web/delete-website.bash | cat >> /etc/skt.d/web/delete-website.bash 
 curl -N ${domain}/web/info-website.bash | cat >> /etc/skt.d/web/info-website.bash
 # MARIADB
-curl -N ${domain}/mariadb/rename-mariadb.bash | cat >> /etc/skt.d/mariadb/rename-mariadb.bash
-chmod +x /etc/skt.d/ssl/* ; chmod +x /etc/skt.d/web/* ; chmod +x /etc/skt.d/system/* ; chmod +x /etc/skt.d/tool/*
+curl -N ${domain}/mariadb/rename-mariadb.bash | cat >> /etc/skt.d/mariadb/mariadb.bash
+chmod +x /etc/skt.d/ssl/* ; chmod +x /etc/skt.d/web/* ; chmod +x /etc/skt.d/system/* ; chmod +x /etc/skt.d/tool/* ; chmod +x /etc/skt.d/mariadb/*
 clear
 cd /etc/skt.d/tool && ./tool-interface.bash
 }
-fi
-if [ ${slc} != 0 -a ${slc} != 1 -a ${slc} != 2 ]; then
+
+else 
 {
 clear
 cd /etc/skt.d/tool && ./tool-interface.bash
