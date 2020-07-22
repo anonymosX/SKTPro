@@ -79,14 +79,14 @@ if [ ${YN} = Y -o ${YN} = y ]; then
 elif [ ${YN} = N -o ${YN} = n ]; then
 {
 	printf "You have cancel RENAME database\n"
-	sh /etc/skt.d/mariadb.bashh
+	sh /etc/skt.d/mariadb/mariadb.bash
 }
 else 
 {
 	printf "Code: Invaild Anwers\n"
 }
 fi
-	sh /etc/skt.d/mariadb.bash
+	sh /etc/skt.d/mariadb/mariadb.bash
 }
 
 # VIEW DB
@@ -111,10 +111,10 @@ elif [ $answer = '2' ]; then
 	printf "\n"
 	printf "${d^^}\nDatabase Name: ${dbn} \nUsername: ${dbu}\nUsername Password: ${dbp}\nRoot Password: ${mdbp}\n"
 	printf "End Result.\n"
-	sh /etc/skt.d/mariadb.bash
+	sh /etc/skt.d/mariadb/mariadb.bash
 }
 # ELSE
 else	
 	printf "Code: Invaild Answer!\n"
-	sh /etc/skt.d/mariadb.bash
+	sh /etc/skt.d/mariadb/mariadb.bash
 fi
