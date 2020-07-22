@@ -18,7 +18,7 @@ clear
 cd /root
 # NGINX and SOURCE CODE
 printf "1. Backup Source Code\n"
-tar -czf $d.tar.gz /etc/letsencrypt/live/${d}/* /etc/letsencrypt/archive/${d}/* /etc/letsencrypt/renewal/${d}.conf /etc/nginx/conf.d/${d}.conf.80 /etc/nginx/conf.d/${d}.conf /home/$d/public_html /etc/skt.d/${d}/${d}.mariadb
+tar -czf $d.tar.gz /etc/letsencrypt/live/${d}/* /etc/letsencrypt/archive/${d}/* /etc/letsencrypt/renewal/${d}.conf /etc/nginx/conf.d/${d}.conf.80 /etc/nginx/conf.d/${d}.conf /home/$d/public_html /etc/skt.d/${d}/${d}.mariadb /etc/skt.d/${d}/${d}.login
 printf "2. Done!!! - source code\n"
 # MySQL
 printf "3. Backup MYSQL\n"
