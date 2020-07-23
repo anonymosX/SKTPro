@@ -40,8 +40,19 @@ elif  [ ${enter} = 5 ]; then
 		printf "ENTER: "
 		read d
 		printf "\n"
+		printf "DO YOU WANT TO UPDATE PLUGIN FOR ${d^^}? -Y/N\n"
+		read YN
+		if [ ${YN} = 0 ]; then
+			sh /etc/skt.d/tool/web/web.bash
+		elif [ ${YN} = 'Y' -o ${YN} = 'y' ]; then
 		wp plugin update --all /home/${d}/public_html
-	elif
+		elif [ ${YN} = 'N' -o ${YN} = 'n' ]; then
+			sh /etc/skt.d/tool/web/web.bash
+		else
+			printf "CODE: INVALID VERSION\n"
+			sh /etc/skt.d/tool/web/web.bash
+		fi
+	elif [ ${version} = 2 ];then
 		for D in /home/* ; do
 		if [ -d ${D} ];then
 			d=${D##*/}
