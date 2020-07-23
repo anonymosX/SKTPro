@@ -42,7 +42,8 @@ curl -N ${url}/web/delete.bash | cat >> /etc/skt.d/tool/web/delete.bash
 # MARIADB
 curl -N ${url}/mariadb/mariadb.bash | cat >> /etc/skt.d/tool/mariadb/mariadb.bash
 }
-
+	printf "INSTALLED NINJA TOOL\n"
+	sh /root/install
 elif [ ${enter} = 2 ]; then
 {
 rm -f /etc/skt.d/tool/web/* /etc/skt.d/tool/system/* /etc/skt.d/tool/ssl/* /etc/skt.d/tool/* /etc/skt.d/tool/mariadb/*
