@@ -67,7 +67,8 @@ curl -N ${url}/web/delete.bash | cat >> /etc/skt.d/tool/web/delete.bash
 curl -N ${url}/mariadb/mariadb.bash | cat >> /etc/skt.d/tool/mariadb/mariadb.bash
 # INSTALL 
 curl -N https://raw.githubusercontent.com/anonymosX/SKTPro/master/install.bash | cat >> /root/install
-	sh /etc/skt.d/tool/tool.bash
+	printf "UPDATED NINJA TOOL\n"
+	sh /root/install
 }
 else 
 	sh /etc/skt.d/tool/tool.bash
