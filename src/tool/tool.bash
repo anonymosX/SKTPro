@@ -13,12 +13,6 @@ if [ ${enter} = 0 ]; then
 	sh /root/install
 elif [ ${enter} = 1 ]; then
 {
-	if [ ! -f /etc/skt.d/tool/tool.bash ];then 
-	{
-		mkdir -p /etc/skt.d/tool
-		curl -N ${url}/tool/tool.bash | cat >> /etc/skt.d/tool/tool.bash
-	}
-	fi
 yum install -y wget
 mkdir -p /etc/skt.d/tool/web /etc/skt.d/tool/system /etc/skt.d/tool/ssl /etc/skt.d/tool /etc/skt.d/tool/mariadb
 # Install necessary files
