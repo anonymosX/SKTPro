@@ -4,7 +4,7 @@ printf "        WEBSITE MANAGE | Found `find /home -mindepth 1 -maxdepth 1 -type
 printf "       ---------------------------------\n"
 printf "\n"
 printf "OPTIONS:\n"
-printf "1. ADD                         5. Update Plugin\n"
+printf "1. ADD                         5. UPDATE PLUGIN\n"
 printf "2. DELETE                      6. LOGIN DETAIL\n"
 printf "3. BACKUP                      7. LIST DOMAINS      \n"
 printf "4. RESTORE\n" 
