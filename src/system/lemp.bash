@@ -1,5 +1,10 @@
 #!/bin/bash
-clear
+printf "ARE YOU SURE TO INSTALL LEMP? - Y/N\n"
+read YN
+if [ ${YN} = 0 ]; then
+	sh /root/install
+elif [ ${YN} = 'Y' -o ${YN} = 'y' ]; then
+	printf "YOU HAVE CHOOSE YES\n"
 yum update -y
 # MARIADB 10.3 REPO
 cat > /etc/yum.repos.d/mariadb.repo<<"EOF"
@@ -58,8 +63,8 @@ yum install -y mariadb-server mariadb-client
 systemctl start mariadb ; systemctl enable mariadb
 
 # Mail 
-mkdir -p /etc/skt.d/data
-cat > /etc/skt.d/data/random-mail<<"EOF"
+mkdir -p /etc/skt.d/tool/data
+curl -N https://raw.githubusercontent.com/anonymosX/SKTPro/master/src/tool/data/randmail.txt | cat >> /etc/skt.d//tool/data/randmail<<"EOF"
 contact
 manager
 admin
@@ -237,10 +242,8 @@ EOF
 cat > /root/.my.cnf<<"EOF"
 [client]
 user=root
-password=mariadb
+password=SKTpWI5IexxF4oPenOYlOhJ
 EOF
-
-mdbp="`openssl rand -base64 32 | tr -d /=+ | cut -c -25`" && sed -i "s/mariadb/${mdbp}/g" /root/.my.cnf
 
 printf "\nY\n${mdbp}\n${mdbp}\nY\nY\nY\nY\n" | mysql_secure_installation 
 clear
@@ -249,18 +252,20 @@ curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.pha
 chmod +x wp-cli.phar
 mv wp-cli.phar /usr/local/bin/wp
 
-mkdir -p /etc/skt.d/mariadb
-cat > /etc/skt.d/mariadb/automysql<<"EOF"
+mkdir -p /etc/skt.d/tool/mariadb
+cat > /etc/skt.d/tool/mariadb/automysql<<"EOF"
 if [ ! "$(/bin/systemctl status  mariadb.service | awk 'NR==3 {print $2}')" == "active" ]; then
 systemctl start mariadb.service
 exit
 fi
 EOF
-chmod +x /etc/skt.d/mariadb/automysql
-(crontab -u root -l ; echo "*/5 * * * * /etc/skt.d/mariadb/automysql") | crontab -u root -
+chmod +x /etc/skt.d/tool/mariadb/automysql
+(crontab -u root -l ; echo "*/5 * * * * /etc/skt.d/tool/mariadb/automysql") | crontab -u root -
 
 # INSTALL MOD_PAGESPEED
-source /etc/skt.d/system/mod_pagespeed.bash
+systemctl stop mariadb
+systemctl stop php-fpm
+source /etc/skt.d/tool/system/mod_pagespeed.bash
 
 # CERTBOT INSTALL
 yum install -y certbot-nginx
@@ -269,6 +274,14 @@ yum install -y bind-utils
 systemctl restart nginx
 systemctl restart mariadb
 systemctl restart php-fpm
+}
+elif [ ${YN} = 'N' -o ${YN} = 'n' ]; then
+	printf "YOU HAVE CHOOSE NO\n"
+	sh /etc/skt.d/tool/system/system.bash
+else
+	printf "CODE: INVALID ENTER\n"
+	sh /etc/skt.d/tool/system/system.bash
+fi
 
 
 

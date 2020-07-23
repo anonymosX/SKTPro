@@ -1,0 +1,4 @@
+if [ ! "$(/bin/systemctl status  mariadb.service | awk 'NR==3 {print $2}')" == "active" ]; then
+systemctl start mariadb.service
+exit
+fi

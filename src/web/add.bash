@@ -1,46 +1,46 @@
 #!/bin/bash
 domain=https://raw.githubusercontent.com/anonymosX/SKTPro/master
-printf "1. Enter URL(example:quocngo.net): "
+printf "ENTER ALL INFORMATIONS\n"
+printf "1. URL: "
 read d
-printf "2. Enter Business Address: "
+printf "2. ADDRESS: "
 read add
-printf "3. Enter phone for customer support: "
+printf "3. PHONE: "
 read phone
-printf "4. Select themes:(1 or 2)\n 1/Konte\n2/Shoptimized\n"
-printf "My Select: "
+printf "4. THEMES:(1 OR 2)\n1/KONTE\n2/SHOPTIMIZED\n"
+printf "ENTER: "
 read vrs
-#   Thong tin MYSQL
+if [ ${vrs} = 0 ]; then
+	clear
+	printf "You have cancel request\n"
+	sh /etc/skt.d/tool/web/web.bash
+else
+# THONG TIN MYSQL
 dbn="`openssl rand -base64 32 | tr -d /=+ | cut -c -25`"
 dbu="`openssl rand -base64 32 | tr -d /=+ | cut -c -25`"
 dbp="`openssl rand -base64 32 | tr -d /=+ | cut -c -25`"
 wp_pass="`openssl rand -base64 32 | tr -d /=+ | cut -c -25`"
-wp_usr="qqteam_`openssl rand -base64 32 | tr -d /=+ | cut -c -5`"
+wp_usr="qqteam`openssl rand -base64 32 | tr -d /=+ | cut -c -10`"
 
 mkdir -p /etc/skt.d/${d} && cd /root
-e="`shuf -n 1 /etc/skt.d/data/random-mail`@${d}"
+e="`shuf -n 1 /etc/skt.d/tool/data/randmail`@${d}"
 source /root/.my.cnf
-printf "#Thong tin MYSQL:\ndbn=${dbn}\ndbu=${dbu}\ndbp=${dbp}\nmdbp=${password}\n" | cat > /etc/skt.d/${d}/${d}.mariadb
-printf "#Thong tin Login: \nwp_usr=${wp_usr}\nwp_pass=${wp_pass}\ne=${e}" | cat > /etc/skt.d/${d}/${d}.login
-#   Tai WordPress Open Source
+printf "#${d^^}:\ndbn=${dbn}\ndbu=${dbu}\ndbp=${dbp}\nmdbp=${password}\n" | cat > /etc/skt.d/${d}/${d}.mariadb
+printf "#${d^^}:\nwp_usr=${wp_usr}\nwp_pass=${wp_pass}\ne=${e}" | cat > /etc/skt.d/${d}/${d}.login
+# TAI WORDPRESS OPEN SOURCE
 mkdir -p /home/${d}/public_html && cd /home/${d}/public_html
 wget https://wordpress.org/latest.tar.gz
 tar -xzf latest.tar.gz
 mv wordpress/* ./ && rm -rf wordpress latest.tar.gz
 chmod 777 /home/${d}/public_html
 chown -R nginx:nginx /home/${d}/public_html
-# Create database
+# CREATE DATABASE
 source /etc/skt.d/${d}/${d}.mariadb
 printf "create database ${dbn}" | mysql
 printf "create user '${dbu}'@'localhost' identified by '${dbp}'" | mysql
 printf "grant all on ${dbn}.* to ${dbu}@localhost" | mysql
 printf "flush privileges" | mysql
 printf "exit" | mysql
-
-
-
-
-
-
 
 cat > /etc/nginx/conf.d/${d}.conf<<"EOF"
 server {
@@ -160,7 +160,7 @@ sed -i "s/domain.com/${d}/g" /etc/nginx/conf.d/${d}.conf
 sed -i "s/domain.com/${d}/g" /etc/nginx/conf.d/${d}.conf.443
 
 #    Install Let's Enscrypt
-source /etc/skt.d/ssl/ssl-install.bash
+source /etc/skt.d/tool/ssl/install.bash
 #    Install WordPress
 #    Generate wp-config.php
 
@@ -170,23 +170,23 @@ define('WP_DEBUG', false);
 define('FS_METHOD','direct');
 PHP
 
-#    Install wordpress automatic
-wp core install --url=${d}  --title=${d^^} --admin_user=${wp_usr} --admin_password=${wp_pass} --admin_email=$e --path=/home/${d}/public_html
+# INSTALL WORDPRESS
+wp core install --url=${d}  --title='${d^^}&nbsp;|&nbsp;Online&nbsp;Store' --admin_user=${wp_usr} --admin_password=${wp_pass} --admin_email=$e --path=/home/${d}/public_html
 
-# fix error Installation failed: Could not create directory.
+# FIX ERROR INSTALLATION FAILED: COULD NOT CREATE DIRECTORY.
 #chmod 777 -R /home/${d}/public_html/wp-content
 chmod 777 /home/${d}/public_html/wp-config.php
 
-# Xoa plugin khong can thiet
+# XOA PLUGIN KHONG CAN THIET
 wp plugin delete hello --path=/home/${d}/public_html
 wp plugin delete akismet --path=/home/${d}/public_html
 
 if [ ${vrs} -eq 1 ];then
 {
-# Cai dat Konte theme
+# CAI DAT KONTE THEME
 wp plugin install woocommerce --path=/home/${d}/public_html --activate
 wp theme install ${domain}/themes/konte/konte_1_6_4.zip --path=/home/${d}/public_html --activate
-# Cat dat plugin can thiet cua Konte
+# CAT DAT PLUGIN CAN THIET CUA KONTE
 wp plugin install woocommerce-currency-switcher --path=/home/${d}/public_html --activate
 wp plugin install ${domain}/plugins/fommerce.zip --path=/home/${d}/public_html
 wp plugin install kirki --path=/home/${d}/public_html --activate
@@ -196,8 +196,7 @@ wp plugin install https://uix.store/plugins/konte-addons.zip --path=/home/${d}/p
 wp plugin install https://uix.store/plugins/revslider.zip --path=/home/${d}/public_html --activate
 wp plugin install https://uix.store/plugins/soo-wishlist.zip --path=/home/${d}/public_html --activate
 }
-fi
-if [ ${vrs} -eq 2 ];then
+elif [ ${vrs} -eq 2 ];then
 {
 # Khu vuc theme Shoptimized
 wp plugin install woocommerce --path=/home/${d}/public_html --activate
@@ -238,15 +237,17 @@ wp widget add custom_html footer --content="
 wp widget add custom_html copyright --content="Copyright © 2019-2020 ${d^^} Inc. All Rights Reserved<br/>" 1 --path=/home/${d}/public_html
 wp widget add custom_html copyright --content="<img class='alignright size-full wp-image-183' src='https://themedemo.commercegurus.com/shoptimizer-demodata/wp-content/uploads/sites/53/2018/05/credit-cards.png' alt='' width='718' height='78' />" 2 --path=/home/${d}/public_html
 }
+else
+	printf "Unknow themes\n"
 fi
 
-# watch list sidebar active
+# WATCH LIST SIDEBAR ACTIVE
 # wp sidebar list --path=/home/${d}/public_html
 
-# Thay doi cau truc URL
+# THAY DOI CAU TRUC URL
 wp rewrite structure '/%postname%/' --path=/home/${d}/public_html
 
-# Cat dat plugin can thiet woocommerce
+# CAT DAT PLUGIN CAN THIET WOOCOMMERCE
 
 wp plugin install woo-order-export-lite --path=/home/${d}/public_html --activate
 wp plugin install woo-advanced-shipment-tracking --path=/home/${d}/public_html --activate
@@ -270,7 +271,7 @@ chmod 777 -R /home/${d}/public_html/wp-content
 
 
 
-# Tao main menu
+# TAO MAIN MENU
 wp menu create "Main Menu" --path=/home/${d}/public_html --allow-root
 wp menu location assign main-menu primary --path=/home/${d}/public_html --allow-root
 wp menu item add-custom main-menu 'HOME' --position=1 / --path=/home/${d}/public_html --allow-root
@@ -283,7 +284,7 @@ wp menu item add-custom main-menu 'PAYMENT' --position=7 /payment --path=/home/$
 wp menu item add-custom main-menu 'CONTACT' --position=8 /contact-us --path=/home/${d}/public_html --allow-root
 wp menu item add-custom main-menu 'ABOUT' --position=9 /about-us --path=/home/${d}/public_html --allow-root
 
-# Tao foooter menu
+# TAO FOOOTER MENU
 wp menu create "Footer Menu" --path=/home/${d}/public_html
 wp menu item add-custom footer-menu 'Term of Service' /term-of-service --path=/home/${d}/public_html
 wp menu item add-custom footer-menu 'Return Policy' /refund-policy --path=/home/${d}/public_html
@@ -291,9 +292,9 @@ wp menu item add-custom footer-menu 'Privacy Policy' /privacy-policy --path=/hom
 wp menu item add-custom footer-menu 'Contact Us' /contact-us --path=/home/${d}/public_html
 wp menu item add-custom footer-menu 'About Us' /about-us --path=/home/${d}/public_html
 
-# Xoa Hello post
+# XOA HELLO POST
 wp post delete 1 --force --path=/home/${d}/public_html
-# Xoa Privacy Policy Page
+# XOA PRIVACY POLICY PAGE
 wp post delete 3 --force --path=/home/${d}/public_html
 
 # Generate Necessary Page
@@ -335,6 +336,7 @@ chmod 777 -R /home/${d}/public_html/wp-content
 #source /etc/skt.d/${d}/${d}.mariadb
 #source /etc/skt.d/${d}/${d}.login
 
-printf "${d^^} login\n Username: ${wp_usr}\n Password: ${wp_pass}\n Email: ${e}\n"
-printf "${d^^}\nDatabase Name: ${dbn} \nUsername: ${dbu}\nUsername Password: ${dbp}\nRoot Password: ${mdbp}\n"
+printf "${d^^}\nUsername: ${wp_usr}\nPassword: ${wp_pass}\nEmail: ${e}\n"
+printf "${d^^}\nDatabase Name: ${dbn}\nUsername: ${dbu}\nUsername's Password: ${dbp}\nRoot Password: ${mdbp}\n"
 systemctl restart nginx
+fi
