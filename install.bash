@@ -1,6 +1,6 @@
 #!/bin/bash
 clear
-url=https://raw.githubusercontent.com/anonymosX/SKTPro/master
+url=https://raw.githubusercontent.com/anonymosX/SKTPro/master/src
 printf "========================================================================\n"
 printf " Time: `date` | `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` domains | IP: `hostname -I | awk '{print $1}'`\n"
 printf "========================================================================\n"
