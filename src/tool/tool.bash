@@ -1,7 +1,7 @@
 #!/bin/bash
 url=https://raw.githubusercontent.com/anonymosX/SKTPro/master/src
 printf "       -----------------------------\n"
-printf "        NINJA TOOL | `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` urls\n"
+printf "        NINJA TOOL | `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` domains \n"
 printf "       -----------------------------\n"
 printf "OPTIONS: \n"
 printf "1. INSTALL\n"
