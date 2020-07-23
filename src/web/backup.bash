@@ -31,7 +31,7 @@ elif [ ${YN} = 'Y' -o ${YN} = 'n']; then
 		tar -czf backup-$d-$(date +"%d%m").tar.gz  $d.tar.gz $d-$dbn.sql
 		printf "5.Remove trash\n"
 		rm -rf  $d.tar.gz $d-$dbn.sql
-		printf "==> The ${d} has been backuped\n"
+		printf "==> THE ${d} HAS BEEN BACKUPED\n"
 	cd root && ls
 	printf "\n"
 	sh /etc/skt.d/tool/web/web.bash

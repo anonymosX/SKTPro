@@ -2,7 +2,7 @@
 clear
 url=https://raw.githubusercontent.com/anonymosX/SKTPro/master/src
 printf "========================================================================\n"
-printf " NINJA TOOL | Time: `date + "%d-%m"` | `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` domains | IP: `hostname -I | awk '{print $1}'`\n"
+printf " NINJA TOOL | TODAY: `date +%d-%m` |  DOMAINS: `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` | IP: `hostname -I | awk '{print $1}'`\n"
 printf "========================================================================\n"
 printf "1. WEBSITE                       \n"
 printf "2. DATABASE                       \n"
