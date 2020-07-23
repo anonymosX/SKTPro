@@ -45,7 +45,7 @@ elif  [ ${enter} = 5 ]; then
 		if [ ${YN} = 0 ]; then
 			sh /etc/skt.d/tool/web/web.bash
 		elif [ ${YN} = 'Y' -o ${YN} = 'y' ]; then
-		wp plugin update --all /home/${d}/public_html
+			wp plugin update --all --path=/home/${d}/public_html
 		elif [ ${YN} = 'N' -o ${YN} = 'n' ]; then
 			sh /etc/skt.d/tool/web/web.bash
 		else
@@ -56,7 +56,7 @@ elif  [ ${enter} = 5 ]; then
 		for D in /home/* ; do
 		if [ -d ${D} ];then
 			d=${D##*/}
-			wp plugin update --all /home/${d}/public_html
+			wp plugin update --all --path=/home/${d}/public_html
 			printf " Updated plugin for ${d}\n"
 		fi
 		done
