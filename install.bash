@@ -12,6 +12,12 @@ printf "5. SYSTEM                       \n"
 printf "Enter: "
 read enter
 clear
+	if [ ! -f /etc/skt.d/tool/tool.bash ];then 
+	{
+		mkdir -p /etc/skt.d/tool
+		curl -N ${url}/tool/tool.bash | cat >> /etc/skt.d/tool/tool.bash
+	}
+	fi
 # Check folder source status
 if [ ! -d /etc/skt.d ]; then
 	mkdir -p /etc/skt.d/tool/web /etc/skt.d/tool/ssl /etc/skt.d/tool/mariadb /etc/skt.d/tool/system
@@ -31,7 +37,7 @@ elif [ ${enter} = 4 ]; then
 	fi
     sh /etc/skt.d/tool/tool.bash
 elif [ ${enter} = 5 ]; then
-	sh /etc/skt.d/system/system.bash
+	sh /etc/skt.d/tool/system/system.bash
 else
 	printf "CODE: INVALID ENTER\n"
 	sh /root/install
