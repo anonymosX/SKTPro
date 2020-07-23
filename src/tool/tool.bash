@@ -41,6 +41,7 @@ curl -N ${url}/mariadb/mariadb.bash | cat >> /etc/skt.d/tool/mariadb/mariadb.bas
 elif [ ${enter} = 2 ]; then
 {
 rm -rf /etc/skt.d/tool/web/* /etc/skt.d/tool/system/* /etc/skt.d/tool/ssl/* /etc/skt.d/tool/* /etc/skt.d/tool/mariadb/*
+mkdir -p /etc/skt.d/tool/web /etc/skt.d/tool/system /etc/skt.d/tool/ssl /etc/skt.d/tool /etc/skt.d/tool/mariadb
 # SSL
 curl -N ${url}/ssl/install.bash | cat >> /etc/skt.d/tool/ssl/install.bash
 curl -N ${url}/ssl/ssl.bash | cat >> /etc/skt.d/tool/ssl/ssl.bash
