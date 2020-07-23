@@ -25,14 +25,14 @@ mkdir -p /etc/skt.d/tool/web /etc/skt.d/tool/system /etc/skt.d/tool/ssl /etc/skt
 
 # SSL
 curl -N ${url}/ssl/install.bash | cat >> /etc/skt.d/tool/ssl/install.bash
-curl -N ${url}/ssl/ssl.bash | cat >> /etc/skt.d/ssl/tool/ssl.bash
-curl -N ${url}/ssl/renew.bash | cat >> /etc/skt.d/ssl/tool/renew.bash
-curl -N ${url}/ssl/status.bash | cat >> /etc/skt.d/ssl/tool/status.bash
+curl -N ${url}/ssl/ssl.bash | cat >> /etc/skt.d/tool/ssl/ssl.bash
+curl -N ${url}/ssl/renew.bash | cat >> /etc/skt.d/tool/ssl/renew.bash
+curl -N ${url}/ssl/status.bash | cat >> /etc/skt.d/tool/ssl/status.bash
 
 # System
-curl -N ${url}/system/install.bash | cat >> /etc/skt.d/system/tool/install.bash 
-curl -N ${url}/system/mod_pagespeed.bash | cat >> /etc/skt.d/system/tool/mod_pagespeed.bash 
-curl -N ${url}/system/system.bash | cat >> /etc/skt.d/system/tool/system.bash 
+curl -N ${url}/system/install.bash | cat >> /etc/skt.d/tool/system/install.bash 
+curl -N ${url}/system/mod_pagespeed.bash | cat >> /etc/skt.d/tool/system/mod_pagespeed.bash 
+curl -N ${url}/system/system.bash | cat >> /etc/skt.d/tool/system/system.bash 
 # WEB
 curl -N ${url}/web/add.bash | cat >> /etc/skt.d/tool/web/add.bash
 curl -N ${url}/web/backup.bash | cat >> /etc/skt.d/tool/web/backup.bash
@@ -46,17 +46,17 @@ curl -N ${url}/mariadb/mariadb.bash | cat >> /etc/skt.d/tool/mariadb/mariadb.bas
 	sh /root/install
 elif [ ${enter} = 2 ]; then
 {
-rm -f /etc/skt.d/tool/web/* /etc/skt.d/tool/system/* /etc/skt.d/tool/ssl/* /etc/skt.d/tool/* /etc/skt.d/tool/mariadb/*
-# Tool
+rm -rf /etc/skt.d/tool/web/* /etc/skt.d/tool/system/* /etc/skt.d/tool/ssl/* /etc/skt.d/tool/* /etc/skt.d/tool/mariadb/*
+# SSL
 curl -N ${url}/ssl/install.bash | cat >> /etc/skt.d/tool/ssl/install.bash
-curl -N ${url}/ssl/ssl.bash | cat >> /etc/skt.d/ssl/tool/ssl.bash
-curl -N ${url}/ssl/renew.bash | cat >> /etc/skt.d/ssl/tool/renew.bash
-curl -N ${url}/ssl/status.bash | cat >> /etc/skt.d/ssl/tool/status.bash
+curl -N ${url}/ssl/ssl.bash | cat >> /etc/skt.d/tool/ssl/ssl.bash
+curl -N ${url}/ssl/renew.bash | cat >> /etc/skt.d/tool/ssl/renew.bash
+curl -N ${url}/ssl/status.bash | cat >> /etc/skt.d/tool/ssl/status.bash
 
 # System
-curl -N ${url}/system/install.bash | cat >> /etc/skt.d/system/tool/install.bash 
-curl -N ${url}/system/mod_pagespeed.bash | cat >> /etc/skt.d/system/tool/mod_pagespeed.bash 
-curl -N ${url}/system/system.bash | cat >> /etc/skt.d/system/tool/system.bash 
+curl -N ${url}/system/install.bash | cat >> /etc/skt.d/tool/system/install.bash 
+curl -N ${url}/system/mod_pagespeed.bash | cat >> /etc/skt.d/tool/system/mod_pagespeed.bash 
+curl -N ${url}/system/system.bash | cat >> /etc/skt.d/tool/system/system.bash 
 # WEB
 curl -N ${url}/web/add.bash | cat >> /etc/skt.d/tool/web/add.bash
 curl -N ${url}/web/backup.bash | cat >> /etc/skt.d/tool/web/backup.bash
