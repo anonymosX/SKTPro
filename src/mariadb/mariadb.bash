@@ -1,5 +1,4 @@
 #!/bin/bash
-clear
 printf "       -----------------------------\n"
 printf "        DATBASE MANAGE | `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` domains\n"
 printf "       -----------------------------\n"
@@ -9,15 +8,16 @@ printf "1. Rename\n"
 printf "2. View\n"
 printf "Enter: "
 read answer
-clear
 # RETURN HOME
 if [ $answer = '0' ]; then
 {
+	clear
 	sh /root/install
 }
 # RENAME DB
 elif [ $answer = '1' ]; then
 {
+	clear
 	printf " 				--------------------\n"
 	printf "				RENAME DATABASE NAME\n"
 	printf " 				--------------------\n"
@@ -36,6 +36,7 @@ elif [ $answer = '1' ]; then
 	read YN
 if [ ${YN} = Y -o ${YN} = y ]; then 
 {
+	clear
 	source /etc/skt.d/${d}/${d}.mariadb
 	# WORKFLOW: 
 	# 1. export database -> A, create new database name B, import A -> B, remove database A
@@ -79,19 +80,20 @@ if [ ${YN} = Y -o ${YN} = y ]; then
 elif [ ${YN} = N -o ${YN} = n ]; then
 {
 	printf "You have cancel RENAME database\n"
-	sh /etc/skt.d/mariadb/mariadb.bash
+	sh /etc/skt.d/tool/mariadb/mariadb.bash
 }
 else 
 {
 	printf "Code: Invaild Anwers\n"
 }
 fi
-	sh /etc/skt.d/mariadb/mariadb.bash
+	sh /etc/skt.d/tool/mariadb/mariadb.bash
 }
 
 # VIEW DB
 elif [ $answer = '2' ]; then
 {
+	clear
 	printf " 				--------------------\n"
 	printf "				VIEW DATABASE NAME\n"
 	printf " 				--------------------\n"
@@ -110,10 +112,10 @@ elif [ $answer = '2' ]; then
 	printf "Result:\n"
 	printf "${d^^}\nDatabase Name: ${dbn} \nUsername: ${dbu}\nUsername Password: ${dbp}\nRoot Password: ${mdbp}\n"
 	printf "End Result.\n"
-	sh /etc/skt.d/mariadb/mariadb.bash
+	sh /etc/skt.d/tool/mariadb/mariadb.bash
 }
 # ELSE
 else	
 	printf "Code: Invaild Answer!\n"
-	sh /etc/skt.d/mariadb/mariadb.bash
+	sh /etc/skt.d/tool/mariadb/mariadb.bash
 fi
