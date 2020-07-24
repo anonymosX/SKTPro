@@ -92,7 +92,7 @@ elif [ ${enter} = 7 ]; then
 	fi
 	done
 	printf "\n"
-	sh /etc/skt.d/tool/web.bash
+	sh /etc/skt.d/tool/web/web.bash
 	
 	
 else
