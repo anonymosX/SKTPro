@@ -75,6 +75,7 @@ mail
 services
 email
 shop
+chat
 EOF
 
 # PHP CONFIG EXTENSION
