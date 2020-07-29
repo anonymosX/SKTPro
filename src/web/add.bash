@@ -170,8 +170,9 @@ define('WP_DEBUG', false);
 define('FS_METHOD','direct');
 PHP
 
+#${d^^}&nbsp;|&nbsp;Online&nbsp;Store
 # INSTALL WORDPRESS
-wp core install --url=${d}  --title=${d^^}&nbsp;|&nbsp;Online&nbsp;Store --admin_user=${wp_usr} --admin_password=${wp_pass} --admin_email=$e --path=/home/${d}/public_html
+wp core install --url=${d}  --title=`${d^^} | Online Store` --admin_user=${wp_usr} --admin_password=${wp_pass} --admin_email=$e --path=/home/${d}/public_html
 
 # FIX ERROR INSTALLATION FAILED: COULD NOT CREATE DIRECTORY.
 #chmod 777 -R /home/${d}/public_html/wp-content
