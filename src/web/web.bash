@@ -78,7 +78,7 @@ elif  [ ${enter} = 6 ]; then
 	source /etc/skt.d/${d}/${d}.login
 	printf " ----------------\n"
 		printf "Result:\n"
-		printf "${d^^} login\n Username: ${wp_usr}\n Password: ${wp_pass}\n Email: ${e}\n"
+		printf "${d^^}\n Username: ${wp_usr}\n Password: ${wp_pass}\n Email: ${e}\n"
 		printf "End Result.\n"
 	sh /etc/skt.d/tool/web/web.bash
 elif [ ${enter} = 7 ]; then
