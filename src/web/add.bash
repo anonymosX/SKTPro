@@ -7,7 +7,7 @@ printf "2. ADDRESS: "
 read add
 printf "3. PHONE: "
 read phone
-printf "4. THEMES:(1 OR 2)\n1/KONTE\n2/SHOPTIMIZED\n"
+printf "4. THEMES:(1 OR 2)\n  1/KONTE\n  2/SHOPTIMIZED\n"
 printf "ENTER: "
 read vrs
 if [ ${vrs} = 0 ]; then
@@ -336,8 +336,8 @@ chmod 777 -R /home/${d}/public_html/wp-content
 
 #source /etc/skt.d/${d}/${d}.mariadb
 #source /etc/skt.d/${d}/${d}.login
-
+clear
 printf "${d^^}\nUsername: ${wp_usr}\nPassword: ${wp_pass}\nEmail: ${e}\n"
-printf "${d^^}\nDatabase Name: ${dbn}\nUsername: ${dbu}\nUsername's Password: ${dbp}\nRoot Password: ${mdbp}\n"
+#printf "${d^^}\nDatabase Name: ${dbn}\nUsername: ${dbu}\nUsername's Password: ${dbp}\nRoot Password: ${mdbp}\n"
 systemctl restart nginx
 fi
