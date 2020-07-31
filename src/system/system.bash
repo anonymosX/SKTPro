@@ -17,7 +17,6 @@ elif [ ${enter} = 2 ]; then
 	echo flush_all > /dev/tcp/127.0.0.1/11211	
 elif [ ${enter} = 3 ]; then
 	yum update -y --skip-broken
-
 else
 	sh /etc/skt.d/tool/system/system.bash
 fi
