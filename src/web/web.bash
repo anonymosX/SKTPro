@@ -5,9 +5,9 @@ printf "       ---------------------------------\n"
 printf "\n"
 printf "OPTIONS:\n"
 printf "1. ADD                         5. UPDATE PLUGIN\n"
-printf "2. DELETE                      6. LOGIN DETAIL\n"
-printf "3. BACKUP                      7. LIST DOMAINS      \n"
-printf "4. RESTORE\n" 
+printf "2. DELETE                      6. WORDPRESS UPDATE\n"
+printf "3. BACKUP                      7. LOGIN DETAIL      \n"
+printf "4. RESTORE                     8. LIST DOMAINS\n" 
 printf "ENTER: " 
 read enter
 clear
@@ -64,7 +64,14 @@ elif  [ ${enter} = 5 ]; then
 		printf "CODE: INVALID VERSION\n"
 		sh /etc/skt.d/tool/web/web.bash
 	fi	
-elif  [ ${enter} = 6 ]; then	
+elif  [ ${enter} = 6 ]; then
+		for D in /home/* ; do
+		if [ -d ${D} ];then
+			d=${D##*/}
+			wp core update --path=/home/${d}/public_html
+		fi
+		done
+elif  [ ${enter} = 7 ]; then	
 	printf "Found `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` domains:\n"
 	for D in /home/* ; do
 	if [ -d ${D} ];then
@@ -81,7 +88,7 @@ elif  [ ${enter} = 6 ]; then
 		printf "${d^^}\n Username: ${wp_usr}\n Password: ${wp_pass}\n Email: ${e}\n"
 		printf "End Result.\n"
 	sh /etc/skt.d/tool/web/web.bash
-elif [ ${enter} = 7 ]; then
+elif [ ${enter} = 8 ]; then
 	printf "       ------------------------------------\n"
 	printf "        AVAILABLE DOMAIN | Found `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` domains\n"
 	printf "       -----------------------------------\n"
