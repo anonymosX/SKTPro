@@ -10,12 +10,12 @@ if [ $confirm = 0 ]; then
 elif [ $confirm = 'Y' -o $confirm = 'y' ];then
 	#move Block to home
 	cd /root ; tar -xzf home.tar.gz
-		mv home /home
-		mv etc/ /etc/
+		mv home/* /home
+		mv etc/* /etc
 	cd /root ; tar -xzf mysql.tar.gz
 	for D in /home/*; do
 		if [ -d ${D} ]; then
-			$d = ${D##*/}
+			d=${D##*/}
 			source /etc/skt.d/${d}/${d}.mariadb
 			mysql -u root -p$mdbp -e "create dababase ${dbn}"
 			mysql -u root -p$mdbp -e "create user '${dbu}'@'localhost' identified by '${dbp}"
