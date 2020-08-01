@@ -183,7 +183,7 @@ EOF
 # MEMCACHED INSTALL
 printf "Installing Memcached\n"
 yum --enablerepo=remi install memcached -y
-sed -i 's/CACHESIZE="64"/CACHESIZE="350"/g' /etc/sysconfig/memcached
+sed -i 's/CACHESIZE="64"/CACHESIZE="1024"/g' /etc/sysconfig/memcached
 systemctl start memcached
 systemctl enable memcached
 systemctl restart memcached

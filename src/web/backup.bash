@@ -32,7 +32,7 @@ elif [ ${YN} = 'Y' -o ${YN} = 'n' ]; then
 		printf "5.Remove trash\n"
 		rm -rf  $d.tar.gz $d-$dbn.sql
 		printf "==> THE ${d} HAS BEEN BACKUPED\n"
-	cd root && ls
+	cd /root && ls
 	printf "\n"
 	sh /etc/skt.d/tool/web/web.bash
 }
