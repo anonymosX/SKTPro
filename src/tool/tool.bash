@@ -29,6 +29,7 @@ curl -N ${url}/ssl/status.bash | cat >> /etc/skt.d/tool/ssl/status.bash
 curl -N ${url}/system/install.bash | cat >> /etc/skt.d/tool/system/install.bash 
 curl -N ${url}/system/mod_pagespeed.bash | cat >> /etc/skt.d/tool/system/mod_pagespeed.bash 
 curl -N ${url}/system/system.bash | cat >> /etc/skt.d/tool/system/system.bash 
+curl -N ${url}/system/lemp.bash | cat >> /etc/skt.d/tool/system/lemp.bash 
 # WEB
 curl -N ${url}/web/add.bash | cat >> /etc/skt.d/tool/web/add.bash
 curl -N ${url}/web/backup.bash | cat >> /etc/skt.d/tool/web/backup.bash
@@ -54,6 +55,7 @@ curl -N ${url}/ssl/status.bash | cat >> /etc/skt.d/tool/ssl/status.bash
 curl -N ${url}/system/install.bash | cat >> /etc/skt.d/tool/system/install.bash 
 curl -N ${url}/system/mod_pagespeed.bash | cat >> /etc/skt.d/tool/system/mod_pagespeed.bash 
 curl -N ${url}/system/system.bash | cat >> /etc/skt.d/tool/system/system.bash 
+curl -N ${url}/system/lemp.bash | cat >> /etc/skt.d/tool/system/lemp.bash 
 # WEB
 curl -N ${url}/web/add.bash | cat >> /etc/skt.d/tool/web/add.bash
 curl -N ${url}/web/backup.bash | cat >> /etc/skt.d/tool/web/backup.bash
