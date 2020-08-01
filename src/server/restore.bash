@@ -21,7 +21,10 @@ elif [ $confirm = 'Y' -o $confirm = 'y' ];then
 			mysql -u root -p$mdbp -e "create user '${dbu}'@'localhost' identified by '${dbp}"
 			mysql -u root -p$mdbp -e "grant all on ${dbn}.* to ${dbu}@localhost"
 			mysql -u root -p$mdbp ${dbn} < $d-$dbn.sql
+			chmod 777 -R /home/${d}/public_html/wp-content
+			chmod 777 /home/${d}/public_html/wp-config.php
 		fi
+	rm -rf *.tar.gz *.sql
 	done
 elif [ $confirm = 'N' -o $confirm = 'n' ];then
 	printf "You have cancel RESTORE\n"
