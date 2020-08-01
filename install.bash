@@ -4,11 +4,10 @@ url=https://raw.githubusercontent.com/anonymosX/SKTPro/master/src
 printf "========================================================================\n"
 printf " NINJA TOOL | TODAY: `date +%d-%m` |  DOMAINS: `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` | IP: `hostname -I | awk '{print $1}'`\n"
 printf "========================================================================\n"
-printf "1. WEBSITE                       \n"
-printf "2. DATABASE                       \n"
+printf "1. WEBSITE                5. SYSTEM       \n"
+printf "2. DATABASE               6. SERVER       \n"
 printf "3. SSL                       \n"
 printf "4. TOOL                           \n"
-printf "5. SYSTEM                       \n"
 printf "Enter: "
 read enter
 clear
@@ -38,6 +37,8 @@ elif [ ${enter} = 4 ]; then
     sh /etc/skt.d/tool/tool.bash
 elif [ ${enter} = 5 ]; then
 	sh /etc/skt.d/tool/system/system.bash
+elif [ ${enter} = 6 ]; then
+	sh /etc/skt.d/tool/system/server.bash
 else
 	printf "CODE: INVALID ENTER\n"
 	sh /root/install

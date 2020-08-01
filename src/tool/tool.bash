@@ -16,7 +16,7 @@ elif [ ${enter} = 1 ]; then
 {
 alias ninja="sh install"
 yum install -y wget
-mkdir -p /etc/skt.d/tool/web /etc/skt.d/tool/system /etc/skt.d/tool/ssl /etc/skt.d/tool /etc/skt.d/tool/mariadb
+mkdir -p /etc/skt.d/tool/web /etc/skt.d/tool/system /etc/skt.d/tool/ssl /etc/skt.d/tool /etc/skt.d/tool/mariadb /etc/skt.d/tool/server
 # Install necessary files
 
 # SSL
@@ -38,13 +38,17 @@ curl -N ${url}/web/web.bash | cat >> /etc/skt.d/tool/web/web.bash
 curl -N ${url}/web/delete.bash | cat >> /etc/skt.d/tool/web/delete.bash
 # MARIADB
 curl -N ${url}/mariadb/mariadb.bash | cat >> /etc/skt.d/tool/mariadb/mariadb.bash
+# SERVER
+curl -N ${url}/server/server.bash | cat >> /etc/skt.d/tool/server/server.bash
+curl -N ${url}/server/move.bash | cat >> /etc/skt.d/tool/server/move.bash
+curl -N ${url}/server/restore.bash | cat >> /etc/skt.d/tool/server/restore.bash
 }
 	printf "INSTALLED NINJA TOOL\n"
 	sh /root/install
 elif [ ${enter} = 2 ]; then
 {
-rm -rf /etc/skt.d/tool/web/* /etc/skt.d/tool/system/* /etc/skt.d/tool/ssl/* /etc/skt.d/tool/mariadb/*
-mkdir -p /etc/skt.d/tool/web /etc/skt.d/tool/system /etc/skt.d/tool/ssl /etc/skt.d/tool /etc/skt.d/tool/mariadb
+rm -rf /etc/skt.d/tool/web/* /etc/skt.d/tool/system/* /etc/skt.d/tool/ssl/* /etc/skt.d/tool/mariadb/* /skt.d/tool/server/*
+mkdir -p /etc/skt.d/tool/web /etc/skt.d/tool/system /etc/skt.d/tool/ssl /etc/skt.d/tool /etc/skt.d/tool/mariadb /etc/skt.d/tool/server
 # SSL
 curl -N ${url}/ssl/install.bash | cat >> /etc/skt.d/tool/ssl/install.bash
 curl -N ${url}/ssl/ssl.bash | cat >> /etc/skt.d/tool/ssl/ssl.bash
@@ -64,6 +68,10 @@ curl -N ${url}/web/web.bash | cat >> /etc/skt.d/tool/web/web.bash
 curl -N ${url}/web/delete.bash | cat >> /etc/skt.d/tool/web/delete.bash
 # MARIADB
 curl -N ${url}/mariadb/mariadb.bash | cat >> /etc/skt.d/tool/mariadb/mariadb.bash
+# SERVER
+curl -N ${url}/server/server.bash | cat >> /etc/skt.d/tool/server/server.bash
+curl -N ${url}/server/move.bash | cat >> /etc/skt.d/tool/server/move.bash
+curl -N ${url}/server/restore.bash | cat >> /etc/skt.d/tool/server/restore.bash
 # INSTALL 
 curl -N https://raw.githubusercontent.com/anonymosX/SKTPro/master/install.bash | cat >> /root/install
 	printf "UPDATED NINJA TOOL\n"
