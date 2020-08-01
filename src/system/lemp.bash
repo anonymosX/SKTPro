@@ -65,7 +65,7 @@ systemctl start mariadb ; systemctl enable mariadb
 
 # Mail 
 mkdir -p /etc/skt.d/tool/data
-curl -N https://raw.githubusercontent.com/anonymosX/SKTPro/master/src/tool/data/randmail.txt | cat >> /etc/skt.d//tool/data/randmail<<"EOF"
+curl -N https://raw.githubusercontent.com/anonymosX/SKTPro/master/src/tool/data/randmail.txt | cat >> /etc/skt.d/tool/data/randmail<<"EOF"
 contact
 manager
 admin
@@ -272,7 +272,7 @@ source /etc/skt.d/tool/system/mod_pagespeed.bash
 # CERTBOT INSTALL
 yum install -y certbot-nginx
 yum install -y bind-utils
-
+mkdir -p /etc/letsencrypt/renewal/
 systemctl restart nginx
 systemctl restart mariadb
 systemctl restart php-fpm
