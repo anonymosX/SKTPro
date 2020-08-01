@@ -4,6 +4,7 @@ read YN
 if [ ${YN} = 0 ]; then
 	sh /root/install
 elif [ ${YN} = 'Y' -o ${YN} = 'y' ]; then
+{
 	printf "YOU HAVE CHOOSE YES\n"
 yum update -y
 # MARIADB 10.3 REPO
