@@ -246,7 +246,7 @@ cat > /root/.my.cnf<<"EOF"
 user=root
 password=SKTpWI5IexxF4oPenOYlOhJ
 EOF
-
+mdbp=SKTpWI5IexxF4oPenOYlOhJ
 printf "\nY\n${mdbp}\n${mdbp}\nY\nY\nY\nY\n" | mysql_secure_installation 
 clear
 # W-CLI INSTALL
