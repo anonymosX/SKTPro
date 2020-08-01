@@ -15,7 +15,7 @@ clear
 if [ ${YN} = 0 ]; then
 	printf "You have cancel request\n"
 	sh /etc/skt.d/tool/web/web.bash
-elif [ ${YN} = 'Y' -o ${YN} = 'n']; then
+elif [ ${YN} = 'Y' -o ${YN} = 'n' ]; then
 {
 	source /etc/skt.d/${d}/${d}.mariadb
 	cd /root
