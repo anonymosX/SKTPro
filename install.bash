@@ -38,7 +38,7 @@ elif [ ${enter} = 4 ]; then
 elif [ ${enter} = 5 ]; then
 	sh /etc/skt.d/tool/system/system.bash
 elif [ ${enter} = 6 ]; then
-	sh /etc/skt.d/tool/server.bash
+	sh /etc/skt.d/tool/server/server.bash
 else
 	printf "CODE: INVALID ENTER\n"
 	sh /root/install
