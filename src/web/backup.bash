@@ -21,7 +21,7 @@ elif [ ${YN} = 'Y' -o ${YN} = 'n' ]; then
 	cd /root
 	# NGINX and SOURCE CODE
 	printf "1.Get source code\n"
-		tar -czf $d.tar.gz /etc/letsencrypt/live/${d}/* /etc/letsencrypt/archive/${d}/* /etc/letsencrypt/renewal/${d}.conf /etc/nginx/conf.d/${d}.conf.80 /etc/nginx/conf.d/${d}.conf /home/$d/public_html /etc/skt.d/${d}/${d}.mariadb /etc/skt.d/${d}/${d}.login
+		tar -czf $d.tar.gz /etc/letsencrypt/live/${d}/* /etc/letsencrypt/archive/${d}/* /etc/letsencrypt/renewal/${d}.conf /etc/letsencrypt/accounts/* /etc/letsencrypt/certbot-auto /etc/letsencrypt/csr/* /etc/letsencrypt/keys/* /etc/letsencrypt/options-ssl-nginx.conf /etc/letsencrypt/ssl-dhparams.pem /etc/letsencrypt/renewal-hooks/* /etc/nginx/conf.d/${d}.conf.80 /etc/nginx/conf.d/${d}.conf /home/$d/public_html /etc/skt.d/${d}/${d}.mariadb /etc/skt.d/${d}/${d}.login
 	printf "2. Source code -> Done\n"
 	# MySQL
 	printf "3. Get mysql\n"
@@ -44,3 +44,6 @@ else
 	printf "CODE: INVALID ENTER\n"
 	sh /etc/skt.d/tool/web/backup.bash	
 fi
+
+
+

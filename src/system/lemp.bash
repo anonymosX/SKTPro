@@ -7,6 +7,7 @@ elif [ ${YN} = 'Y' -o ${YN} = 'y' ]; then
 {
 printf "YOU HAVE CHOOSE YES\n"
 yum update -y
+yum install -y wget
 # MARIADB 10.3 REPO
 cat > /etc/yum.repos.d/mariadb.repo<<"EOF"
 [mariadb]
@@ -26,7 +27,7 @@ EOF
 #EOF
 
 # EPEL and REMI REPO
-yum install -y epel-release
+yum install -y epel-release 
 rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 rpm -ivh http://nginx.org/packages/centos/7/x86_64/RPMS/nginx-1.16.1-1.el7.ngx.x86_64.rpm
 
