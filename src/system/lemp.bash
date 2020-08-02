@@ -5,7 +5,7 @@ if [ ${YN} = 0 ]; then
 	sh /root/install
 elif [ ${YN} = 'Y' -o ${YN} = 'y' ]; then
 {
-	printf "YOU HAVE CHOOSE YES\n"
+printf "YOU HAVE CHOOSE YES\n"
 yum update -y
 # MARIADB 10.3 REPO
 cat > /etc/yum.repos.d/mariadb.repo<<"EOF"
@@ -65,19 +65,7 @@ systemctl start mariadb ; systemctl enable mariadb
 
 # Mail 
 mkdir -p /etc/skt.d/tool/data
-curl -N https://raw.githubusercontent.com/anonymosX/SKTPro/master/src/tool/data/randmail.txt | cat >> /etc/skt.d/tool/data/randmail<<"EOF"
-contact
-manager
-admin
-support
-administrator
-information
-mail
-services
-email
-shop
-chat
-EOF
+curl -N https://raw.githubusercontent.com/anonymosX/SKTPro/master/src/data/randmail.txt | cat >> /etc/skt.d/tool/data/randmail
 
 # PHP CONFIG EXTENSION
 mkdir -p /etc/nginx/conf
@@ -126,7 +114,7 @@ location ~* \.(css|js)$ {
     break;
 }
 EOF
-cat >gzip.conf<<"EOF"
+cat > gzip.conf<<"EOF"
 gzip on;
 gzip_comp_level 2;
 gzip_http_version 1.0;
@@ -139,7 +127,7 @@ gzip_disable "MSIE [1-6].(?!.*SV1)";
 # Add a vary header for downstream proxies to avoid sending cached gzipped files to IE6
 gzip_vary on;
 EOF
-cat >upload.conf<<"EOF"
+cat > upload.conf<<"EOF"
 #set file upload to 15M
 client_max_body_size 15M;
 EOF
@@ -191,54 +179,7 @@ sed -i "s/session.save_handler = files/session.save_handler = memcached/g" /etc/
 systemctl restart nginx
 systemctl restart php-fpm
 systemctl restart mariadb
-# Remove Default
-rm -f /etc/nginx/conf.d/default.conf
-cat > /etc/nginx/conf.d/default.conf<<"EOF"
-server {
-    listen       80 default;
-    server_name  localhost;
 
-    #charset koi8-r;
-    #access_log  /var/log/nginx/host.access.log  main;
-
-    location / {
-        root   /usr/share/nginx/html;
-        index  index.html index.htm;
-    }
-
-    #error_page  404              /404.html;
-
-    # redirect server error pages to the static page /50x.html
-    #
-    error_page   500 502 503 504  /50x.html;
-    location = /50x.html {
-        root   /usr/share/nginx/html;
-    }
-
-    # proxy the PHP scripts to Apache listening on 127.0.0.1:80
-    #
-    #location ~ \.php$ {
-    #    proxy_pass   http://127.0.0.1;
-    #}
-
-    # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
-    #
-    #location ~ \.php$ {
-    #    root           html;
-    #    fastcgi_pass   127.0.0.1:9000;
-    #    fastcgi_index  index.php;
-    #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
-    #    include        fastcgi_params;
-    #}
-
-    # deny access to .htaccess files, if Apache's document root
-    # concurs with nginx's one
-    #
-    #location ~ /\.ht {
-    #    deny  all;
-    #}
-}
-EOF
 
 # MYSQL PASSWORD CONFIRM
 cat > /root/.my.cnf<<"EOF"
