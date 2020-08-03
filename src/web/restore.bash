@@ -6,7 +6,7 @@ printf "FOUND A LIST BACKUP FILES\n"
 find /root -name 'backup*' -type f
 printf "\nENTER: "
 read d
-printf "ARE YOU WANT TO RESTORE ${d^^}? - Y/N\n"
+printf "ARE YOU WANT TO RESTORE ${d^^}? - Y/N: "
 read YN
 clear
 if [ ${YN} = 0 ]; then
@@ -31,31 +31,31 @@ tar -xzf $d.tar.gz
 	yes | cp -rf etc/letsencrypt/archive/${d} /etc/letsencrypt/archive
 	if [ ! -d /etc/letsencrypt/accounts ]; then 
 		mkdir -p /etc/letsencrypt/accounts
-		mv -u /root/etc/letsencrypt/accounts/* /etc/letsencrypt/accounts
+		yes | cp -rf /root/etc/letsencrypt/accounts/* /etc/letsencrypt/accounts
 	else 
-		mv /root/etc/letsencrypt/accounts/* /etc/letsencrypt/accounts
+		yes | cp -rf /root/etc/letsencrypt/accounts/* /etc/letsencrypt/accounts
 	fi
 	if [ ! -d /etc/letsencrypt/csr ]; then 
 		mkdir -p /etc/letsencrypt/csr
-		mv -u /root/etc/letsencrypt/csr/* /etc/letsencrypt/csr
+		yes | cp -rf /root/etc/letsencrypt/csr/* /etc/letsencrypt/csr
 	else 
-		mv -u /root/etc/letsencrypt/csr/* /etc/letsencrypt/csr
+		yes | cp -rf /root/etc/letsencrypt/csr/* /etc/letsencrypt/csr
 	fi
 	if [ ! -d /etc/letsencrypt/keys ];then
 		mkdir -p /etc/letsencrypt/keys
-		mv -u /root/etc/letsencrypt/keys/* /etc/letsencrypt/keys
+		yes | cp -rf /root/etc/letsencrypt/keys/* /etc/letsencrypt/keys
 	else
-		mv -u /root/etc/letsencrypt/keys/* /etc/letsencrypt/keys	
+		yes | cp -rf /root/etc/letsencrypt/keys/* /etc/letsencrypt/keys	
 	fi
 	if [ ! -d /etc/letsencrypt/renewal-hooks ];then
 		mkdir -p /etc/letsencrypt/renewal-hooks
-		mv -u /root/etc/letsencrypt/renewal-hooks/* /etc/letsencrypt/renewal-hooks
+		yes | cp -rf /root/etc/letsencrypt/renewal-hooks/* /etc/letsencrypt/renewal-hooks
 	else
-		mv -u /root/etc/letsencrypt/renewal-hooks/* /etc/letsencrypt/renewal-hooks
+		yes | cp -rf /root/etc/letsencrypt/renewal-hooks/* /etc/letsencrypt/renewal-hooks
 	fi
-	mv -u etc/letsencrypt/certbot-auto /etc/letsencrypt/certbot-auto
-	mv -u etc/letsencrypt/options-ssl-nginx.conf /etc/letsencrypt/options-ssl-nginx.conf
-	mv -u etc/letsencrypt/ssl-dhparams.pem /etc/letsencrypt/ssl-dhparams.pem 
+	yes | cp -rf etc/letsencrypt/certbot-auto /etc/letsencrypt/certbot-auto
+	yes | cp -rf etc/letsencrypt/options-ssl-nginx.conf /etc/letsencrypt/options-ssl-nginx.conf
+	yes | cp -rf etc/letsencrypt/ssl-dhparams.pem /etc/letsencrypt/ssl-dhparams.pem 
 # IMPORT DATABASES
 	source /etc/skt.d/${d}/${d}.mariadb
 	printf "create database ${dbn}" | mysql

@@ -40,7 +40,7 @@ elif  [ ${enter} = 5 ]; then
 		printf "ENTER: "
 		read d
 		printf "\n"
-		printf "DO YOU WANT TO UPDATE PLUGIN FOR ${d^^}? -Y/N\n"
+		printf "DO YOU WANT TO UPDATE PLUGIN FOR ${d^^}? -Y/N: "
 		read YN
 		if [ ${YN} = 0 ]; then
 			sh /etc/skt.d/tool/web/web.bash

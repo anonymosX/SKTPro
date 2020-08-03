@@ -1,6 +1,6 @@
 #!/bin/bash
 domain=https://raw.githubusercontent.com/anonymosX/SKTPro/master
-printf "ENTER ALL INFORMATIONS\n"
+printf "ENTER INFORMATIONS\n"
 printf "1. URL: "
 read d
 printf "2. ADDRESS: "

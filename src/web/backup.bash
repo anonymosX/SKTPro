@@ -9,7 +9,7 @@ done
 printf " ---------\n"
 printf "ENTER: "
 read d
-printf "YOU REALLY WANT BACK UP ${d^^} - Y/N\n"
+printf "YOU REALLY WANT BACK UP ${d^^} - Y/N: "
 read YN
 clear
 if [ ${YN} = 0 ]; then

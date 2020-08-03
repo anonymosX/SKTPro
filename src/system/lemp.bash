@@ -1,5 +1,5 @@
 #!/bin/bash
-printf "ARE YOU SURE TO INSTALL LEMP? - Y/N\n"
+printf "ARE YOU SURE TO INSTALL LEMP? - Y/N: "
 read YN
 if [ ${YN} = 0 ]; then
 	sh /root/install
@@ -171,6 +171,9 @@ EOF
 # Remove Default
 rm -f /etc/nginx/conf.d/default.conf
 cat > /etc/nginx/conf.d/default.conf<<"EOF"
+server {
+    listen       80 default;
+    server_name  localhost;
     #charset koi8-r;
     #access_log  /var/log/nginx/host.access.log  main;
 
