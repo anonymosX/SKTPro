@@ -47,7 +47,7 @@ curl -N ${url}/server/restore.bash | cat >> /etc/skt.d/tool/server/restore.bash
 	sh /root/install
 elif [ ${enter} = 2 ]; then
 {
-rm -rf /etc/skt.d/tool/web/* /etc/skt.d/tool/system/* /etc/skt.d/tool/ssl/* /etc/skt.d/tool/mariadb/* /skt.d/tool/server/*
+rm -rf /etc/skt.d/tool/web/* /etc/skt.d/tool/system/* /etc/skt.d/tool/ssl/* /etc/skt.d/tool/mariadb/* /etc/skt.d/tool/server/*
 mkdir -p /etc/skt.d/tool/web /etc/skt.d/tool/system /etc/skt.d/tool/ssl /etc/skt.d/tool /etc/skt.d/tool/mariadb /etc/skt.d/tool/server
 # SSL
 curl -N ${url}/ssl/install.bash | cat >> /etc/skt.d/tool/ssl/install.bash
