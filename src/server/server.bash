@@ -6,7 +6,8 @@ printf "Options: \n"
 printf "1. Backup Server\n"
 printf "2. Restore Server\n"
 read select 
-if [ $select = 0 ];then
+if [ $select = 0 ]; then
+	clear
 	sh /root/install
 elif [ $select = 1 ]; then
 	clear
