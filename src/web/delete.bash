@@ -10,14 +10,16 @@ done
 printf " ---------\n"
 printf "ENTER: "
 read d
-printf "ARE YOU SURE TO DELETE ${d^^}? - Y/N\n"
+printf "ARE YOU SURE TO DELETE ${d^^}? - Y/N: "
 read YN
 if [ ${YN} = 0 ]; then
 	clear
-	printf "You have cancel request\n"
+	printf "CANCEL DELETE\n"
 	sh /etc/skt.d/tool/web/web.bash
 elif [ ${YN} = 'Y' -o ${YN} = 'y' ]; then
 {
+	clear
+	printf "PROCESS DELETE ${d^^}\n"
 	# DELETE CODE
 	rm -rf /home/${d}
 	rm -rf /etc/nginx/conf.d/${d}.conf
@@ -27,13 +29,14 @@ elif [ ${YN} = 'Y' -o ${YN} = 'y' ]; then
 	rm -rf /etc/letsencrypt/archive/${d}
 
 	# DELETE DATABASE
-	source /etc/skt.d/${d}/${d}.mariadb
+	source /etc/skt.d/data/${d}/${d}.mariadb
 	printf "drop database ${dbn}" | mysql
 	printf "DROP USER '${dbu}'@'localhost'" | mysql
 	printf "flush privileges" | mysql
 	printf "exit" | mysql
-	rm -rf /etc/skt.d/${d}/
-	printf "The ${d} has been deleted\n"
+	rm -rf /etc/skt.d/data/${d}
+	clear
+	printf "${d^^} HAS DELETED\n"
 	sh /etc/skt.d/tool/web/web.bash
 }
 elif [ ${YN} = 'N' -o ${YN} = 'n' ]; then
@@ -43,6 +46,7 @@ elif [ ${YN} = 'N' -o ${YN} = 'n' ]; then
 }
 
 else
-	printf "CODE: INVALID ENTER\n"
-		sh /etc/skt.d/tool/web/delete.bash
+	clear
+	printf "INVALID SELECT\n"
+	sh /etc/skt.d/tool/web/delete.bash
 fi

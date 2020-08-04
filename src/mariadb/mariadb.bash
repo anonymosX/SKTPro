@@ -18,26 +18,26 @@ if [ $answer = '0' ]; then
 elif [ $answer = '1' ]; then
 {
 	clear
-	printf " 				--------------------\n"
-	printf "				RENAME DATABASE NAME\n"
-	printf " 				--------------------\n"
+	printf " --------------------\n"
+	printf " RENAME DATABASE NAME\n"
+	printf " --------------------\n"
 	printf "\n"
 	# LIST DOMAINS
-	printf "List domains: \n"
+	printf "LIST DOMAINS: \n"
 	for D in /home/* ; do
 	if [ -d $D ]; then
 		d=${D##*/}
 		printf " * $d\n"
 	fi
 	done
-	printf "Enter: "
+	printf "ENTER: "
 	read d
-	printf "Rename old ${d^^}'s database? (Y/N): "
+	printf "RENAME OLD ${d^^}'s DATABASE? (Y/N): "
 	read YN
 if [ ${YN} = Y -o ${YN} = y ]; then 
 {
 	clear
-	source /etc/skt.d/${d}/${d}.mariadb
+	source /etc/skt.d/data/${d}/${d}.mariadb
 	# WORKFLOW: 
 	# 1. export database -> A, create new database name B, import A -> B, remove database A
 	# 2. create new username, password. drop user old username, grant access new to database B.
@@ -65,25 +65,27 @@ if [ ${YN} = Y -o ${YN} = y ]; then
 	sed -i "s/${dbp}/${newdbp}/g" /home/${d}/public_html/wp-config.php
 
 	# save database info
-	sed -i "s/${dbn}/${newdbn}/g" /etc/skt.d/${d}/${d}.mariadb
-	sed -i "s/${dbu}/${newdbu}/g" /etc/skt.d/${d}/${d}.mariadb
-	sed -i "s/${dbp}/${newdbp}/g" /etc/skt.d/${d}/${d}.mariadb
+	sed -i "s/${dbn}/${newdbn}/g" /etc/skt.d/data/${d}/${d}.mariadb
+	sed -i "s/${dbu}/${newdbu}/g" /etc/skt.d/data/${d}/${d}.mariadb
+	sed -i "s/${dbp}/${newdbp}/g" /etc/skt.d/data/${d}/${d}.mariadb
 	# remove trash
 	cd /root && rm -f $dbn.sql
 	printf "Success rename\n"
 	printf "Result:\n"
-	source /etc/skt.d/${d}/${d}.mariadb
+	source /etc/skt.d/data/${d}/${d}.mariadb
 	printf "\n"
 	printf "${d^^}\nDatabase Name: ${dbn} \nUsername: ${dbu}\nUsername Password: ${dbp}\nRoot Password: ${mdbp}\n"
 	printf "End Result.\n"
 }
 elif [ ${YN} = N -o ${YN} = n ]; then
 {
-	printf "You have cancel RENAME database\n"
+	clear
+	printf "CANCEL RENAME\n"
 	sh /etc/skt.d/tool/mariadb/mariadb.bash
 }
 else 
 {
+	clear
 	printf "Code: Invaild Anwers\n"
 }
 fi
@@ -107,7 +109,7 @@ elif [ $answer = '2' ]; then
 	printf "Enter: "
 	read d
 	printf "\n"
-	source /etc/skt.d/${d}/${d}.mariadb
+	source /etc/skt.d/data/${d}/${d}.mariadb
 	printf " ----------------\n"
 	printf "Result:\n"
 	printf "${d^^}\nDatabase Name: ${dbn} \nUsername: ${dbu}\nUsername Password: ${dbp}\nRoot Password: ${mdbp}\n"

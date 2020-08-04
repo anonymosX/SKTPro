@@ -24,7 +24,7 @@ elif [ $confirm = 'Y' -o $confirm = 'y' ]; then
 		for D in /home/*; do
 			if [ -d ${D} ]; then
 				d=${D##*/}
-				source /etc/skt.d/${d}/${d}.mariadb
+				source /etc/skt.d/data/${d}/${d}.mariadb
 				mysql -u root -p$mdbp -e "create database ${dbn}"
 				mysql -u root -p$mdbp -e "create user '${dbu}'@'localhost' identified by '${dbp}'"
 				mysql -u root -p$mdbp -e "grant all on ${dbn}.* to ${dbu}@localhost"

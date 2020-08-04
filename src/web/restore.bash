@@ -8,20 +8,21 @@ printf "\nENTER: "
 read d
 printf "ARE YOU WANT TO RESTORE ${d^^}? - Y/N: "
 read YN
-clear
+
 if [ ${YN} = 0 ]; then
+	clear
 	sh /root/install
 elif [ ${YN} = 'Y' -o ${YN} = 'y' ]; then
+	clear
 	printf "YOU HAVE CHOOSE YES\n"
 {
 # CREATE SERVER BLOCK, LOG
-mkdir -p /etc/skt.d/${d} /home/$d/public_html /home/$d/log /etc/letsencrypt/live/${d}
-touch /home/$d/log/error.log && chmod +x /home/$d/log/error.log
-
-
-cd /root
-find /root -type f -name "backup-${d}*.tar.gz" -exec tar -xzf {} \;
-tar -xzf $d.tar.gz
+	printf "PROCESS RESTORE CODE AND CONFIG\n"
+	mkdir -p /etc/skt.d/data/${d} /home/$d/public_html /home/$d/log /etc/letsencrypt/live/${d}
+	touch /home/$d/log/error.log && chmod +x /home/$d/log/error.log
+	cd /root
+	find /root -type f -name "backup-${d}*.tar.gz" -exec tar fxz {} \;
+	tar fxz $d.tar.gz
 # IMPORT CODE
 	yes | cp -rf etc/skt.d/* /etc/skt.d
 	yes | cp -rf etc/nginx/conf.d/* /etc/nginx/conf.d
@@ -57,7 +58,7 @@ tar -xzf $d.tar.gz
 	yes | cp -rf etc/letsencrypt/options-ssl-nginx.conf /etc/letsencrypt/options-ssl-nginx.conf
 	yes | cp -rf etc/letsencrypt/ssl-dhparams.pem /etc/letsencrypt/ssl-dhparams.pem 
 # IMPORT DATABASES
-	source /etc/skt.d/${d}/${d}.mariadb
+	source /etc/skt.d/data/${d}/${d}.mariadb
 	printf "create database ${dbn}" | mysql
 	printf "create user '${dbu}'@'localhost' identified by '${dbp}'" | mysql
 	printf "grant all on ${dbn}.* to ${dbu}@localhost" | mysql
@@ -72,16 +73,16 @@ tar -xzf $d.tar.gz
 	chmod 777 /home/$d/public_html/wp-config.php
 	#chmod 755 -R /home/$d/public_html/wp-content
 # FINAL
-printf "THE ${d} HAS BEEN RESTORED\n"
-systemctl restart nginx
+	clear
+	printf "${d^^} HAS RESTORED\n"
+	systemctl restart nginx
 	sh /etc/skt.d/tool/web/web.bash
 }
 
 elif [ ${YN} = 'N' -o ${YN} = 'n' ]; then
 {	
-	printf "YOU HAVE CHOOSE NO\n"
 	clear
-	printf "You have cancel request\n"
+	printf "YOU HAVE CHOOSE NO\n"
 	sh /etc/skt.d/tool/web/web.bash
 }
 else

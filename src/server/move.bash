@@ -19,7 +19,7 @@ elif [ $confirm = 'Y' -o $confirm = 'y' ]; then
 	for D in /home/*; do
 		if [ -d ${D} ]; then
 			d=${D##*/}
-			source /etc/skt.d/${d}/${d}.mariadb
+			source /etc/skt.d/data/${d}/${d}.mariadb
 			mysqldump -u root -p$mdbp $dbn > $d-$dbn.sql
 		fi
 	done

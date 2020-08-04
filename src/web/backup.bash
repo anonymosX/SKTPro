@@ -11,36 +11,39 @@ printf "ENTER: "
 read d
 printf "YOU REALLY WANT BACK UP ${d^^} - Y/N: "
 read YN
-clear
+
 if [ ${YN} = 0 ]; then
-	printf "You have cancel request\n"
+	clear
+	printf "CANCEL BACKUP\n"
 	sh /etc/skt.d/tool/web/web.bash
 elif [ ${YN} = 'Y' -o ${YN} = 'n' ]; then
 {
-	source /etc/skt.d/${d}/${d}.mariadb
+	source /etc/skt.d/data/${d}/${d}.mariadb
 	cd /root
 	# NGINX and SOURCE CODE
-	printf "1.Get source code\n"
-		tar -czf $d.tar.gz /etc/letsencrypt/live/${d}/* /etc/letsencrypt/archive/${d}/* /etc/letsencrypt/renewal/${d}.conf /etc/letsencrypt/accounts/* /etc/letsencrypt/certbot-auto /etc/letsencrypt/csr/* /etc/letsencrypt/keys/* /etc/letsencrypt/options-ssl-nginx.conf /etc/letsencrypt/ssl-dhparams.pem /etc/letsencrypt/renewal-hooks/* /etc/nginx/conf.d/${d}.conf.80 /etc/nginx/conf.d/${d}.conf /home/$d/public_html /etc/skt.d/${d}/${d}.mariadb /etc/skt.d/${d}/${d}.login
-	printf "2. Source code -> Done\n"
+	printf "1.PROCESS CODE AND CONFIG\n"
+		tar fczP $d.tar.gz /etc/letsencrypt/live/${d}/* /etc/letsencrypt/archive/${d}/* /etc/letsencrypt/renewal/${d}.conf /etc/letsencrypt/accounts/* /etc/letsencrypt/certbot-auto /etc/letsencrypt/csr/* /etc/letsencrypt/keys/* /etc/letsencrypt/options-ssl-nginx.conf /etc/letsencrypt/ssl-dhparams.pem /etc/letsencrypt/renewal-hooks/* /etc/nginx/conf.d/${d}.conf.80 /etc/nginx/conf.d/${d}.conf /home/$d/public_html /etc/skt.d/data/${d}/${d}.mariadb /etc/skt.d/data/${d}/${d}.login
+	printf "STEP 1: DONE\n"
 	# MySQL
-	printf "3. Get mysql\n"
+	printf "2. PROCESS SQL\n"
 		mysqldump -u root -p$mdbp $dbn > $d-$dbn.sql
-	printf "4. MYSQL -> Done\n"
+	printf "STEP 2: DONE\n"
 	#cd ./
-		tar -czf backup-$d-$(date +"%d%m").tar.gz  $d.tar.gz $d-$dbn.sql
-		printf "5.Remove trash\n"
+		tar fczvP backup-$d-$(date +"%d%m").tar.gz  $d.tar.gz $d-$dbn.sql
+		printf "3.REMOVE TRASH\n"
 		rm -rf  $d.tar.gz $d-$dbn.sql
-		printf "==> THE ${d} HAS BEEN BACKUPED\n"
-	cd /root && ls
+	clear
+	printf "==> THE ${d} HAS BEEN BACKUPED\n"
 	printf "\n"
 	sh /etc/skt.d/tool/web/web.bash
 }
 elif [ ${YN} = 'N' -o ${YN} = 'n' ]; then
 {
+	clear
 	sh /etc/skt.d/tool/web/web.bash
 }
 else
+	clear
 	printf "CODE: INVALID ENTER\n"
 	sh /etc/skt.d/tool/web/backup.bash	
 fi
