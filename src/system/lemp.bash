@@ -56,7 +56,9 @@ sed -i 's+listen = 127.0.0.1:9000+listen = /run/php-fpm/php-fpm.sock+g' /etc/php
 sed -i 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g' /etc/php.ini
 sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 20M/g' /etc/php.ini
 
-# SELINUX DISABLE
+# DISABLE SELinux
+
+setenforce 0
 sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
 systemctl restart nginx ; systemctl restart php-fpm
 
@@ -223,11 +225,6 @@ server {
 }
 EOF
 
-
-
-
-
-
 # MEMCACHED INSTALL
 printf "Installing Memcached\n"
 yum --enablerepo=remi install memcached -y
@@ -247,7 +244,8 @@ cat > /root/.my.cnf<<"EOF"
 user=root
 password=SKTpWI5IexxF4oPenOYlOhJ
 EOF
-source /root/.my.cnf
+
+password=SKTpWI5IexxF4oPenOYlOhJ
 printf "\nY\n${password}\n${password}\nY\nY\nY\nY\n" | mysql_secure_installation 
 clear
 # W-CLI INSTALL
