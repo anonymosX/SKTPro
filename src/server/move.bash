@@ -1,6 +1,6 @@
 #!/bin/bash
 printf " ---------------------------------------\n"
-printf " BACKUP SERVER | IP:`hostname -I | awk '{print $1}'`"
+printf " BACKUP SERVER | IP:`hostname -I | awk '{print $1}'`\n"
 printf " ---------------------------------------\n"
 printf "\n"
 printf "DO YOU WANT TO BACKUP ENTIRE SERVER? - (Y/N): "
