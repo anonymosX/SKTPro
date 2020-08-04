@@ -16,11 +16,11 @@ elif [ $confirm = 'Y' -o $confirm = 'y' ]; then
 		#move Block to home
 		printf " ----------------------------\n"
 		printf "1. EXTRACT CODE\n"
-		cd /root && tar fxz home.tar.gz
+		cd /root && tar fxzP home.tar.gz
 			yes | cp -rf home/* /home
 			yes | cp -rf etc/* /etc
 		printf "2. IMPORT SQL\n"
-		cd /root && tar fxz mysql.tar.gz
+		cd /root && tar fxzP mysql.tar.gz
 		for D in /home/*; do
 			if [ -d ${D} ]; then
 				d=${D##*/}
