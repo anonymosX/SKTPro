@@ -200,7 +200,9 @@ wp plugin install https://uix.store/plugins/soo-wishlist.zip --path=/home/${d}/p
 elif [ ${vrs} -eq 2 ];then
 {
 # Khu vuc theme Shoptimized
+
 wp plugin install woocommerce --path=/home/${d}/public_html --activate
+wp plugin install woocommerce-google-dynamic-retargeting-tag --path=/home/${d}/public_html --activate
 wp theme install ${domain}/themes/shoptimizer/shoptimizer.zip --path=/home/${d}/public_html --activate
 wp plugin install https://files.commercegurus.com/commercegurus-commercekit.zip --path=/home/${d}/public_html --activate
 wp plugin install smart-woocommerce-search --path=/home/${d}/public_html --activate
