@@ -170,11 +170,11 @@ define('WP_DEBUG', false);
 define('FS_METHOD','direct');
 PHP
 
-printf "$d" | cat > /etc/skt.d/data/${d}/site-title
-site-title=`sed "s/.com/ /g" /etc/skt.d/data/${d}/site-title`
+printf "$d" | cat > /etc/skt.d/data/${d}/site_title
+site_title=`sed "s/.com/ /g" /etc/skt.d/data/${d}/site_title`
 #${d^^}&nbsp;|&nbsp;Online&nbsp;Store
 # INSTALL WORDPRESS
-wp core install --url=${d}  --title=${site-title} --admin_user=${wp_usr} --admin_password=${wp_pass} --admin_email=$e --path=/home/${d}/public_html
+wp core install --url=${d}  --title=${site_title^^} --admin_user=${wp_usr} --admin_password=${wp_pass} --admin_email=$e --path=/home/${d}/public_html
 # REMOVE TRASH
 rm -f /etc/skt.d/data/${d}/site-title
 # FIX ERROR INSTALLATION FAILED: COULD NOT CREATE DIRECTORY.
