@@ -13,5 +13,5 @@ system/system
 server/move
 server/restore
 server/server
-maria/mariadb
+mariadb/mariadb
 tool/tool

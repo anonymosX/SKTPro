@@ -26,7 +26,7 @@ elif [ ${enter} = 1 ]; then
 	sh /root/install
 }
 elif [ ${enter} = 2 ]; then
-	curl -N $url/config.txt | cat > /etc/skt.d/tool/config.txt
+	curl -N $url/tool/config.txt | cat > /etc/skt.d/tool/config.txt
 	cd /etc/skt.d/tool && rm -f web/* system/* ssl/* mariadb/* server/*
 	while IFS= read -r line; do 
 		curl -N ${url}/$line.bash | cat > /etc/skt.d/tool/$line.bash
