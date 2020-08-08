@@ -14,93 +14,27 @@ if [ ${enter} = 0 ]; then
 	sh /root/install
 elif [ ${enter} = 1 ]; then
 {
-alias ninja="sh install"
-yum install -y wget
-mkdir -p /etc/skt.d/tool/web /etc/skt.d/tool/system /etc/skt.d/tool/ssl /etc/skt.d/tool /etc/skt.d/tool/mariadb /etc/skt.d/tool/server
-# Install necessary files
-
-# SSL
-curl -N ${url}/ssl/install.bash | cat >> /etc/skt.d/tool/ssl/install.bash
-curl -N ${url}/ssl/ssl.bash | cat >> /etc/skt.d/tool/ssl/ssl.bash
-curl -N ${url}/ssl/renew.bash | cat >> /etc/skt.d/tool/ssl/renew.bash
-curl -N ${url}/ssl/status.bash | cat >> /etc/skt.d/tool/ssl/status.bash
-
-
-
-
-
-
-
-# System
-curl -N ${url}/system/install.bash | cat >> /etc/skt.d/tool/system/install.bash 
-curl -N ${url}/system/mod_pagespeed.bash | cat >> /etc/skt.d/tool/system/mod_pagespeed.bash 
-curl -N ${url}/system/system.bash | cat >> /etc/skt.d/tool/system/system.bash 
-curl -N ${url}/system/lemp.bash | cat >> /etc/skt.d/tool/system/lemp.bash 
-# WEB
-curl -N ${url}/web/add.bash | cat >> /etc/skt.d/tool/web/add.bash
-curl -N ${url}/web/backup.bash | cat >> /etc/skt.d/tool/web/backup.bash
-curl -N ${url}/web/restore.bash | cat >> /etc/skt.d/tool/web/restore.bash
-curl -N ${url}/web/web.bash | cat >> /etc/skt.d/tool/web/web.bash
-curl -N ${url}/web/delete.bash | cat >> /etc/skt.d/tool/web/delete.bash
-
-
-
-while IFS="|" read -r line; do 
-	curl -N ${url}/web/$line.bash | cat > /etc/skt.d/tool/web/$line.bash
-done < $url/web/web_config.txt
-
-
-
-
-
-
-
-
-
-
-
-
-# MARIADB
-curl -N ${url}/mariadb/mariadb.bash | cat >> /etc/skt.d/tool/mariadb/mariadb.bash
-# SERVER
-curl -N ${url}/server/server.bash | cat >> /etc/skt.d/tool/server/server.bash
-curl -N ${url}/server/move.bash | cat >> /etc/skt.d/tool/server/move.bash
-curl -N ${url}/server/restore.bash | cat >> /etc/skt.d/tool/server/restore.bash
-}
-	printf "INSTALLED NINJA TOOL\n"
+	yum install -y wget
+	mkdir -p /etc/skt.d/tool
+	cd /etc/skt.d/tool && mkdir -p web system ssl mariadb server
+	curl -N $url/config.txt | cat > /etc/skt.d/tool/config.txt
+	while IFS= read -r line; do 
+		curl -N ${url}/$line.bash | cat > /etc/skt.d/tool/$line.bash
+	done < "/etc/skt.d/tool/config.txt"
+	clear
+	printf "NINJA TOOL: INSTALLED\n"
 	sh /root/install
+}
 elif [ ${enter} = 2 ]; then
-{
-rm -rf /etc/skt.d/tool/web/* /etc/skt.d/tool/system/* /etc/skt.d/tool/ssl/* /etc/skt.d/tool/mariadb/* /etc/skt.d/tool/server/*
-mkdir -p /etc/skt.d/tool/web /etc/skt.d/tool/system /etc/skt.d/tool/ssl /etc/skt.d/tool /etc/skt.d/tool/mariadb /etc/skt.d/tool/server
-# SSL
-curl -N ${url}/ssl/install.bash | cat >> /etc/skt.d/tool/ssl/install.bash
-curl -N ${url}/ssl/ssl.bash | cat >> /etc/skt.d/tool/ssl/ssl.bash
-curl -N ${url}/ssl/renew.bash | cat >> /etc/skt.d/tool/ssl/renew.bash
-curl -N ${url}/ssl/status.bash | cat >> /etc/skt.d/tool/ssl/status.bash
-
-# System
-curl -N ${url}/system/install.bash | cat >> /etc/skt.d/tool/system/install.bash 
-curl -N ${url}/system/mod_pagespeed.bash | cat >> /etc/skt.d/tool/system/mod_pagespeed.bash 
-curl -N ${url}/system/system.bash | cat >> /etc/skt.d/tool/system/system.bash 
-curl -N ${url}/system/lemp.bash | cat >> /etc/skt.d/tool/system/lemp.bash 
-# WEB
-curl -N ${url}/web/add.bash | cat >> /etc/skt.d/tool/web/add.bash
-curl -N ${url}/web/backup.bash | cat >> /etc/skt.d/tool/web/backup.bash
-curl -N ${url}/web/restore.bash | cat >> /etc/skt.d/tool/web/restore.bash
-curl -N ${url}/web/web.bash | cat >> /etc/skt.d/tool/web/web.bash
-curl -N ${url}/web/delete.bash | cat >> /etc/skt.d/tool/web/delete.bash
-# MARIADB
-curl -N ${url}/mariadb/mariadb.bash | cat >> /etc/skt.d/tool/mariadb/mariadb.bash
-# SERVER
-curl -N ${url}/server/server.bash | cat >> /etc/skt.d/tool/server/server.bash
-curl -N ${url}/server/move.bash | cat >> /etc/skt.d/tool/server/move.bash
-curl -N ${url}/server/restore.bash | cat >> /etc/skt.d/tool/server/restore.bash
-# INSTALL 
-curl -N https://raw.githubusercontent.com/anonymosX/SKTPro/master/install.bash | cat >> /root/install
-	printf "UPDATED NINJA TOOL\n"
-	sh /root/install
-}
+	curl -N $url/config.txt | cat > /etc/skt.d/tool/config.txt
+	cd /etc/skt.d/tool && rm -f web/* system/* ssl/* mariadb/* server/*
+	while IFS= read -r line; do 
+		curl -N ${url}/$line.bash | cat > /etc/skt.d/tool/$line.bash
+	done < "/etc/skt.d/tool/config.txt"
+	clear
+	printf "NINJA TOOl: UPDATED\n"
 else 
+	clear
+	printf "NINJA TOOL: INVALID SELECT\n"
 	sh /etc/skt.d/tool/tool.bash
 fi

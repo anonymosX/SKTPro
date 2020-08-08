@@ -1,0 +1,17 @@
+web/add
+web/backup
+web/delete
+web/restore
+web/web
+ssl/install
+ssl/renew
+ssl/ssl
+ssl/status
+system/lemp
+system/mod_pagespeed
+system/system
+server/move
+server/restore
+server/server
+maria/mariadb
+tool/tool
