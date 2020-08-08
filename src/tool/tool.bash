@@ -25,6 +25,12 @@ curl -N ${url}/ssl/ssl.bash | cat >> /etc/skt.d/tool/ssl/ssl.bash
 curl -N ${url}/ssl/renew.bash | cat >> /etc/skt.d/tool/ssl/renew.bash
 curl -N ${url}/ssl/status.bash | cat >> /etc/skt.d/tool/ssl/status.bash
 
+
+
+
+
+
+
 # System
 curl -N ${url}/system/install.bash | cat >> /etc/skt.d/tool/system/install.bash 
 curl -N ${url}/system/mod_pagespeed.bash | cat >> /etc/skt.d/tool/system/mod_pagespeed.bash 
@@ -36,6 +42,24 @@ curl -N ${url}/web/backup.bash | cat >> /etc/skt.d/tool/web/backup.bash
 curl -N ${url}/web/restore.bash | cat >> /etc/skt.d/tool/web/restore.bash
 curl -N ${url}/web/web.bash | cat >> /etc/skt.d/tool/web/web.bash
 curl -N ${url}/web/delete.bash | cat >> /etc/skt.d/tool/web/delete.bash
+
+
+
+while IFS="|" read -r line; do 
+	curl -N ${url}/web/$line.bash | cat > /etc/skt.d/tool/web/$line.bash
+done < $url/web/web_config.txt
+
+
+
+
+
+
+
+
+
+
+
+
 # MARIADB
 curl -N ${url}/mariadb/mariadb.bash | cat >> /etc/skt.d/tool/mariadb/mariadb.bash
 # SERVER
