@@ -2,7 +2,7 @@
 url=https://raw.githubusercontent.com/anonymosX/SKTPro/master
 printf "ENTER INFORMATIONS\n"
 printf "1. URL: "
-read d
+read DOMAIN
 printf "2. ADDRESS: "
 read add
 printf "3. PHONE: "
@@ -25,8 +25,8 @@ wp_usr="qqteam`openssl rand -base64 32 | tr -d /=+ | cut -c -10`"
 mkdir -p /etc/skt.d/data/$DOMAIN && cd /root
 e="`shuf -n 1 /etc/skt.d/tool/data/randmail`@$DOMAIN"
 source /root/.my.cnf
-printf "#${d^^}:\ndbn=${dbn}\ndbu=${dbu}\ndbp=${dbp}\nmdbp=${password}\n" | cat > /etc/skt.d/data/$DOMAIN/sql.txt
-printf "#${d^^}:\nwp_usr=${wp_usr}\nwp_pass=${wp_pass}\ne=${e}" | cat > /etc/skt.d/data/$DOMAIN/login.txt
+printf "#${DOMAIN^^}:\ndbn=${dbn}\ndbu=${dbu}\ndbp=${dbp}\nmdbp=${password}\n" | cat > /etc/skt.d/data/$DOMAIN/sql.txt
+printf "#${DOMAIN^^}:\nwp_usr=${wp_usr}\nwp_pass=${wp_pass}\ne=${e}" | cat > /etc/skt.d/data/$DOMAIN/login.txt
 # TAI WORDPRESS OPEN SOURCE
 mkdir -p /home/$DOMAIN/public_html && cd /home/$DOMAIN/public_html
 wget https://wordpress.org/latest.tar.gz

@@ -14,7 +14,7 @@ server/move
 server/restore
 server/server
 mariadb/mariadb
-tool/tool
+tool
 domain/manDomain
 domain/regDomain
 domain/updateDNS
