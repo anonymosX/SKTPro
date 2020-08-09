@@ -36,6 +36,7 @@ elif [ $confirm = 'Y' -o $confirm = 'y' ]; then
 		cd /root
 		rm -rf home.tar.gz mysql.tar.gz *.sql
 		rm -rf etc home
+		systemctl restart nginx php-fpm mariadb
 	}
 	else 
 		clear
