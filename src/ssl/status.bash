@@ -9,7 +9,7 @@ done
 # GUI interface with user
 printf "ENTER: "
 read DOMAIN
-printf "IS ${DOMAIN^^} CORRECT DOMAIN? - Y/N\: "
+printf "IS ${DOMAIN^^} CORRECT DOMAIN? - Y/N: "
 read CONFIRM
 clear
 if [ $CONFIRM = 0 ]; then
