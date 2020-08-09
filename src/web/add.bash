@@ -1,5 +1,5 @@
 #!/bin/bash
-#FLOW: REGISTER DOMAIN -> CLOUDFLARE(PAUSE) -> CAI WOOCOMMERCE -> CLOUDFLARE(ENABLE)
+#FLOW: REGISTER DOMAIN -> CLOUDFLARE(PAUSE) -> "CAI WOOCOMMERCE" -> CLOUDFLARE(ENABLE)
 
 
 
@@ -248,7 +248,7 @@ wp widget add custom_html footer --content="<h4 style='color:white'>Tools &amp; 
 wp widget add custom_html footer --content="<h4 style='color:white'>Help & Contact</h4><ul><li><a href='/refund-policy'>Returns and Refund</a></li><li><a href='/privacy-policy'>Privacy Policy</a></li><li><a href='/term-of-service'>Terms &amp; Conditions</a></li><li><a href='/contact-us'>Contact Us</a></li><li><a href='/about-us'>About Us</a></li></ul> " 3 --path=/home/$DOMAIN/public_html
 wp widget add custom_html footer --content="
 <h4 style='color:white'>Company Info</h4><ul><li>Location: ${add}</li><li>Phone: ${PHONE} </li><li>Email: $EMAIL </li></ul>" 4 --path=/home/$DOMAIN/public_html
-wp widget add custom_html copyright --content="Copyright © 2013-2020 ${d^^} Inc. All Rights Reserved<br/>" 1 --path=/home/$DOMAIN/public_html
+wp widget add custom_html copyright --content="Copyright © 2012-2020 ${d^^} Inc. All Rights Reserved<br/>" 1 --path=/home/$DOMAIN/public_html
 wp widget add custom_html copyright --content="<img class='alignright size-full wp-image-183' src='https://themedemo.commercegurus.com/shoptimizer-demodata/wp-content/uploads/sites/53/2018/05/credit-cards.png' alt='' width='718' height='78' />" 2 --path=/home/$DOMAIN/public_html
 }
 else
