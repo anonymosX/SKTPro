@@ -29,7 +29,7 @@ elif [ ${YN} = 'Y' -o ${YN} = 'y' ]; then
 	rm -rf /etc/letsencrypt/archive/${d}
 
 	# DELETE DATABASE
-	source /etc/skt.d/data/${d}/${d}.mariadb
+	source /etc/skt.d/data/${d}/sql.txt
 	printf "drop database ${dbn}" | mysql
 	printf "DROP USER '${dbu}'@'localhost'" | mysql
 	printf "flush privileges" | mysql

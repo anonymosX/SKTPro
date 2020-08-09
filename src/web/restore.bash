@@ -58,7 +58,7 @@ elif [ ${YN} = 'Y' -o ${YN} = 'y' ]; then
 	yes | cp -rf etc/letsencrypt/options-ssl-nginx.conf /etc/letsencrypt/options-ssl-nginx.conf
 	yes | cp -rf etc/letsencrypt/ssl-dhparams.pem /etc/letsencrypt/ssl-dhparams.pem 
 # IMPORT DATABASES
-	source /etc/skt.d/data/${d}/${d}.mariadb
+	source /etc/skt.d/data/${d}/sql.txt
 	printf "create database ${dbn}" | mysql
 	printf "create user '${dbu}'@'localhost' identified by '${dbp}'" | mysql
 	printf "grant all on ${dbn}.* to ${dbu}@localhost" | mysql

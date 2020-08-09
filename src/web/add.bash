@@ -25,8 +25,8 @@ wp_usr="qqteam`openssl rand -base64 32 | tr -d /=+ | cut -c -10`"
 mkdir -p /etc/skt.d/data/${d} && cd /root
 e="`shuf -n 1 /etc/skt.d/tool/data/randmail`@${d}"
 source /root/.my.cnf
-printf "#${d^^}:\ndbn=${dbn}\ndbu=${dbu}\ndbp=${dbp}\nmdbp=${password}\n" | cat > /etc/skt.d/data/${d}/${d}.mariadb
-printf "#${d^^}:\nwp_usr=${wp_usr}\nwp_pass=${wp_pass}\ne=${e}" | cat > /etc/skt.d/data/${d}/${d}.login
+printf "#${d^^}:\ndbn=${dbn}\ndbu=${dbu}\ndbp=${dbp}\nmdbp=${password}\n" | cat > /etc/skt.d/data/${d}/sql.txt
+printf "#${d^^}:\nwp_usr=${wp_usr}\nwp_pass=${wp_pass}\ne=${e}" | cat > /etc/skt.d/data/${d}/login.txt
 # TAI WORDPRESS OPEN SOURCE
 mkdir -p /home/${d}/public_html && cd /home/${d}/public_html
 wget https://wordpress.org/latest.tar.gz
@@ -35,7 +35,7 @@ mv wordpress/* ./ && rm -rf wordpress latest.tar.gz
 chmod 777 /home/${d}/public_html
 chown -R nginx:nginx /home/${d}/public_html
 # CREATE DATABASE
-source /etc/skt.d/data/${d}/${d}.mariadb
+source /etc/skt.d/data/${d}/sql.txt
 printf "create database ${dbn}" | mysql
 printf "create user '${dbu}'@'localhost' identified by '${dbp}'" | mysql
 printf "grant all on ${dbn}.* to ${dbu}@localhost" | mysql
@@ -164,7 +164,7 @@ source /etc/skt.d/tool/ssl/install.bash
 #    Install WordPress
 #    Generate wp-config.php
 
-source /etc/skt.d/data/${d}/${d}.login
+source /etc/skt.d/data/${d}/login.txt
 wp config create --dbname=${dbn} --dbuser=${dbu} --dbpass=${dbp}  --extra-php --path=/home/${d}/public_html<<PHP
 define('WP_DEBUG', false);
 define('FS_METHOD','direct');
@@ -339,8 +339,8 @@ wp search-replace 'changebusinessnamehere' ${d^^} wp_posts --path=/home/${d}/pub
 wp search-replace 'changemailhere' $e wp_posts --path=/home/${d}/public_html
 chmod 777 -R /home/${d}/public_html/wp-content
 
-#source /etc/skt.d/data/${d}/${d}.mariadb
-#source /etc/skt.d/data/${d}/${d}.login
+#source /etc/skt.d/data/${d}/sql.txt
+#source /etc/skt.d/data/${d}/login.txt
 clear
 printf "${d^^}\nUsername: ${wp_usr}\nPassword: ${wp_pass}\nEmail: ${e}\n"
 #printf "${d^^}\nDatabase Name: ${dbn}\nUsername: ${dbu}\nUsername's Password: ${dbp}\nRoot Password: ${mdbp}\n"

@@ -18,11 +18,11 @@ if [ ${YN} = 0 ]; then
 	sh /etc/skt.d/tool/web/web.bash
 elif [ ${YN} = 'Y' -o ${YN} = 'n' ]; then
 {
-	source /etc/skt.d/data/${d}/${d}.mariadb
+	source /etc/skt.d/data/${d}/sql.txt
 	cd /root
 	# NGINX and SOURCE CODE
 	printf "1.PROCESS CODE AND CONFIG\n"
-		tar fczP $d.tar.gz /etc/letsencrypt/live/${d}/* /etc/letsencrypt/archive/${d}/* /etc/letsencrypt/renewal/${d}.conf /etc/letsencrypt/accounts/* /etc/letsencrypt/certbot-auto /etc/letsencrypt/csr/* /etc/letsencrypt/keys/* /etc/letsencrypt/options-ssl-nginx.conf /etc/letsencrypt/ssl-dhparams.pem /etc/letsencrypt/renewal-hooks/* /etc/nginx/conf.d/${d}.conf.80 /etc/nginx/conf.d/${d}.conf /home/$d/public_html /etc/skt.d/data/${d}/${d}.mariadb /etc/skt.d/data/${d}/${d}.login
+		tar fczP $d.tar.gz /etc/letsencrypt/live/${d}/* /etc/letsencrypt/archive/${d}/* /etc/letsencrypt/renewal/${d}.conf /etc/letsencrypt/accounts/* /etc/letsencrypt/certbot-auto /etc/letsencrypt/csr/* /etc/letsencrypt/keys/* /etc/letsencrypt/options-ssl-nginx.conf /etc/letsencrypt/ssl-dhparams.pem /etc/letsencrypt/renewal-hooks/* /etc/nginx/conf.d/${d}.conf.80 /etc/nginx/conf.d/${d}.conf /home/$d/public_html /etc/skt.d/data/${d}/* 
 	printf "STEP 1: DONE\n"
 	# MySQL
 	printf "2. PROCESS SQL\n"

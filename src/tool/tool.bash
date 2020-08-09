@@ -16,7 +16,7 @@ elif [ ${enter} = 1 ]; then
 {
 	yum install -y wget
 	mkdir -p /etc/skt.d/tool
-	cd /etc/skt.d/tool && mkdir -p web system ssl mariadb server
+	cd /etc/skt.d/tool && mkdir -p web system ssl mariadb server domain
 	curl -N $url/config.txt | cat > /etc/skt.d/tool/config.txt
 	while IFS= read -r line; do 
 		curl -N ${url}/$line.bash | cat > /etc/skt.d/tool/$line.bash
@@ -26,8 +26,8 @@ elif [ ${enter} = 1 ]; then
 	sh /root/install
 }
 elif [ ${enter} = 2 ]; then
-	curl -N $url/tool/config.txt | cat > /etc/skt.d/tool/config.txt
-	cd /etc/skt.d/tool && rm -f web/* system/* ssl/* mariadb/* server/*
+	curl -N $url/config.txt | cat > /etc/skt.d/tool/config.txt
+	cd /etc/skt.d/tool && rm -f web/* system/* ssl/* mariadb/* server/* domain/*
 	while IFS= read -r line; do 
 		curl -N ${url}/$line.bash | cat > /etc/skt.d/tool/$line.bash
 	done < "/etc/skt.d/tool/config.txt"

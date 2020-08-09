@@ -37,7 +37,7 @@ elif [ $answer = '1' ]; then
 if [ ${YN} = Y -o ${YN} = y ]; then 
 {
 	clear
-	source /etc/skt.d/data/${d}/${d}.mariadb
+	source /etc/skt.d/data/${d}/sql.txt
 	# WORKFLOW: 
 	# 1. export database -> A, create new database name B, import A -> B, remove database A
 	# 2. create new username, password. drop user old username, grant access new to database B.
@@ -65,14 +65,14 @@ if [ ${YN} = Y -o ${YN} = y ]; then
 	sed -i "s/${dbp}/${newdbp}/g" /home/${d}/public_html/wp-config.php
 
 	# save database info
-	sed -i "s/${dbn}/${newdbn}/g" /etc/skt.d/data/${d}/${d}.mariadb
-	sed -i "s/${dbu}/${newdbu}/g" /etc/skt.d/data/${d}/${d}.mariadb
-	sed -i "s/${dbp}/${newdbp}/g" /etc/skt.d/data/${d}/${d}.mariadb
+	sed -i "s/${dbn}/${newdbn}/g" /etc/skt.d/data/${d}/sql.txt
+	sed -i "s/${dbu}/${newdbu}/g" /etc/skt.d/data/${d}/sql.txt
+	sed -i "s/${dbp}/${newdbp}/g" /etc/skt.d/data/${d}/sql.txt
 	# remove trash
 	cd /root && rm -f $dbn.sql
 	printf "Success rename\n"
 	printf "Result:\n"
-	source /etc/skt.d/data/${d}/${d}.mariadb
+	source /etc/skt.d/data/${d}/sql.txt
 	printf "\n"
 	printf "${d^^}\nDatabase Name: ${dbn} \nUsername: ${dbu}\nUsername Password: ${dbp}\nRoot Password: ${mdbp}\n"
 	printf "End Result.\n"
@@ -109,7 +109,7 @@ elif [ $answer = '2' ]; then
 	printf "Enter: "
 	read d
 	printf "\n"
-	source /etc/skt.d/data/${d}/${d}.mariadb
+	source /etc/skt.d/data/${d}/sql.txt
 	printf " ----------------\n"
 	printf "Result:\n"
 	printf "${d^^}\nDatabase Name: ${dbn} \nUsername: ${dbu}\nUsername Password: ${dbp}\nRoot Password: ${mdbp}\n"

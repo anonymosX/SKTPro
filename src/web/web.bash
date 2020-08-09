@@ -82,7 +82,7 @@ elif  [ ${enter} = 7 ]; then
 	printf "Enter: "
 	read d
 	printf "\n"
-	source /etc/skt.d/data/${d}/${d}.login
+	source /etc/skt.d/data/${d}/login.txt
 	printf " ----------------\n"
 		printf "Result:\n"
 		printf "${d^^}\n Username: ${wp_usr}\n Password: ${wp_pass}\n Email: ${e}\n"
