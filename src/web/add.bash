@@ -1,44 +1,52 @@
 #!/bin/bash
+#FLOW: REGISTER DOMAIN -> CLOUDFLARE(PAUSE) -> CAI WOOCOMMERCE -> CLOUDFLARE(ENABLE)
+
+
+
 url=https://raw.githubusercontent.com/anonymosX/SKTPro/master
 printf "ENTER INFORMATIONS\n"
 printf "1. URL: "
 read DOMAIN
 printf "2. ADDRESS: "
-read add
+read ADDRESS
 printf "3. PHONE: "
-read phone
+read PHONE
 printf "4. THEMES:(1 OR 2)\n  1/KONTE\n  2/SHOPTIMIZED\n"
 printf "ENTER: "
-read vrs
-if [ ${vrs} = 0 ]; then
+read OPTION
+if [ $OPTION = 0 ]; then
 	clear
-	printf "You have cancel request\n"
+	printf "YOU HAVE CANCEL REQUEST\n"
 	sh /etc/skt.d/tool/web/web.bash
 else
 # THONG TIN MYSQL
-dbn="`openssl rand -base64 32 | tr -d /=+ | cut -c -25`"
-dbu="`openssl rand -base64 32 | tr -d /=+ | cut -c -25`"
-dbp="`openssl rand -base64 32 | tr -d /=+ | cut -c -25`"
-wp_pass="`openssl rand -base64 32 | tr -d /=+ | cut -c -25`"
-wp_usr="qqteam`openssl rand -base64 32 | tr -d /=+ | cut -c -10`"
+DB_NAME="`openssl rand -base64 32 | tr -d /=+ | cut -c -25`"
+DB_USER="`openssl rand -base64 32 | tr -d /=+ | cut -c -25`"
+DB_PASS="`openssl rand -base64 32 | tr -d /=+ | cut -c -25`"
+WP_PASS="`openssl rand -base64 32 | tr -d /=+ | cut -c -25`"
+WP_USER="qqteam`openssl rand -base64 32 | tr -d /=+ | cut -c -10`"
 
-mkdir -p /etc/skt.d/data/$DOMAIN && cd /root
-e="`shuf -n 1 /etc/skt.d/tool/data/randmail`@$DOMAIN"
+#TRUONG HOP DANG KI DOMAIN TU TAO FOLDER THI KO CAN TAO THEM FOLDER, TRANH BI LOI
+if [ ! -d /etc/skt.d/data/$DOMAIN ]; then
+	mkdir -p /etc/skt.d/data/$DOMAIN
+fi
+cd /root
+EMAIl="`shuf -n 1 /etc/skt.d/tool/data/randmail`@$DOMAIN"
 source /root/.my.cnf
-printf "#${DOMAIN^^}:\ndbn=${dbn}\ndbu=${dbu}\ndbp=${dbp}\nmdbp=${password}\n" | cat > /etc/skt.d/data/$DOMAIN/sql.txt
-printf "#${DOMAIN^^}:\nwp_usr=${wp_usr}\nwp_pass=${wp_pass}\ne=${e}" | cat > /etc/skt.d/data/$DOMAIN/login.txt
+printf "#${DOMAIN^^}:\ndbn=${DB_NAME}\ndbu=${DB_USER}\ndbp=${DB_PASS}\nmdbp=$password\n" | cat > /etc/skt.d/data/$DOMAIN/sql.txt
+printf "#${DOMAIN^^}:\nwp_usr=${WP_USER}\nwp_pass=${WP_PASS}\nEMAIL=$EMAIl" | cat > /etc/skt.d/data/$DOMAIN/login.txt
+
 # TAI WORDPRESS OPEN SOURCE
 mkdir -p /home/$DOMAIN/public_html && cd /home/$DOMAIN/public_html
-wget https://wordpress.org/latest.tar.gz
-tar -xzf latest.tar.gz
+wget https://wordpress.org/latest.tar.gz && tar -xzf latest.tar.gz
 mv wordpress/* ./ && rm -rf wordpress latest.tar.gz
-chmod 777 /home/$DOMAIN/public_html
-chown -R nginx:nginx /home/$DOMAIN/public_html
+chmod 777 /home/$DOMAIN/public_html ; chown -R nginx:nginx /home/$DOMAIN/public_html
+
 # CREATE DATABASE
 source /etc/skt.d/data/$DOMAIN/sql.txt
-printf "create database ${dbn}" | mysql
-printf "create user '${dbu}'@'localhost' identified by '${dbp}'" | mysql
-printf "grant all on ${dbn}.* to ${dbu}@localhost" | mysql
+printf "create database ${DB_NAME}" | mysql
+printf "create user '${DB_USER}'@'localhost' identified by '${DB_PASS}'" | mysql
+printf "grant all on ${DB_NAME}.* to ${DB_USER}@localhost" | mysql
 printf "flush privileges" | mysql
 printf "exit" | mysql
 
@@ -165,16 +173,16 @@ source /etc/skt.d/tool/ssl/install.bash
 #    Generate wp-config.php
 
 source /etc/skt.d/data/$DOMAIN/login.txt
-wp config create --dbname=${dbn} --dbuser=${dbu} --dbpass=${dbp}  --extra-php --path=/home/$DOMAIN/public_html<<PHP
+wp config create --dbname=${DB_NAME} --dbuser=${DB_USER} --dbpass=${DB_PASS}  --extra-php --path=/home/$DOMAIN/public_html<<PHP
 define('WP_DEBUG', false);
 define('FS_METHOD','direct');
 PHP
 
-printf "$d" | cat > /etc/skt.d/data/$DOMAIN/site_title
-site_title=`sed "s/.com/ /g" /etc/skt.d/data/$DOMAIN/site_title`
+printf "${DOMAIN^^}" | cat > /etc/skt.d/data/$DOMAIN/title
+TITLE=`sed "s/.COM/ /g" /etc/skt.d/data/$DOMAIN/title`
 #${d^^}&nbsp;|&nbsp;Online&nbsp;Store
 # INSTALL WORDPRESS
-wp core install --url=$DOMAIN  --title=${site_title^^} --admin_user=${wp_usr} --admin_password=${wp_pass} --admin_email=$e --path=/home/$DOMAIN/public_html
+wp core install --url=$DOMAIN  --title=$TITLE --admin_user=${WP_USER} --admin_password=${WP_PASS} --admin_email=$EMAIl --path=/home/$DOMAIN/public_html
 # REMOVE TRASH
 rm -f /etc/skt.d/data/$DOMAIN/site-title
 # FIX ERROR INSTALLATION FAILED: COULD NOT CREATE DIRECTORY.
@@ -185,7 +193,7 @@ chmod 777 /home/$DOMAIN/public_html/wp-config.php
 wp plugin delete hello --path=/home/$DOMAIN/public_html
 wp plugin delete akismet --path=/home/$DOMAIN/public_html
 
-if [ ${vrs} -eq 1 ];then
+if [ $OPTION = 1 ];then
 {
 # CAI DAT KONTE THEME
 wp plugin install woocommerce --path=/home/$DOMAIN/public_html --activate
@@ -200,7 +208,7 @@ wp plugin install https://uix.store/plugins/konte-addons.zip --path=/home/$DOMAI
 wp plugin install https://uix.store/plugins/revslider.zip --path=/home/$DOMAIN/public_html --activate
 wp plugin install https://uix.store/plugins/soo-wishlist.zip --path=/home/$DOMAIN/public_html --activate
 }
-elif [ ${vrs} -eq 2 ];then
+elif [ $OPTION = 2 ];then
 {
 # Khu vuc theme Shoptimized
 
@@ -239,12 +247,12 @@ wp widget add custom_html footer --content="<h4 style='color:white'>About Compan
 wp widget add custom_html footer --content="<h4 style='color:white'>Tools &amp; apps</h4><ul><li><a href='/my-account/'>My Account</a></li><li><a href='/payment'>Payment</a></li><li><a href='/track-order'>Track Orders</a></li><li><a href='/checkout/'>Checkout</a></li> <li><a href='/cart/'>Cart</a></li> </ul>" 2 --path=/home/$DOMAIN/public_html
 wp widget add custom_html footer --content="<h4 style='color:white'>Help & Contact</h4><ul><li><a href='/refund-policy'>Returns and Refund</a></li><li><a href='/privacy-policy'>Privacy Policy</a></li><li><a href='/term-of-service'>Terms &amp; Conditions</a></li><li><a href='/contact-us'>Contact Us</a></li><li><a href='/about-us'>About Us</a></li></ul> " 3 --path=/home/$DOMAIN/public_html
 wp widget add custom_html footer --content="
-<h4 style='color:white'>Company Info</h4><ul><li>Location: ${add}</li><li>Phone: ${phone} </li><li>Email: ${e} </li></ul>" 4 --path=/home/$DOMAIN/public_html
+<h4 style='color:white'>Company Info</h4><ul><li>Location: ${add}</li><li>Phone: ${PHONE} </li><li>Email: $EMAIL </li></ul>" 4 --path=/home/$DOMAIN/public_html
 wp widget add custom_html copyright --content="Copyright © 2013-2020 ${d^^} Inc. All Rights Reserved<br/>" 1 --path=/home/$DOMAIN/public_html
 wp widget add custom_html copyright --content="<img class='alignright size-full wp-image-183' src='https://themedemo.commercegurus.com/shoptimizer-demodata/wp-content/uploads/sites/53/2018/05/credit-cards.png' alt='' width='718' height='78' />" 2 --path=/home/$DOMAIN/public_html
 }
 else
-	printf "Unknow themes\n"
+	printf "Unknown themes\n"
 fi
 
 # WATCH LIST SIDEBAR ACTIVE
@@ -292,11 +300,11 @@ wp menu item add-custom main-menu 'ABOUT' --position=9 /about-us --path=/home/$D
 
 # TAO FOOOTER MENU
 wp menu create "Footer Menu" --path=/home/$DOMAIN/public_html
-wp menu item add-custom footer-menu 'Term of Service' /term-of-service --path=/home/$DOMAIN/public_html
-wp menu item add-custom footer-menu 'Return Policy' /refund-policy --path=/home/$DOMAIN/public_html
-wp menu item add-custom footer-menu 'Privacy Policy' /privacy-policy --path=/home/$DOMAIN/public_html
-wp menu item add-custom footer-menu 'Contact Us' /contact-us --path=/home/$DOMAIN/public_html
-wp menu item add-custom footer-menu 'About Us' /about-us --path=/home/$DOMAIN/public_html
+wp menu item add-custom footer-menu 'TERM OF SERVICE' /term-of-service --path=/home/$DOMAIN/public_html
+wp menu item add-custom footer-menu 'RETURN POLICY' /refund-policy --path=/home/$DOMAIN/public_html
+wp menu item add-custom footer-menu 'PRIVACY POLICY' /privacy-policy --path=/home/$DOMAIN/public_html
+wp menu item add-custom footer-menu 'CONTACT US' /contact-us --path=/home/$DOMAIN/public_html
+wp menu item add-custom footer-menu 'ABOUT US' /about-us --path=/home/$DOMAIN/public_html
 
 # XOA HELLO POST
 wp post delete 1 --force --path=/home/$DOMAIN/public_html
@@ -334,13 +342,12 @@ wget $url/img/paypal2.png && mv paypal2.png /home/$DOMAIN/public_html/img
 curl -N $url/page/payment.html | wp post generate --post_type=page --post_content --post_title="Payment" --count=1 --path=/home/$DOMAIN/public_html
 
 wp search-replace 'changedomainhere' ${DOMAIN^^} wp_posts --path=/home/$DOMAIN/public_html
-wp search-replace 'changeaddresshere' ${add} wp_posts --path=/home/$DOMAIN/public_html
+wp search-replace 'changeaddresshere' $ADDRESS wp_posts --path=/home/$DOMAIN/public_html
 wp search-replace 'changebusinessnamehere' ${DOMAIN^^} wp_posts --path=/home/$DOMAIN/public_html
-wp search-replace 'changemailhere' $e wp_posts --path=/home/$DOMAIN/public_html
+wp search-replace 'changemailhere' $EMAIl wp_posts --path=/home/$DOMAIN/public_html
 chmod 777 -R /home/$DOMAIN/public_html/wp-content
 
-
-source /etc/skt.d/data/$DOMAIN/api_cf.txt
+# ENABLE ZONE - CLOUDFLARE
 curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
      -H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
      -H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
@@ -349,17 +356,9 @@ curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.
 
 
 
-
-
-
-
-
-
-
 #source /etc/skt.d/data/$DOMAIN/sql.txt
 #source /etc/skt.d/data/$DOMAIN/login.txt
 clear
-printf "${DOMAIN^^}\nUsername: ${wp_usr}\nPassword: ${wp_pass}\nEmail: ${e}\n"
-#printf "${DOMAIN^^}\nDatabase Name: ${dbn}\nUsername: ${dbu}\nUsername's Password: ${dbp}\nRoot Password: ${mdbp}\n"
+printf "${DOMAIN^^}\USERNAME: ${WP_USER}\PASSWORD: ${WP_PASS}\EMAIL: $EMAIL\n"
 systemctl restart nginx php-fpm mariadb
 fi
