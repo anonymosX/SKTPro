@@ -3,23 +3,22 @@
 printf "LIST DOMAINS: \n"
 for D in /home/* ; do
 	if [ -d ${D} ]; then
-	d=${D##*/}
-	printf " * ${d}\n" 
+		printf " * ${D##*/}\n" 
 	fi
 done
 printf "..."
 printf "\nENTER: "
-read d
-printf "IS ${d^^} CORRECT DOMAIN? - Y/N\n"
-read YN
+read DOMAIN
+printf "IS ${DOMAIN^^} CORRECT DOMAIN? - Y/N: "
+read CONFIRM
 clear
-if [ ${YN} = 0 ]; then
+if [ $CONFIRM = 0 ]; then
 	sh /root/install
-elif [ ${YN} = 'Y' -o ${YN} = 'y' ]; then
+elif [ $CONFIRM = 'Y' -o $CONFIRM = 'y' ]; then
 	printf "YOU HAVE CHOOSE YES\n"
 # USE CERTBOT TO RENEW DOMAIN EXPIRE
-certbot renew --cert-name ${d}
-elif [ ${YN} = 'N' -o ${YN} = 'n' ]; then
+certbot renew --cert-name $DOMAIN
+elif [ $CONFIRM = 'N' -o $CONFIRM = 'n' ]; then
 	printf "YOU HAVE CHOOSE NO\n"
 	sh /etc/skt.d/tool/ssl/ssl.bash
 else

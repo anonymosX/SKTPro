@@ -1,18 +1,18 @@
 #!/bin/bash
 printf "       -----------------------------\n"
-printf "        SSL MANAGE | `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` domains\n"
+printf "        SSL MANAGE | `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` DOMAINS\n"
 printf "       -----------------------------\n"
 printf "OPTIONS: \n"
 printf "1. RENEW\n"
 printf "2. CHECK\n"
 printf "ENTER: "
-read enter
+read OPTION
 clear
-if [ ${enter} = 0 ]; then
+if [ $OPTION = 0 ]; then
 	sh /root/install
-elif [ ${enter} = 1 ]; then
+elif [ $OPTION = 1 ]; then
 	sh /etc/skt.d/tool/ssl/renew.bash
-elif [ ${enter} = 2 ]; then
+elif [ $OPTION = 2 ]; then
 	sh /etc/skt.d/tool/ssl/status.bash
 else
 	sh /etc/skt.d/tool/ssl/ssl.bash
