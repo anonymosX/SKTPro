@@ -33,6 +33,7 @@ elif [ ${enter} = 2 ]; then
 	done < "/etc/skt.d/tool/config.txt"
 	clear
 	printf "NINJA TOOl: UPDATED\n"
+	sh /etc/skt.d/tool/tool.bash
 else 
 	clear
 	printf "NINJA TOOL: INVALID SELECT\n"
