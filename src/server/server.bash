@@ -2,19 +2,21 @@
 printf "       ----------------\n"
 printf "         MOVE SERVER \n"
 printf "       ----------------\n"
-printf "Options: \n"
-printf "1. Backup Server\n"
-printf "2. Restore Server\n"
-read select 
-if [ $select = 0 ]; then
+printf "OPTIONS: \n"
+printf "1. BACKUP SERVER\n"
+printf "2. RESTORE SERVER\n"
+read OPTION 
+if [ $OPTION = 0 ]; then
 	clear
 	sh /root/install
-elif [ $select = 1 ]; then
+elif [ $OPTION = 1 ]; then
 	clear
 	sh /etc/skt.d/tool/server/move.bash
-elif [ $select = 2 ]; then
+elif [ $OPTION = 2 ]; then
 	clear
+	#RESTORE
 	sh /etc/skt.d/tool/server/restore.bash
+
 else
 	clear
 	sh /root/install

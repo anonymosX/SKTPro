@@ -17,4 +17,5 @@ mariadb/mariadb
 tool
 domain/manDomain
 domain/regDomain
-domain/updateDNS
+domain/renewDomain
+domain/statusDomain

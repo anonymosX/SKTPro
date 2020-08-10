@@ -4,11 +4,11 @@ printf " BACKUP SERVER | IP:`hostname -I | awk '{print $1}'`\n"
 printf " ---------------------------------------\n"
 printf "\n"
 printf "DO YOU WANT TO BACKUP ENTIRE SERVER? - (Y/N): "
-read confirm
-if [ $confirm = 0 ];then
+read CONFIRM
+if [ $CONFIRM = 0 ];then
 	clear
 	sh /etc/skt.d/tool/server/server.bash
-elif [ $confirm = 'Y' -o $confirm = 'y' ]; then
+elif [ $CONFIRM = 'Y' -o $CONFIRM = 'y' ]; then
 {
 	clear
 	# BackUp BLOCK
@@ -19,8 +19,8 @@ elif [ $confirm = 'Y' -o $confirm = 'y' ]; then
 	# BackUp MYSQL
 	for D in /home/*; do
 		if [ -d ${D} ]; then
-			d=${D##*/}
-			source /etc/skt.d/data/${d}/sql.txt
+			DOMAIN=${D##*/}
+			source /etc/skt.d/data/$DOMAIN/sql.txt
 			mysqldump -u root -p$mdbp $dbn > $d-$dbn.sql
 		fi
 	done
@@ -30,10 +30,10 @@ elif [ $confirm = 'Y' -o $confirm = 'y' ]; then
 	rm -f *.sql home.tar.gz mysql.tar.gz
 
 }
-elif [ $confirm = 'N' -o $confirm = 'n' ]; then
+elif [ $CONFIRM = 'N' -o $CONFIRM = 'n' ]; then
 {
 	clear
-	printf "CANCEL BACKUP\n"
+	printf "BACKUP HAS BEEN CANCELED\n"
 	sh /etc/skt.d/tool/server/server.bash
 }
 else 

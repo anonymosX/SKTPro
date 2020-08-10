@@ -1,21 +1,21 @@
 #!/bin/bash
 printf "       -----------------------------\n"
-printf "        DATBASE MANAGE | `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` domains\n"
+printf "        DATBASE MANAGE | `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` DOMAINS\n"
 printf "       -----------------------------\n"
 printf "\n"
-printf "Option:\n"
-printf "1. Rename\n"
-printf "2. View\n"
-printf "Enter: "
-read answer
+printf "OPTION:\n"
+printf "1. RENAME\n"
+printf "2. VIEW\n"
+printf "ENTER: "
+read OPTION
 # RETURN HOME
-if [ $answer = '0' ]; then
+if [ $OPTION = '0' ]; then
 {
 	clear
 	sh /root/install
 }
 # RENAME DB
-elif [ $answer = '1' ]; then
+elif [ $OPTION = '1' ]; then
 {
 	clear
 	printf " --------------------\n"
@@ -26,18 +26,18 @@ elif [ $answer = '1' ]; then
 	printf "LIST DOMAINS: \n"
 	for D in /home/* ; do
 	if [ -d $D ]; then
-		d=${D##*/}
-		printf " * $d\n"
+		DOMAIN=${D##*/}
+		printf " * $DOMAIN\n"
 	fi
 	done
 	printf "ENTER: "
-	read d
+	read DOMAIN
 	printf "RENAME OLD ${d^^}'s DATABASE? (Y/N): "
-	read YN
-if [ ${YN} = Y -o ${YN} = y ]; then 
+	read CONFIRM
+if [ $CONFIRM = Y -o $CONFIRM = y ]; then 
 {
 	clear
-	source /etc/skt.d/data/${d}/sql.txt
+	source /etc/skt.d/data/$DOMAIN/sql.txt
 	# WORKFLOW: 
 	# 1. export database -> A, create new database name B, import A -> B, remove database A
 	# 2. create new username, password. drop user old username, grant access new to database B.
@@ -60,24 +60,24 @@ if [ ${YN} = Y -o ${YN} = y ]; then
 	mysql -u root -p$mdbp -e "drop user '$dbu'@'localhost'"
 	# re-config wordpress
 
-	sed -i "s/${dbn}/${newdbn}/g" /home/${d}/public_html/wp-config.php
-	sed -i "s/${dbu}/${newdbu}/g" /home/${d}/public_html/wp-config.php
-	sed -i "s/${dbp}/${newdbp}/g" /home/${d}/public_html/wp-config.php
+	sed -i "s/${dbn}/${newdbn}/g" /home/$DOMAIN/public_html/wp-config.php
+	sed -i "s/${dbu}/${newdbu}/g" /home/$DOMAIN/public_html/wp-config.php
+	sed -i "s/${dbp}/${newdbp}/g" /home/$DOMAIN/public_html/wp-config.php
 
 	# save database info
-	sed -i "s/${dbn}/${newdbn}/g" /etc/skt.d/data/${d}/sql.txt
-	sed -i "s/${dbu}/${newdbu}/g" /etc/skt.d/data/${d}/sql.txt
-	sed -i "s/${dbp}/${newdbp}/g" /etc/skt.d/data/${d}/sql.txt
+	sed -i "s/${dbn}/${newdbn}/g" /etc/skt.d/data/$DOMAIN/sql.txt
+	sed -i "s/${dbu}/${newdbu}/g" /etc/skt.d/data/$DOMAIN/sql.txt
+	sed -i "s/${dbp}/${newdbp}/g" /etc/skt.d/data/$DOMAIN/sql.txt
 	# remove trash
 	cd /root && rm -f $dbn.sql
 	printf "Success rename\n"
 	printf "Result:\n"
-	source /etc/skt.d/data/${d}/sql.txt
+	source /etc/skt.d/data/$DOMAIN/sql.txt
 	printf "\n"
 	printf "${d^^}\nDatabase Name: ${dbn} \nUsername: ${dbu}\nUsername Password: ${dbp}\nRoot Password: ${mdbp}\n"
 	printf "End Result.\n"
 }
-elif [ ${YN} = N -o ${YN} = n ]; then
+elif [ $CONFIRM = N -o $CONFIRM = n ]; then
 {
 	clear
 	printf "CANCEL RENAME\n"
@@ -93,23 +93,23 @@ fi
 }
 
 # VIEW DB
-elif [ $answer = '2' ]; then
+elif [ $OPTION = '2' ]; then
 {
 	clear
 	printf " 				--------------------\n"
 	printf "				VIEW DATABASE NAME\n"
 	printf " 				--------------------\n"
-	printf "List domains:\n"
+	printf "LIST DOMAINS:\n"
 	for D in /home/* ; do
-	if [ -d ${D} ];then
+	if [ -d $DOMAIN ];then
 	d=${D##*/}
-	printf "* ${d}\n"
+	printf "* $DOMAIN\n"
 	fi
 	done
 	printf "Enter: "
 	read d
 	printf "\n"
-	source /etc/skt.d/data/${d}/sql.txt
+	source /etc/skt.d/data/$DOMAIN/sql.txt
 	printf " ----------------\n"
 	printf "Result:\n"
 	printf "${d^^}\nDatabase Name: ${dbn} \nUsername: ${dbu}\nUsername Password: ${dbp}\nRoot Password: ${mdbp}\n"

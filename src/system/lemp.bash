@@ -1,13 +1,15 @@
 #!/bin/bash
 printf "ARE YOU SURE TO INSTALL LEMP? - Y/N: "
-read YN
-if [ ${YN} = 0 ]; then
+read CONFIRM
+if [ $CONFIRM = 0 ]; then
+	clear
 	sh /root/install
-elif [ ${YN} = 'Y' -o ${YN} = 'y' ]; then
+elif [ $CONFIRM = 'Y' -o $CONFIRM = 'y' ]; then
 {
+clear
 printf "YOU HAVE CHOOSE YES\n"
 yum update -y
-yum install -y wget
+yum install -y wget python jq
 # MARIADB 10.3 REPO
 cat > /etc/yum.repos.d/mariadb.repo<<"EOF"
 [mariadb]
@@ -42,7 +44,7 @@ firewall-cmd --reload
 
 # NGINX and PHP 7.4 INSTALL
 yum --enablerepo=remi,remi-php74 install -y php-common php-mbstring php-fpm php-mysql php-xml php-pecl-memcache php-pecl-memcached php-mcrypt php-cli php-opcache php-pecl-apc php-gd php-mysqlnd
-systemctl start nginx ; systemctl enable nginx ;  systemctl start php-fpm ; systemctl enable php-fpm
+systemctl start nginx php-fpm ; systemctl enable nginx php-fpm
 
 # REFRESH HOME
 rm -rf /home/*
@@ -60,7 +62,7 @@ sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 20M/g' /etc/php.ini
 
 setenforce 0
 sed -i 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
-systemctl restart nginx ; systemctl restart php-fpm
+systemctl restart nginx php-fpm
 
 # MARIADB-MYSQL INSTALL
 yum install -y mariadb-server mariadb-client
@@ -68,7 +70,7 @@ systemctl start mariadb ; systemctl enable mariadb
 
 # Mail 
 mkdir -p /etc/skt.d/tool/data
-curl -N https://raw.githubusercontent.com/anonymosX/SKTPro/master/src/data/randmail.txt | cat >> /etc/skt.d/tool/data/randmail
+curl -N https://raw.githubusercontent.com/anonymosX/SKTPro/master/src/data/randmail.txt | cat > /etc/skt.d/tool/data/randmail
 
 # PHP CONFIG EXTENSION
 mkdir -p /etc/nginx/conf
@@ -138,7 +140,6 @@ cat > pagespeed.conf<<"EOF"
 # enable ngx_pagespeed
 pagespeed on;
 pagespeed FileCachePath /var/ngx_pagespeed_cache;
-
 # let's speed up PageSpeed by storing it in the super duper fast memcached
 pagespeed MemcachedThreads 1;
 pagespeed MemcachedServers "localhost:11211";
@@ -178,28 +179,23 @@ server {
     server_name  localhost;
     #charset koi8-r;
     #access_log  /var/log/nginx/host.access.log  main;
-
     location / {
         root   /usr/share/nginx/html;
         index index.php index.html index.htm;
         try_files $uri $uri/ /index.php?q=$uri&$args;
     }
-
     #error_page  404              /404.html;
-
     # redirect server error pages to the static page /50x.html
     #
     error_page   500 502 503 504  /50x.html;
     location = /50x.html {
         root   /usr/share/nginx/html;
     }
-
     # proxy the PHP scripts to Apache listening on 127.0.0.1:80
     #
     #location ~ \.php$ {
     #    proxy_pass   http://127.0.0.1;
     #}
-
     # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
     #
    location ~ \.php$ {
@@ -215,7 +211,6 @@ server {
     #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
     #    include        fastcgi_params;
     #}
-
     # deny access to .htaccess files, if Apache's document root
     # concurs with nginx's one
     #
@@ -229,13 +224,10 @@ EOF
 printf "Installing Memcached\n"
 yum --enablerepo=remi install memcached -y
 sed -i 's/CACHESIZE="64"/CACHESIZE="1024"/g' /etc/sysconfig/memcached
-systemctl start memcached
-systemctl enable memcached
-systemctl restart memcached
+systemctl start memcached && systemctl enable memcached
 sed -i "s/session.save_handler = files/session.save_handler = memcached/g" /etc/php.ini
-systemctl restart nginx
-systemctl restart php-fpm
-systemctl restart mariadb
+systemctl restart nginx php-fpm mariadb memcached
+
 
 
 # MYSQL PASSWORD CONFIRM
@@ -245,8 +237,8 @@ user=root
 password=SKTpWI5IexxF4oPenOYlOhJ
 EOF
 
-password=SKTpWI5IexxF4oPenOYlOhJ
-printf "\nY\n${password}\n${password}\nY\nY\nY\nY\n" | mysql_secure_installation 
+MYDB_PASS=SKTpWI5IexxF4oPenOYlOhJ
+printf "\nY\n${MYDB_PASS}\n${MYDB_PASS}\nY\nY\nY\nY\n" | mysql_secure_installation 
 clear
 # W-CLI INSTALL
 curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
@@ -264,22 +256,21 @@ chmod +x /etc/skt.d/tool/mariadb/automysql
 (crontab -u root -l ; echo "*/5 * * * * /etc/skt.d/tool/mariadb/automysql") | crontab -u root -
 
 # INSTALL MOD_PAGESPEED
-systemctl stop mariadb
-systemctl stop php-fpm
+systemctl stop mariadb php-fpm
 source /etc/skt.d/tool/system/mod_pagespeed.bash
 
 # CERTBOT INSTALL
-yum install -y certbot-nginx
-yum install -y bind-utils
+yum install -y certbot-nginx bind-utils
 mkdir -p /etc/letsencrypt/renewal/
-systemctl restart nginx
-systemctl restart mariadb
-systemctl restart php-fpm
+systemctl restart nginx mariadb php-fpm
+
 }
-elif [ ${YN} = 'N' -o ${YN} = 'n' ]; then
+elif [ $CONFIRM = 'N' -o $CONFIRM = 'n' ]; then
+	clear
 	printf "YOU HAVE CHOOSE NO\n"
 	sh /etc/skt.d/tool/system/system.bash
 else
+	clear
 	printf "CODE: INVALID ENTER\n"
 	sh /etc/skt.d/tool/system/system.bash
 fi

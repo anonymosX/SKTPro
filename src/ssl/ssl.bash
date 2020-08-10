@@ -7,14 +7,19 @@ printf "1. RENEW\n"
 printf "2. CHECK\n"
 printf "ENTER: "
 read OPTION
-clear
+
+
 if [ $OPTION = 0 ]; then
+	clear
 	sh /root/install
 elif [ $OPTION = 1 ]; then
+	clear
 	sh /etc/skt.d/tool/ssl/renew.bash
 elif [ $OPTION = 2 ]; then
+	clear
 	sh /etc/skt.d/tool/ssl/status.bash
 else
+	clear
 	sh /etc/skt.d/tool/ssl/ssl.bash
 fi
 
