@@ -1,45 +1,56 @@
 #!/bin/bash
 clear
-url=https://raw.githubusercontent.com/anonymosX/SKTPro/master/src
+url=/etc/skt.d/tool
 printf "========================================================================\n"
 printf " NINJA TOOL | TODAY: `date +%d-%m` |  DOMAINS: `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` | IP: `hostname -I | awk '{print $1}'`\n"
 printf "========================================================================\n"
-printf "1. WEBSITE                5. SYSTEM       \n"
-printf "2. DATABASE               6. SERVER       \n"
-printf "3. SSL                       \n"
-printf "4. TOOL                           \n"
+printf "1. WOOCOMMERCE                5. SSL    \n"
+printf "2. DOMAIN                     6. TOOL       \n"
+printf "3. CLOUDFLARE                 7. SERVER    \n"
+printf "4. DATABASE                   8. SYSTEM     \n"
 printf "Enter: "
-read enter
-clear
-	if [ ! -f /etc/skt.d/tool/tool.bash ];then 
+read OPTION
+
+
+
+if [ ! -f $url/tool.bash ];then 
 	{
-		mkdir -p /etc/skt.d/tool
-		curl -N ${url}/tool/tool.bash | cat >> /etc/skt.d/tool/tool.bash
+		mkdir -p $url
+		curl -N https://raw.githubusercontent.com/anonymosX/SKTPro/master/src/tool.bash | cat > $url/tool.bash
 	}
-	fi
+fi
 # Check folder source status
 if [ ! -d /etc/skt.d ]; then
-	mkdir -p /etc/skt.d/tool/web /etc/skt.d/tool/ssl /etc/skt.d/tool/mariadb /etc/skt.d/tool/system
+	mkdir -p $url/web $url/ssl $url/mariadb $url/system
 fi
-if [ ${enter} = 0 ]; then
+if [ $OPTION = 0 ]; then
+	clear
 	sh /root/install
-elif [ ${enter} = 1 ]; then
-	sh /etc/skt.d/tool/web/web.bash
-elif [ ${enter} = 2 ]; then	
-	sh /etc/skt.d/tool/mariadb/mariadb.bash 
-elif [ ${enter} = 3 ]; then
-	sh /etc/skt.d/tool/ssl/ssl.bash
-elif [ ${enter} = 4 ]; then
-	if [ ! -f /etc/skt.d/tool/tool.bash ];then
-	curl -N ${domain}/src/tool/tool.bash | cat >> /etc/skt.d/tool/tool.bash
-	chmod +x /etc/skt.d/tool/tool.bash
-	fi
-    sh /etc/skt.d/tool/tool.bash
-elif [ ${enter} = 5 ]; then
-	sh /etc/skt.d/tool/system/system.bash
-elif [ ${enter} = 6 ]; then
-	sh /etc/skt.d/tool/server/server.bash
+elif [ $OPTION = 1 ]; then
+	clear
+	sh $url/web/web.bash
+elif [ $OPTION = 2 ]; then	
+	clear
+	sh $url/domain/manDomain.bash 
+elif [ $OPTION = 3 ]; then
+	clear
+	sh $url/cloudflare/manCloudflare.bash 
+elif [ $OPTION = 4 ]; then
+    sh $url/mariadb/mariadb.bash
+elif [ $OPTION = 5 ]; then
+	clear
+	sh $url/ssl/ssl.bash
+elif [ $OPTION = 6 ]; then
+	clear
+	sh $url/tool.bash
+elif [ $OPTION = 7 ]; then	
+	clear
+	sh $url/server/server.bash
+elif [ $OPTION = 8 ]; then	
+	clear
+	sh $url/system/system.bash
 else
-	printf "CODE: INVALID ENTER\n"
+	clear
+	printf "NINJA TOOL: INVALID ENTER\n"
 	sh /root/install
 fi
