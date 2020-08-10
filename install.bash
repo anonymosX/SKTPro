@@ -11,43 +11,42 @@ printf "Enter: "
 read OPTION
 
 
-PATH=/etc/skt.d/tool
-if [ ! -f $PATH/tool.bash ];then 
-		mkdir -p $PATH
+if [ ! -f /etc/skt.d/tool/tool.bash ];then 
+		mkdir -p /etc/skt.d/tool
 	{
-		curl -N https://raw.githubusercontent.com/anonymosX/SKTPro/master/src/tool.bash | cat > $PATH/tool.bash
+		curl -N https://raw.githubusercontent.com/anonymosX/SKTPro/master/src/tool.bash | cat > /etc/skt.d/tool/tool.bash
 	}
 fi
 # Check folder source status
 if [ ! -d /etc/skt.d ]; then
-	mkdir -p $PATH/web $PATH/ssl $PATH/mariadb $PATH/system
+	mkdir -p /etc/skt.d/tool/web /etc/skt.d/tool/ssl /etc/skt.d/tool/mariadb /etc/skt.d/tool/system
 fi
 if [ $OPTION = 0 ]; then
 	clear
 	sh /root/install
 elif [ $OPTION = 1 ]; then
 	clear
-	sh $PATH/web/web.bash
+	sh /etc/skt.d/tool/web/web.bash
 elif [ $OPTION = 2 ]; then	
 	clear
-	sh $PATH/domain/manDomain.bash 
+	sh /etc/skt.d/tool/domain/manDomain.bash 
 elif [ $OPTION = 3 ]; then
 	clear
-	sh $PATH/cloudflare/manCloudflare.bash 
+	sh /etc/skt.d/tool/cloudflare/manCloudflare.bash 
 elif [ $OPTION = 4 ]; then
-    sh $PATH/mariadb/mariadb.bash
+    sh /etc/skt.d/tool/mariadb/mariadb.bash
 elif [ $OPTION = 5 ]; then
 	clear
-	sh $PATH/ssl/ssl.bash
+	sh /etc/skt.d/tool/ssl/ssl.bash
 elif [ $OPTION = 6 ]; then
 	clear
-	sh $PATH/tool.bash
+	sh /etc/skt.d/tool/tool.bash
 elif [ $OPTION = 7 ]; then	
 	clear
-	sh $PATH/server/server.bash
+	sh /etc/skt.d/tool/server/server.bash
 elif [ $OPTION = 8 ]; then	
 	clear
-	sh $PATH/system/system.bash
+	sh /etc/skt.d/tool/system/system.bash
 else
 	clear
 	printf "NINJA TOOL: INVALID ENTER\n"

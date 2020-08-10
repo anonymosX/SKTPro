@@ -1,5 +1,4 @@
 #!/bin/bash
-PATH=/etc/skt.d/tool/domain
 printf " ----------------------\n"
 printf "      DOMAIN MANAGE\n"
 printf " ----------------------\n"
@@ -16,14 +15,14 @@ if [ $OPTION = 0 ]; then
 	sh /root/install
 elif [ $OPTION = 1 ]; then
 	clear
-	sh $PATH/regDomain.bash
+	sh /etc/skt.d/tool/domain/regDomain.bash
 elif [ $OPTION = 2 ]; then
 	clear
-	sh $PATH/renewDomain.bash
+	sh /etc/skt.d/tool/domain/renewDomain.bash
 elif [ $OPTION = 3 ]; then
 	clear
-	sh $PATH/statusDomain.bash
+	sh /etc/skt.d/tool/domain/statusDomain.bash
 else
 	clear
-	sh $PATH/manDomain.bash
+	sh /etc/skt.d/tool/domain/manDomain.bash
 fi

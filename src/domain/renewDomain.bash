@@ -1,5 +1,4 @@
 #!/bin/bash
-PATH=/etc/skt.d/tool/domain
 printf " =========================\n"
 printf " NINJA TOOL | RENEW DOMAIN\n"
 printf " =========================\n"
@@ -36,9 +35,9 @@ elif [ $CONFIRM = 'Y' -o $CONFIRM = 'y' ]; then
 elif [ $CONFIRM = 'N' -o $CONFIRM = 'n' ]; then
 	clear
 	printf "THE REQUEST WAS CANCELED\n"
-	sh $PATH/renewDomain.bash
+	sh /etc/skt.d/tool/renewDomain.bash
 else 
 	clear
 	printf "CONFIRM ERROR\n"
-	sh $PATH/manDomain.bash
+	sh /etc/skt.d/tool/manDomain.bash
 fi
