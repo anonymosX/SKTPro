@@ -1,6 +1,5 @@
 #!/bin/bash
 clear
-PATH=/etc/skt.d/tool
 printf "========================================================================\n"
 printf " NINJA TOOL | TODAY: `date +%d-%m` |  DOMAINS: `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` | IP: `hostname -I | awk '{print $1}'`\n"
 printf "========================================================================\n"
@@ -12,7 +11,7 @@ printf "Enter: "
 read OPTION
 
 
-
+PATH=/etc/skt.d/tool
 if [ ! -f $PATH/tool.bash ];then 
 		mkdir -p $PATH
 	{
