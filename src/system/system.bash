@@ -18,7 +18,7 @@ elif [ $OPTION = 1 ]; then
 elif [ $OPTION = 2 ]; then
 	clear
 	echo flush_all > /dev/tcp/127.0.0.1/11211
-	printf "CLEAR SUCCESFUL\n"
+	printf "NINJA TOOL: CLEAR SUCCESFUL\n"
 	sh /etc/skt.d/tool/system/system.bash
 elif [ $OPTION = 3 ]; then
 	clear

@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # WORKFLOW: REGISTER DOMAIN -> CREATE ZONE IN CLOUDFLARE -> UPDATE NAMESERVER -> CREATE DNS A and MX RECORD -> PAUSE CLOUDFLARE 
-#CẦN THUỘC TÍNH CHO CÔNG VIỆC VỀ SAU: CHANGE IP - UPDATE DNS
-#DNS ID: /ect/skt.d/data/$DOMAIN/dns_id_cloudflare.txt
+
+
 #ZONE ID: /ect/skt.d/data/$DOMAIN/api_cf.txt
 
 #LOAD BALANCE:
