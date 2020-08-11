@@ -172,7 +172,6 @@ source /etc/skt.d/tool/ssl/install.bash
 #    Install WordPress
 #    Generate wp-config.php
 
-source /etc/skt.d/data/$DOMAIN/login.txt
 wp config create --dbname=${DB_NAME} --dbuser=${DB_USER} --dbpass=${DB_PASS}  --extra-php --path=/home/$DOMAIN/public_html<<PHP
 define('WP_DEBUG', false);
 define('FS_METHOD','direct');
@@ -184,7 +183,7 @@ TITLE=`sed "s/.COM/ /g" /etc/skt.d/data/$DOMAIN/title`
 # INSTALL WORDPRESS
 wp core install --url=$DOMAIN  --title=$TITLE --admin_user=${WP_USER} --admin_password=${WP_PASS} --admin_email=$EMAIl --path=/home/$DOMAIN/public_html
 # REMOVE TRASH
-rm -f /etc/skt.d/data/$DOMAIN/site-title
+rm -f /etc/skt.d/data/$DOMAIN/title
 # FIX ERROR INSTALLATION FAILED: COULD NOT CREATE DIRECTORY.
 #chmod 777 -R /home/$DOMAIN/public_html/wp-content
 chmod 777 /home/$DOMAIN/public_html/wp-config.php

@@ -24,3 +24,5 @@ domain/manDomain
 domain/regDomain
 domain/renewDomain
 domain/statusDomain
+
+data/mail
