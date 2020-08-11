@@ -69,6 +69,15 @@ elif [ $CONFIRM = 'Y' -o $CONFIRM = 'y' ]; then
 			printf "UPDATE DNS RECORD SUCESSFUL FOR ${DOMAIN^^}\n"			
 			fi
 		done
+		elif
+			if [ $CONFIRM2 = 'N' -o $CONFIRM2 = 'n' ]; then 
+			clear
+			printf "CANCEL UPDATE DNS\n"
+		else
+			clear
+			printf "Error CONFIRM 2\n"
+		fi
+		
 	}
 	else 
 		clear
