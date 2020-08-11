@@ -1,6 +1,6 @@
 #!/bin/bash
 printf "       ---------------------------------\n"
-printf "        WEBSITE MANAGE | Found `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` domains\n"
+printf "        WEBSITE MANAGE | FOUND `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` DOMAINS\n"
 printf "       ---------------------------------\n"
 printf "\n"
 printf "OPTIONS:\n"
@@ -9,74 +9,74 @@ printf "2. DELETE                      6. WORDPRESS UPDATE\n"
 printf "3. BACKUP                      7. LOGIN DETAIL      \n"
 printf "4. RESTORE                     8. LIST DOMAINS\n" 
 printf "ENTER: " 
-read enter
+read OPTION
 clear
-if [ ${enter} = 0 ]; then
+if [ $OPTION = 0 ]; then
 	sh /root/install
-elif [ ${enter} = 1 ]; then
+elif [ $OPTION = 1 ]; then
 	sh /etc/skt.d/tool/web/add.bash
-elif  [ ${enter} = 2 ]; then	
+elif  [ $OPTION = 2 ]; then	
 	sh /etc/skt.d/tool/web/delete.bash
-elif  [ ${enter} = 3 ]; then	
+elif  [ $OPTION = 3 ]; then	
 	sh /etc/skt.d/tool/web/backup.bash
-elif  [ ${enter} = 4 ]; then
+elif  [ $OPTION = 4 ]; then
 	sh /etc/skt.d/tool/web/restore.bash
-elif  [ ${enter} = 5 ]; then
+elif  [ $OPTION = 5 ]; then
 	printf "       ---------------------------------\n"
-	printf "        UPDATE PLUGIN | Found `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` domains\n"
+	printf "        UPDATE PLUGIN | FOUND `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` DOMAINS\n"
 	printf "       ---------------------------------\n"
 	printf "CHOOSE VERSION\n"
 	printf "1. 1 website\n2. All website\n"
-	read version
-	if [ ${version} = 0 ];then
+	read OPTION2
+	if [ ${OPTION2} = 0 ];then
 		sh /etc/skt.d/tool/web/web.bash
-	elif [ ${version} = 1 ];then
+	elif [ ${OPTION2} = 1 ];then
 		for D in /home/* ; do
 		if [ -d ${D} ];then
-			d=${D##*/}
-			printf " * ${d}\n"
+			DOMAIN=${D##*/}
+			printf " - ${DOMAIN}\n"
 		fi
 		done
 		printf "ENTER: "
-		read d
+		read DOMAIN
 		printf "\n"
 		printf "DO YOU WANT TO UPDATE PLUGIN FOR ${d^^}? -Y/N: "
-		read YN
-		if [ ${YN} = 0 ]; then
+		read CONFIRM
+		if [ $CONFIRM = 0 ]; then
 			sh /etc/skt.d/tool/web/web.bash
-		elif [ ${YN} = 'Y' -o ${YN} = 'y' ]; then
-			wp plugin update --all --path=/home/${d}/public_html
-		elif [ ${YN} = 'N' -o ${YN} = 'n' ]; then
+		elif [ $CONFIRM = 'Y' -o $CONFIRM = 'y' ]; then
+			wp plugin update --all --path=/home/$DOMAIN/public_html
+		elif [ $CONFIRM = 'N' -o $CONFIRM = 'n' ]; then
 			sh /etc/skt.d/tool/web/web.bash
 		else
 			printf "CODE: INVALID VERSION\n"
 			sh /etc/skt.d/tool/web/web.bash
 		fi
-	elif [ ${version} = 2 ];then
+	elif [ ${OPTION2} = 2 ];then
 		for D in /home/* ; do
 		if [ -d ${D} ];then
-			d=${D##*/}
-			wp plugin update --all --path=/home/${d}/public_html
-			printf " Updated plugin for ${d}\n"
+			DOMAIN=${D##*/}
+			wp plugin update --all --path=/home/$DOMAIN/public_html
+			printf " Updated plugin for $DOMAIN\n"
 		fi
 		done
 	else
 		printf "CODE: INVALID VERSION\n"
 		sh /etc/skt.d/tool/web/web.bash
 	fi	
-elif  [ ${enter} = 6 ]; then
+elif  [ $OPTION = 6 ]; then
 		for D in /home/* ; do
 		if [ -d ${D} ];then
-			d=${D##*/}
-			wp core update --path=/home/${d}/public_html
+			DOMAIN=${D##*/}
+			wp core update --path=/home/$DOMAIN/public_html
 		fi
 		done
-elif  [ ${enter} = 7 ]; then	
-	printf "Found `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` domains:\n"
+elif  [ $OPTION = 7 ]; then	
+	printf "FOUND `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` DOMAINS:\n"
 	for D in /home/* ; do
 	if [ -d ${D} ];then
-		d=${D##*/}
-		printf " * ${d}\n"
+		DOMAIN=${D##*/}
+		printf " - $DOMAIN\n"
 	fi
 	done
 	printf "Enter: "
@@ -85,17 +85,17 @@ elif  [ ${enter} = 7 ]; then
 	source /etc/skt.d/data/${d}/login.txt
 	printf " ----------------\n"
 		printf "Result:\n"
-		printf "${d^^}\n Username: ${wp_usr}\n Password: ${wp_pass}\n Email: ${e}\n"
+		printf "${d^^}\n Username: ${wp_usr}\n Password: ${wp_pass}\n Email: $EMAIL\n"
 		printf "End Result.\n"
 	sh /etc/skt.d/tool/web/web.bash
-elif [ ${enter} = 8 ]; then
+elif [ $OPTION = 8 ]; then
 	printf "       ------------------------------------\n"
-	printf "        AVAILABLE DOMAIN | Found `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` domains\n"
+	printf "        AVAILABLE DOMAIN | FOUND `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` DOMAINS\n"
 	printf "       -----------------------------------\n"
 	for D in /home/* ; do
 	if [ -d ${D} ];then
-		d=${D##*/}
-		printf " * ${d}\n"
+		DOMAIN=${D##*/}
+		printf " * $DOMAIN\n"
 	fi
 	done
 	printf "\n"
