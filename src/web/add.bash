@@ -31,7 +31,7 @@ if [ ! -d /etc/skt.d/data/$DOMAIN ]; then
 	mkdir -p /etc/skt.d/data/$DOMAIN
 fi
 cd /root
-EMAIl="`shuf -n 1 /etc/skt.d/tool/data/randmail`@$DOMAIN"
+EMAIl="`shuf -n 1 /etc/skt.d/tool/data/mail.bash`@$DOMAIN"
 source /root/.my.cnf
 printf "#${DOMAIN^^}:\ndbn=${DB_NAME}\ndbu=${DB_USER}\ndbp=${DB_PASS}\nmdbp=$password\n" | cat > /etc/skt.d/data/$DOMAIN/sql.txt
 printf "#${DOMAIN^^}:\nwp_usr=${WP_USER}\nwp_pass=${WP_PASS}\nEMAIL=$EMAIl" | cat > /etc/skt.d/data/$DOMAIN/login.txt
