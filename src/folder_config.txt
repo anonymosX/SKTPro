@@ -1,0 +1,7 @@
+data
+domain
+mariadb
+server
+ssl
+system
+web
