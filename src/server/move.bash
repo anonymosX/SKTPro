@@ -21,7 +21,7 @@ elif [ $CONFIRM = 'Y' -o $CONFIRM = 'y' ]; then
 		if [ -d ${D} ]; then
 			DOMAIN=${D##*/}
 			source /etc/skt.d/data/$DOMAIN/sql.txt
-			mysqldump -u root -p$mdbp $dbn > $d-$dbn.sql
+			mysqldump -u root -p$mdbp $dbn > $DOMAIN-$dbn.sql
 		fi
 	done
 	cd /root && tar fczvP mysql.tar.gz *.sql
