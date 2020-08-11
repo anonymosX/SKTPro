@@ -11,7 +11,8 @@ printf " ==========================\n"
 printf " NINJA TOOL | STATUS DOMAIN\n"
 printf " ==========================\n"
 printf "\n"
-printf "LIST DOMAINS: \n"
+printf "EXPIRE DAYS - LIST DOMAINS: \n"
+
 #SHOW EXPIRE DAYS
 for D in /home/*; do
 	if [ -d $D ]; then
@@ -26,3 +27,4 @@ for D in /home/*; do
 		rm -rf /root/${D##*/}
 	fi
 done
+sh /etc/skt.d/tool/domain/manDomain.bash
