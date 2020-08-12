@@ -3,10 +3,11 @@ printf " ----------------------\n"
 printf "      DOMAIN MANAGE\n"
 printf " ----------------------\n"
 printf "OPTIONS:\n"
-printf " 1. REGISTER\n"
-printf " 2. RENEW\n"
-printf " 3. STATUS\n"
-printf " 4. NEW NAMESILO ACCOUNT\n"
+printf " 1. Register\n"
+printf " 2. Renew Domain\n"
+printf " 3. Check Exp\n"
+printf " 4. New Account\n"
+printf " 5. Update API\n"
 read OPTION
 
 
@@ -25,6 +26,9 @@ elif [ $OPTION = 3 ]; then
 elif [ $OPTION = 4 ]; then
 	clear
 	sh /etc/skt.d/tool/namesilo/newAccount.bash
+elif [ $OPTION = 5 ]; then
+	clear
+	sh /etc/skt.d/tool/namesilo/updateAPI.bash
 else
 	clear
 	sh /etc/skt.d/tool/namesilo/manDomain.bash

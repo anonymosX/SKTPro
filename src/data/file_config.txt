@@ -25,6 +25,7 @@ namesilo/regDomain
 namesilo/renewDomain
 namesilo/statusDomain
 namesilo/newAccount
+namesilo/updateAPI
 
 cloudflare/changeSSLsetting
 cloudflare/manAPI

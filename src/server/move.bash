@@ -13,7 +13,7 @@ elif [ $CONFIRM = 'Y' -o $CONFIRM = 'y' ]; then
 	clear
 	# BackUp BLOCK
 	printf "1. PROCESS CODE AND CONFIG\n"
-	cd /root && tar fczP home.tar.gz /home /etc/skt.d /etc/letsencrypt /etc/nginx/conf.d
+	cd /root && tar fczP home.tar.gz /home /etc/skt.d/data /etc/letsencrypt /etc/nginx/conf.d
 	printf "\n"
     printf "2. PROCESS SQL\n"
 	# BackUp MYSQL
