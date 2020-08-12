@@ -11,8 +11,8 @@ printf "Number Account: "
 read NUMBER
 printf "API: "
 read API
-printf "Confirm NEW NAMESILO account?\n"
-printf " - Namesilo $NUMBER, API: $API\n"
+printf "CONFIRM NEW NAMESILO ACCOUNT?\n"
+printf " - NAMESILO $NUMBER, API: $API\n"
 printf "YES/NO - (Y/N): "
 read CONFIRM
 if   [ $CONFIRM = 0 ]; then
@@ -22,7 +22,7 @@ if   [ $CONFIRM = 0 ]; then
 elif [ $CONFIRM = 'Y' -o $CONFIRM = 'n' ]; then
 	clear 
 	printf "$API\n" | cat > /etc/skt.d/data/namesilo/namesilo_$NUMBER.txt
-	printf "Add successful Namesilo $NUMBER to DATABASE \n"
+	printf "ADD SUCCESSFUL NAMESILO $NUMBER TO DATABASE \n"
 
 elif [ $CONFIRM = 'N' -o $CONFIRM = 'n' ]; then
 	clear ; printf "Ninja Tool: Cancel \n"
