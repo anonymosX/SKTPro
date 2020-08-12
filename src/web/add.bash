@@ -1,8 +1,5 @@
 #!/bin/bash
 #FLOW: REGISTER DOMAIN -> CLOUDFLARE(PAUSE) -> "CAI WOOCOMMERCE" -> CLOUDFLARE(ENABLE)
-
-
-
 url=https://raw.githubusercontent.com/anonymosX/SKTPro/master
 printf "ENTER INFORMATIONS\n"
 printf "1. URL: "
@@ -31,10 +28,10 @@ if [ ! -d /etc/skt.d/data/$DOMAIN ]; then
 	mkdir -p /etc/skt.d/data/$DOMAIN
 fi
 cd /root
-EMAIl="`shuf -n 1 /etc/skt.d/tool/data/mail.bash`@$DOMAIN"
+EMAIL="`shuf -n 1 /etc/skt.d/tool/data/mail.bash`@${DOMAIN}"
 source /root/.my.cnf
 printf "#${DOMAIN^^}:\ndbn=${DB_NAME}\ndbu=${DB_USER}\ndbp=${DB_PASS}\nmdbp=$password\n" | cat > /etc/skt.d/data/$DOMAIN/sql.txt
-printf "#${DOMAIN^^}:\nwp_usr=${WP_USER}\nwp_pass=${WP_PASS}\nEMAIL=$EMAIl" | cat > /etc/skt.d/data/$DOMAIN/login.txt
+printf "#${DOMAIN^^}:\nwp_usr=${WP_USER}\nwp_pass=${WP_PASS}\nEMAIL=$EMAIL" | cat > /etc/skt.d/data/$DOMAIN/login.txt
 
 # TAI WORDPRESS OPEN SOURCE
 mkdir -p /home/$DOMAIN/public_html && cd /home/$DOMAIN/public_html
@@ -181,7 +178,7 @@ printf "${DOMAIN^^}" | cat > /etc/skt.d/data/$DOMAIN/title
 TITLE=`sed "s/.COM/ /g" /etc/skt.d/data/$DOMAIN/title`
 #${d^^}&nbsp;|&nbsp;Online&nbsp;Store
 # INSTALL WORDPRESS
-wp core install --url=$DOMAIN  --title=$TITLE --admin_user=${WP_USER} --admin_password=${WP_PASS} --admin_email=$EMAIl --path=/home/$DOMAIN/public_html
+wp core install --url=$DOMAIN  --title=$TITLE --admin_user=${WP_USER} --admin_password=${WP_PASS} --admin_email=$EMAIL --path=/home/$DOMAIN/public_html
 # REMOVE TRASH
 rm -f /etc/skt.d/data/$DOMAIN/title
 # FIX ERROR INSTALLATION FAILED: COULD NOT CREATE DIRECTORY.
@@ -352,7 +349,17 @@ curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.
      -H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
      -H "Content-Type: application/json" \
      --data '{"paused":false}'
-
+#FULL SSL
+curl -X PATCH "https://api.cloudflare.com/client/v4/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`/settings/ssl" \
+     -H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
+     -H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
+     -H "Content-Type: application/json" \
+     --data '{"value":"full"}'
+#ALWAYS HTTPS
+curl -X GET "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`/settings/always_use_https" \
+     -H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
+     -H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
+     -H "Content-Type: application/json"
 
 
 #source /etc/skt.d/data/$DOMAIN/sql.txt

@@ -13,7 +13,7 @@ printf "ARE YOU SURE TO DELETE ${DOMAIN^^}? - Y/N: "
 read CONFIRM
 if [ $CONFIRM = 0 ]; then
 	clear
-	printf "YOUR REQUEST DELETE WAS CANCELED\n"
+	
 	sh /etc/skt.d/tool/web/web.bash
 elif [ $CONFIRM = 'Y' -o $CONFIRM = 'y' ]; then
 {
@@ -41,6 +41,7 @@ elif [ $CONFIRM = 'Y' -o $CONFIRM = 'y' ]; then
 elif [ $CONFIRM = 'N' -o $CONFIRM = 'n' ]; then
 {
 	clear
+	printf "YOUR REQUEST DELETE WAS CANCELED\n"
 	sh /etc/skt.d/tool/web/web.bash
 }
 

@@ -5,31 +5,31 @@ printf "       ---------------------------------------\n"
 printf "FOUND A LIST BACKUP FILES\n"
 find /root -name 'backup*' -type f
 printf "\nENTER: "
-read d
+read DOMAIN
 printf "ARE YOU WANT TO RESTORE ${d^^}? - Y/N: "
-read YN
+read CONFIRM
 
-if [ ${YN} = 0 ]; then
+if [ $CONFIRM = 0 ]; then
 	clear
 	sh /root/install
-elif [ ${YN} = 'Y' -o ${YN} = 'y' ]; then
+elif [ $CONFIRM = 'Y' -o $CONFIRM = 'y' ]; then
 	clear
 	printf "YOU HAVE CHOOSE YES\n"
 {
 # CREATE SERVER BLOCK, LOG
 	printf "PROCESS RESTORE CODE AND CONFIG\n"
-	mkdir -p /etc/skt.d/data/${d} /home/$d/public_html /home/$d/log /etc/letsencrypt/live/${d}
-	touch /home/$d/log/error.log && chmod +x /home/$d/log/error.log
+	mkdir -p /etc/skt.d/data/$DOMAIN /home/$DOMAIN/public_html /home/$DOMAIN/log /etc/letsencrypt/live/$DOMAIN
+	touch /home/$DOMAIN/log/error.log && chmod +x /home/$DOMAIN/log/error.log
 	cd /root
-	find /root -type f -name "backup-${d}*.tar.gz" -exec tar fxz {} \;
-	tar fxz $d.tar.gz
+	find /root -type f -name "backup-$DOMAIN*.tar.gz" -exec tar fxz {} \;
+	tar fxz $DOMAIN.tar.gz
 # IMPORT CODE
 	yes | cp -rf etc/skt.d/* /etc/skt.d
 	yes | cp -rf etc/nginx/conf.d/* /etc/nginx/conf.d
-	yes | cp -rf home/${d}/public_html/* /home/${d}/public_html
-	yes | cp -rf etc/letsencrypt/live/${d}/* /etc/letsencrypt/live/${d}
-	yes | cp -rf etc/letsencrypt/renewal/${d}.conf /etc/letsencrypt/renewal/
-	yes | cp -rf etc/letsencrypt/archive/${d} /etc/letsencrypt/archive
+	yes | cp -rf home/$DOMAIN/public_html/* /home/$DOMAIN/public_html
+	yes | cp -rf etc/letsencrypt/live/$DOMAIN/* /etc/letsencrypt/live/$DOMAIN
+	yes | cp -rf etc/letsencrypt/renewal/$DOMAIN.conf /etc/letsencrypt/renewal/
+	yes | cp -rf etc/letsencrypt/archive/$DOMAIN /etc/letsencrypt/archive
 	if [ ! -d /etc/letsencrypt/accounts ]; then 
 		mkdir -p /etc/letsencrypt/accounts
 		yes | cp -rf /root/etc/letsencrypt/accounts/* /etc/letsencrypt/accounts
@@ -58,28 +58,28 @@ elif [ ${YN} = 'Y' -o ${YN} = 'y' ]; then
 	yes | cp -rf etc/letsencrypt/options-ssl-nginx.conf /etc/letsencrypt/options-ssl-nginx.conf
 	yes | cp -rf etc/letsencrypt/ssl-dhparams.pem /etc/letsencrypt/ssl-dhparams.pem 
 # IMPORT DATABASES
-	source /etc/skt.d/data/${d}/sql.txt
+	source /etc/skt.d/data/$DOMAIN/sql.txt
 	printf "create database ${dbn}" | mysql
 	printf "create user '${dbu}'@'localhost' identified by '${dbp}'" | mysql
 	printf "grant all on ${dbn}.* to ${dbu}@localhost" | mysql
 	printf "flush privileges" | mysql
-	mysql -u root -p$mdbp $dbn < $d-$dbn.sql
+	mysql -u root -p$mdbp $dbn < $DOMAIN-$dbn.sql
 # REMOVE TRASH
 	rm -rf etc home
-	find /root -type f -name "backup-{d}*.tar.gz" -delete
-	rm -f ${d}-${dbn}.sql
+	find /root -type f -name "backup-DOMAIN*.tar.gz" -delete
+	rm -f $DOMAIN-${dbn}.sql
 # FIX PERMISSION
-	chmod 777 -R /home/$d/public_html/wp-content
-	chmod 777 /home/$d/public_html/wp-config.php
-	#chmod 755 -R /home/$d/public_html/wp-content
+	chmod 777 -R /home/$DOMAIN/public_html/wp-content
+	chmod 777 /home/$DOMAIN/public_html/wp-config.php
+	#chmod 755 -R /home/$DOMAIN/public_html/wp-content
 # FINAL
 	clear
-	printf "${d^^} HAS RESTORED\n"
+	printf "${DOMAIN^^} HAS RESTORED\n"
 	systemctl restart nginx
 	sh /etc/skt.d/tool/web/web.bash
 }
 
-elif [ ${YN} = 'N' -o ${YN} = 'n' ]; then
+elif [ $CONFIRM = 'N' -o $CONFIRM = 'n' ]; then
 {	
 	clear
 	printf "YOU HAVE CHOOSE NO\n"

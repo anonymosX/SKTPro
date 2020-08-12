@@ -6,7 +6,7 @@ printf "OPTIONS:\n"
 printf " 1. REG DOMAIN\n"
 printf " 2. RENEW DOMAIN\n"
 printf " 3. STATUS DOMAIN\n"
-printf " 4. DEPOSIT BALANCE\n"
+printf " 4. NEW NAMESILO\n"
 read OPTION
 
 
@@ -15,14 +15,17 @@ if [ $OPTION = 0 ]; then
 	sh /root/install
 elif [ $OPTION = 1 ]; then
 	clear
-	sh /etc/skt.d/tool/domain/regDomain.bash
+	sh /etc/skt.d/tool/namesilo/regDomain.bash
 elif [ $OPTION = 2 ]; then
 	clear
-	sh /etc/skt.d/tool/domain/renewDomain.bash
+	sh /etc/skt.d/tool/namesilo/renewDomain.bash
 elif [ $OPTION = 3 ]; then
 	clear
-	sh /etc/skt.d/tool/domain/statusDomain.bash
+	sh /etc/skt.d/tool/namesilo/statusDomain.bash
+elif [ $OPTION = 4 ]; then
+	clear
+	sh /etc/skt.d/tool/namesilo/newAccount.bash
 else
 	clear
-	sh /etc/skt.d/tool/domain/manDomain.bash
+	sh /etc/skt.d/tool/namesilo/manDomain.bash
 fi

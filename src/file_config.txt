@@ -20,10 +20,22 @@ mariadb/mariadb
 
 tool
 
-domain/manDomain
-domain/regDomain
-domain/renewDomain
-domain/statusDomain
+namesilo/manDomain
+namesilo/regDomain
+namesilo/renewDomain
+namesilo/statusDomain
+namesilo/newAccount
+
+cloudflare/changeSSLsetting
+cloudflare/manAPI
+cloudflare/manCloudflare
+cloudflare/newAPI
+cloudflare/updateAPI
+cloudflare/updateDNS
+
+
+
 
 data/mail
+
 

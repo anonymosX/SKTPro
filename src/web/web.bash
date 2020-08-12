@@ -26,7 +26,7 @@ elif  [ $OPTION = 5 ]; then
 	printf "        UPDATE PLUGIN | FOUND `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` DOMAINS\n"
 	printf "       ---------------------------------\n"
 	printf "CHOOSE VERSION\n"
-	printf "1. 1 website\n2. All website\n"
+	printf "1. 1 WEBSITE\n2. ALL WEBSITE\n"
 	read OPTION2
 	if [ ${OPTION2} = 0 ];then
 		sh /etc/skt.d/tool/web/web.bash
@@ -57,7 +57,7 @@ elif  [ $OPTION = 5 ]; then
 		if [ -d ${D} ];then
 			DOMAIN=${D##*/}
 			wp plugin update --all --path=/home/$DOMAIN/public_html
-			printf " Updated plugin for $DOMAIN\n"
+			printf " UPDATED PLUGIN FOR $DOMAIN\n"
 		fi
 		done
 	else
@@ -79,13 +79,13 @@ elif  [ $OPTION = 7 ]; then
 		printf " - $DOMAIN\n"
 	fi
 	done
-	printf "Enter: "
-	read d
+	printf "ENTER: "
+	read DOMAIN
 	printf "\n"
-	source /etc/skt.d/data/${d}/login.txt
+	source /etc/skt.d/data/$DOMAIN/login.txt
 	printf " ----------------\n"
-		printf "Result:\n"
-		printf "${d^^}\n Username: ${wp_usr}\n Password: ${wp_pass}\n Email: $EMAIL\n"
+		printf "RESULT:\n"
+		printf "${DOMAIN^^}\n Username: ${wp_usr}\n Password: ${wp_pass}\n Email: $EMAIL\n"
 		printf "End Result.\n"
 	sh /etc/skt.d/tool/web/web.bash
 elif [ $OPTION = 8 ]; then

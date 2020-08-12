@@ -1,5 +1,6 @@
 data
-domain
+namesilo
+cloudflare
 mariadb
 server
 ssl
