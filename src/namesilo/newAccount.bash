@@ -2,6 +2,10 @@
 printf " ------------------------------------\n"
 printf " NEW NAMESILO ACCOUTN | DOMAIN MANAGE\n"
 printf " ------------------------------------\n"
+
+if [ ! -d /etc/skt.d/data/namesilo ]; then
+	mkdir -p /etc/skt.d/data/namesilo
+fi
 printf "INFORMATION: \n"
 printf "Number Account:( 1 2 3 4 )\n"
 read NUMBER

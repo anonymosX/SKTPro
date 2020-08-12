@@ -3,6 +3,9 @@
 printf " ==================================\n"
 printf "  New API | Manage API | Cloudflare\n"
 printf " ==================================\n"
+if [ ! -d /etc/skt.d/data/cloudflare ]; then
+	mkdir -p /etc/skt.d/data/cloudflare
+fi
 printf "INFORMATION: \n"
 printf "Number Account:( 1 2 3 4 )\n"
 read NUMBER

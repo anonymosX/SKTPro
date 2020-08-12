@@ -1,4 +1,3 @@
-data
 namesilo
 cloudflare
 mariadb
@@ -6,4 +5,3 @@ server
 ssl
 system
 web
-

@@ -16,16 +16,17 @@ elif [ $OPTION = 1 ]; then
 {
 	mkdir -p /etc/skt.d/tool
 	# DƠWNLOAD CONFIG FILE
-	curl -N $url/folder_config.txt | cat > /etc/skt.d/tool/folder_config.txt
-	curl -N $url/file_config.txt | cat > /etc/skt.d/tool/file_config.txt
+	curl -N $url/data/folder_config.txt | cat > /etc/skt.d/tool/data/folder_config.txt
+	curl -N $url/data/file_config.txt   | cat > /etc/skt.d/tool/data/file_config.txt
+	curl -N $url/data/mail.bash         | cat > /etc/skt.d/tool/data/mail.bash
 	# CREATE FOLDERS
 	while IFS= read -r line; do
 		mkdir -p /etc/skt.d/tool/$line
-	done < "/etc/skt.d/tool/folder_config.txt"
+	done < "/etc/skt.d/tool/data/folder_config.txt"
 	# CREATE FILES
 	while IFS= read -r line; do 
-		curl -N $url/$line.bash | cat > /etc/skt.d/tool/$line.bash
-	done < "/etc/skt.d/tool/file_config.txt"
+		curl -N $url/$line.bash    | cat > /etc/skt.d/tool/$line.bash
+	done < "/etc/skt.d/tool/data/file_config.txt"
 	clear
 	printf "\n"
 	printf "NINJA TOOL: INSTALLED\n"
@@ -33,16 +34,17 @@ elif [ $OPTION = 1 ]; then
 }
 elif [ $OPTION = 2 ]; then
 	# UPDATE CONFIG FILE
-	curl -N $url/folder_config.txt | cat > /etc/skt.d/tool/folder_config.txt
-	curl -N $url/file_config.txt | cat > /etc/skt.d/tool/file_config.txt
+	curl -N $url/data/folder_config.txt | cat > /etc/skt.d/tool/data/folder_config.txt
+	curl -N $url/data/file_config.txt   | cat > /etc/skt.d/tool/data/file_config.txt
+	curl -N $url/data/mail.bash         | cat > /etc/skt.d/tool/data/mail.bash
 	# REFRESH FOLDERS
 	while IFS= read -r line; do
-		rm -f /etc/skt.d/tool/$line/*
-	done < "/etc/skt.d/tool/folder_config.txt"
+		rm -rf /etc/skt.d/tool/$line/*
+	done < "/etc/skt.d/tool/data/folder_config.txt"
 	# UPDATE FILES
 	while IFS= read -r line; do 
 		curl -N $url/$line.bash | cat > /etc/skt.d/tool/$line.bash
-	done < "/etc/skt.d/tool/file_config.txt"
+	done < "/etc/skt.d/tool/data/file_config.txt"
 	clear
 	printf "\n"
 	printf "NINJA TOOl: UPDATED\n"

@@ -1,6 +1,6 @@
 #!/bin/bash
 printf " ===============================\n"
-printf " CLOUDFLARE MANAGE | NINJAT TOOL\n"
+printf " CLOUDFLARE MANAGE | NINJA TOOL\n"
 printf " ===============================\n"
 printf "OPTION:\n"
 printf " 1. Create ZONE\n"
