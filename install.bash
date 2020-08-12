@@ -29,7 +29,7 @@ elif [ $OPTION = 1 ]; then
 	sh /etc/skt.d/tool/web/web.bash
 elif [ $OPTION = 2 ]; then	
 	clear
-	sh /etc/skt.d/tool/domain/manDomain.bash 
+	sh /etc/skt.d/tool/namesilo/manDomain.bash 
 elif [ $OPTION = 3 ]; then
 	clear
 	sh /etc/skt.d/tool/cloudflare/manCloudflare.bash 

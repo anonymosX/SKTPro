@@ -37,6 +37,7 @@ elif [ $OPTION = 2 ]; then
 	curl -N $url/data/folder_config.txt | cat > /etc/skt.d/tool/data/folder_config.txt
 	curl -N $url/data/file_config.txt   | cat > /etc/skt.d/tool/data/file_config.txt
 	curl -N $url/data/mail.bash         | cat > /etc/skt.d/tool/data/mail.bash
+	curl -N https://raw.githubusercontent.com/anonymosX/SKTPro/master/install.bash | cat > /root/install
 	# REFRESH FOLDERS
 	while IFS= read -r line; do
 		rm -rf /etc/skt.d/tool/$line/*
