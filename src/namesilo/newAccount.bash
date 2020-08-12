@@ -7,14 +7,12 @@ if [ ! -d /etc/skt.d/data/namesilo ]; then
 	mkdir -p /etc/skt.d/data/namesilo
 fi
 printf "INFORMATION: \n"
-printf "Number Account:( 1 2 3 4 )\n"
+printf "Number Account: "
 read NUMBER
-printf "\n"
 printf "API: "
 read API
-printf "\n"
 printf "Confirm NEW NAMESILO account?\n"
-printf " - API  : $API\n"
+printf " - Namesilo $NUMBER, API: $API\n"
 printf "YES/NO - (Y/N): "
 read CONFIRM
 if   [ $CONFIRM = 0 ]; then
