@@ -18,10 +18,9 @@ elif [ $CONFIRM = 'Y' -o $CONFIRM = 'y' ]; then
 	source /etc/skt.d/data/cloudflare/cloudflare_$NUMBER.txt
 	for D in /home/*; do
 		if [ -d ${D} ]; then
-			DOMAIN=${D##*/}
-			
-			if [ `sed -n '3p' /etc/skt.d/data/$DOMAIN/api_cf.txt` = ${CF_API} ]; then
-				sed -i "s+`sed -n '3p' /etc/skt.d/data/$DOMAIN/api_cf.txt`+$newAPI+g" /etc/skt.d/data/$DOMAIN/api_cf.txt
+			DOMAIN=${D##*/}			
+			if [ `sed -n '2p' /etc/skt.d/data/$DOMAIN/api_cf.txt` = ${CF_API} ]; then
+				sed -i "s/${CF_API}/$newAPI/g" /etc/skt.d/data/$DOMAIN/api_cf.txt
 			fi
 		fi
 	done	
