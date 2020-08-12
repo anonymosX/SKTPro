@@ -25,6 +25,7 @@ if   [ $CONFIRM = 0 ]; then
 # INSERT NEW ACCOUNT
 elif [ $CONFIRM = 'Y' -o $CONFIRM = 'n' ]; then
 	clear ; printf "EMAIL=$EMAIL\nCF_API=$API\n" | cat > /etc/skt.d/data/cloudflare/cloudflare_$NUMBER.txt
+	printf "ADDED CLOUDFLARE $NUMBER TO DATABASE\n"
 
 # CANCEL REQUEST
 elif [ $CONFIRM = 'N' -o $CONFIRM = 'n' ]; then
