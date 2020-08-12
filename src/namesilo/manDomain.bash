@@ -3,10 +3,10 @@ printf " ----------------------\n"
 printf "      DOMAIN MANAGE\n"
 printf " ----------------------\n"
 printf "OPTIONS:\n"
-printf " 1. REG DOMAIN\n"
-printf " 2. RENEW DOMAIN\n"
-printf " 3. STATUS DOMAIN\n"
-printf " 4. NEW NAMESILO\n"
+printf " 1. REGISTER\n"
+printf " 2. RENEW\n"
+printf " 3. STATUS\n"
+printf " 4. NEW NAMESILO ACCOUNT\n"
 read OPTION
 
 
