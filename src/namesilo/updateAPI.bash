@@ -6,8 +6,14 @@ printf "Enter Information: \n"
 # /etc/skt.d/data/namesilo/namesilo_$NUMBER.txt
 printf "Number: "
 read NUMBER
+if [ $NUMBER = 0 ]; then
+	sh /etc/skt.d/tool/namesilo/manDomain.bash
+fi
 printf "New API: "
 read newAPI
+if [ $newAPI = 0 ]; then
+	sh /etc/skt.d/tool/namesilo/manDomain.bash
+fi
 
 API=`sed -n "1p" /etc/skt.d/data/namesilo/namesilo_$NUMBER.txt`
 for D in home/*; do
@@ -22,6 +28,4 @@ clear
 printf "Update API successful\n"
 sh /etc/skt.d/tool/namesilo/manDomain.bash
 
-if [ $NUMBER = 0 -o $newAPI = 0 ]; then
-	sh /etc/skt.d/tool/namesilo/manDomain.bash
-fi
+
