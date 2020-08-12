@@ -23,7 +23,7 @@ elif [ $CONFIRM = 'Y' -o $CONFIRM = 'n' ]; then
 	clear 
 	printf "$API\n" | cat > /etc/skt.d/data/namesilo/namesilo_$NUMBER.txt
 	printf "ADD SUCCESSFUL NAMESILO $NUMBER TO DATABASE \n"
-
+	sh /etc/skt.d/tool/namesilo/manDomain.bash
 elif [ $CONFIRM = 'N' -o $CONFIRM = 'n' ]; then
 	clear ; printf "Ninja Tool: Cancel \n"
 	sh /etc/skt.d/tool/namesilo/manDomain.bash

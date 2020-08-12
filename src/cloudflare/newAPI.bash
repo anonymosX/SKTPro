@@ -26,7 +26,7 @@ if   [ $CONFIRM = 0 ]; then
 elif [ $CONFIRM = 'Y' -o $CONFIRM = 'n' ]; then
 	clear ; printf "EMAIL=$EMAIL\nCF_API=$API\n" | cat > /etc/skt.d/data/cloudflare/cloudflare_$NUMBER.txt
 	printf "ADDED CLOUDFLARE $NUMBER TO DATABASE\n"
-
+	sh /etc/skt.d/tool/cloudflare/manAPI.bash
 # CANCEL REQUEST
 elif [ $CONFIRM = 'N' -o $CONFIRM = 'n' ]; then
 	clear ; printf "Ninja Tool: Cancel \n"
