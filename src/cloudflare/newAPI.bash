@@ -7,15 +7,14 @@ if [ ! -d /etc/skt.d/data/cloudflare ]; then
 	mkdir -p /etc/skt.d/data/cloudflare
 fi
 printf "INFORMATION: \n"
-printf "Number Account:( 1 2 3 4 )\n"
+printf "Number Account: "
 read NUMBER
 printf "EMAIL: "
 read EMAIL
-printf "\n"
 printf "API: "
 read API
-printf "\n"
-printf "Confirm NEW Cloudflare account?\n"
+
+printf "CONFIRM NEW CLOUDFLARE ACCOUNT?\n"
 printf " - EMAIL: $EMAIL\n"
 printf " - API  : $API\n"
 printf "YES/NO - (Y/N): "
