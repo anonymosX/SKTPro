@@ -21,7 +21,7 @@ elif [ $OPTION = 2 ]; then
 
 #NEW API
 elif [ $OPTION = 3 ]; then	
-	clear ; sh /etc/skt.d/tool/cloudflare/newAPI.bash
+	clear ; sh /etc/skt.d/tool/cloudflare/manAPI.bash
 else
 	clear ; sh /etc/skt.d/tool/cloudflare/manCloudflare.bash
 fi
