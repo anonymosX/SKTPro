@@ -21,3 +21,7 @@ sed -i "s/$API/$newAPI/g" /etc/skt.d/data/namesilo/namesilo_$NUMBER.txt
 clear
 printf "Update API successful\n"
 sh /etc/skt.d/tool/namesilo/manDomain.bash
+
+if [ $NUMBER = 0 -o $newAPI = 0 ]; then
+	sh /etc/skt.d/tool/namesilo/manDomain.bash
+fi
