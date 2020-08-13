@@ -54,7 +54,7 @@ elif [ $QUESTION = 'Y' -o $QUESTION = 'y' ]; then
 		-H "X-Auth-Email: $EMAIL" \
 		-H "X-Auth-Key: ${CF_API}" \
 		-H "Content-Type: application/json" \
-		--data '{"name":"'"$DOMAIN"'","jump_start":"false"}' \
+		--data '{"name":"'"$DOMAIN"'","jump_start":'false'}' \
 		| python -m json.tool | printf "$EMAIL\n${CF_API}\n`jq '.result.id'`" | cat > /ect/skt.d/data/$DOMAIN/api_cf.txt
 	sed -i 's/"//g' /ect/skt.d/data/$DOMAIN/api_cf.txt
 	#GET NS CLOUDFLARE
