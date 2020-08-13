@@ -12,7 +12,8 @@ curl -X GET "https://www.namesilo.com/api/getAccountBalance?version=1&type=xml&k
 #NAMESILO 7
 curl -X GET "https://www.namesilo.com/api/getAccountBalance?version=1&type=xml&key=`sed -n '1p' /etc/skt.d/data/namesilo/namesilo_7.txt`" | cat > /etc/skt.d/tool/data/balance_`sed -n '1p' /etc/skt.d/data/namesilo/namesilo_7.txt`.xml
 clear
-
+namesilo1="/etc/skt.d/tool/data/balance_`sed -n '1p' /etc/skt.d/data/namesilo/namesilo_1.txt`.xml"
+namesilo7="/etc/skt.d/tool/data/balance_`sed -n '1p' /etc/skt.d/data/namesilo/namesilo_7.txt`.xml"
 
 
 
@@ -28,8 +29,8 @@ printf "\n"
 	fi
 #NAMESILO ID
 printf "A) DOMAIN: \n"
-printf " 1. DNVN1 - Balance: `(grep -oP '(?<=balance>)[^<]+' '/etc/skt.d/tool/data/balance_`sed -n '1p' /etc/skt.d/data/namesilo/namesilo_1.txt`.xml')` USD\n"
-printf " 7. DNVN7 - Balance: `(grep -oP '(?<=balance>)[^<]+' '/etc/skt.d/tool/data/balance_`sed -n '1p' /etc/skt.d/data/namesilo/namesilo_7.txt`.xml')` USD\n"
+printf " 1. DNVN1 - Balance: `(grep -oP '(?<=balance>)[^<]+' "$namesilo1")` USD\n"
+printf " 7. DNVN7 - Balance: `(grep -oP '(?<=balance>)[^<]+' "$namesilo7")` USD\n"
 printf "ENTER: "
 read NS_NUMBER
 printf "\n"
@@ -37,7 +38,7 @@ printf "B) CLOUDFLARE: \n"
 printf " 4: THANH TRUNG TEAM\n"
 printf " 5: HUYNH TAN SANG\n"
 read CF_NUMBER
-printf "DO YOU WANT REGISTER ${DOMAIN} WITH DOMAIN ACCOUNT: ${DO_ACCOUNT} AND CLOUDFLARE ACCOUNT: ${CF_ACCOUNT}? - Y/N: "
+printf "DO YOU WANT REGISTER ${DOMAIN^^} WITH DOMAIN ACCOUNT: ${NS_NUMBER} AND CLOUDFLARE ACCOUNT: ${CF_NUMBER}? - Y/N: "
 read QUESTION
 if [ $QUESTION = 0 ]; then
 	sh /root/install
