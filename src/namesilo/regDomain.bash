@@ -27,7 +27,6 @@ printf "ENTER: "
 read NS_NUMBER
 printf "ENTER DOMAIN: "
 read DOMAIN
-printf "\n"
 	if [ ! -d /etc/skt.d/data/$DOMAIN ]; then
 		mkdir -p /etc/skt.d/data/$DOMAIN
 	fi
@@ -96,7 +95,6 @@ elif [ $QUESTION = 'Y' -o $QUESTION = 'y' ]; then
 		 --data '{"paused":'true'}'		 
 	rm -rf /root/$DOMAIN
 	clear
-	printf "BOUGHT ${DOMAIN^^} AND ADDED TO CLOUDFLARE ${CF_NUMBER}\n"
 	printf "BOUGHT ${DOMAIN^^} AND ADDED TO CLOUDFLARE ${CF_NUMBER}\n"
 	sh /etc/skt.d/tool/namesilo/manDomain.bash
 }
