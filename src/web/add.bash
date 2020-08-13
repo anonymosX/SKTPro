@@ -371,21 +371,21 @@ curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.
      -H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
      -H "Content-Type: application/json" \
      --data '{"paused":'false'}' \
-	 | python -m json.tool
+	 | python -m json.tool \
 #FULL SSL
 curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`/settings/ssl" \
      -H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
      -H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
      -H "Content-Type: application/json" \
      --data '{"value":"full"}'\
-	 | python -m json.tool
+	 | python -m json.tool \
 #ALWAYS HTTPS
 curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`/settings/always_use_https" \
      -H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
      -H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
      -H "Content-Type: application/json" \
 	 --data '{"value":"on"}' \ 
-	 | python -m json.tool
+	 | python -m json.tool \
 
 
 #source /etc/skt.d/data/$DOMAIN/sql.txt
