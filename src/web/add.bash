@@ -176,18 +176,22 @@ PHP
 
 #REMOVE .NET .COM .SHOP .TOP IN TITLE
 printf "${DOMAIN^^}" | cat > /root/$DOMAIN.txt
+#REPLACE .NET
 if [ $DOMAIN = *.net ]; then
 	printf $DOMAIN | cat > $DOMAIN.txt 
 	sed -i "s/.net//g" /root/$DOMAIN.txt
 fi
+#REPLACE .SHOP
 if [ $DOMAIN = *.shop ]; then
 	printf $DOMAIN | cat > $DOMAIN.txt 
 	sed -i "s/.shop//g" /root/$DOMAIN.txt
 fi
+#REPLACE .COM
 if [ $DOMAIN = *.com ]; then
 	printf $DOMAIN | cat > $DOMAIN.txt 
 	sed -i "s/.com//g" /root/$DOMAIN.txt
 fi
+#REPLCAE .TOP
 if [ $DOMAIN = *.top ]; then
 	printf $DOMAIN | cat > $DOMAIN.txt 
 	sed -i "s/.top//g" /root/$DOMAIN.txt
