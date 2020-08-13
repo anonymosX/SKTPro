@@ -24,7 +24,6 @@ printf "A) DOMAIN: \n"
 printf " 1. DNVN1 - Balance: `(grep -oP '(?<=balance>)[^<]+' "$namesilo1")` USD\n"
 printf " 7. DNVN7 - Balance: `(grep -oP '(?<=balance>)[^<]+' "$namesilo7")` USD\n"
 printf "ENTER: "
-.
 read NS_NUMBER
 printf "ENTER DOMAIN: "
 read DOMAIN
