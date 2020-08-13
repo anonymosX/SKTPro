@@ -38,7 +38,7 @@ curl -X GET "https://api.cloudflare.com/client/v4/zones?name=$DOMAIN&status=pend
 	source /etc/skt.d/data/namesilo/namesilo_${NS_NUMBER}.txt
 	printf "`sed -n '1p' /etc/skt.d/data/namesilo/namesilo_${NS_NUMBER}.txt`" | cat > /root/$DOMAIN/api_ns.txt
 	yes | cp -rf /root/$DOMAIN/api_ns.txt /etc/skt.d/data/$DOMAIN/api_ns.txt
-	curl -X POST "https://www.namesilo.com/api/changeNameServers?version=1&type=xml&key=`sed -n '1p' /etc/skt.d/data/$DOMAIN/api_ns.txt`&domain=$DOMAIN&ns1=`sed -n '1p' /root/$DOMAIN/ns_cf.txt `&ns2=`sed -n '2p' /root/$DOMAIN/ns_cf.txt `&ns3="
+	curl -X POST "https://www.namesilo.com/api/changeNameServers?version=1&type=xml&key=`sed -n '1p' /root/$DOMAIN/api_ns.txt`&domain=$DOMAIN&ns1=`sed -n '1p' /root/$DOMAIN/ns_cf.txt `&ns2=`sed -n '2p' /root/$DOMAIN/ns_cf.txt `&ns3="
 
 	#CREATE DNS A and MX RECORD and PAUSE ZONE
 
@@ -61,7 +61,7 @@ curl -X POST "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /root/$DOM
 	--data '{"type":"MX","name":"'"$DOMAIN"'","content":"mx.yandex.net","ttl":'"$TTL"',"priority":10}' ; \
 	#PAUSE CLOUDLARE
 
-curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /ect/skt.d/data/$DOMAIN/api_cf.txt`" \
+curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /root/$DOMAIN/api_cf.txt.txt`" \
 	-H "X-Auth-Email: $EMAIL" \
 	-H "X-Auth-Key: ${CF_API}" \
 	-H "Content-Type: application/json" \
