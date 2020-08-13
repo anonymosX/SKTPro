@@ -10,9 +10,10 @@ printf " ============================================\n"
 	read CF_NUMBER
 	cd /root
 	mkdir -p $DOMAIN
-	if [ ! -d /etc/skt.d/data/$DOMAIN ]; then
-		mkdir -p /etc/skt.d/data/$DOMAIN
-	fi
+if [ ! -d /etc/skt.d/data/$DOMAIN ]; then
+	printf "test"
+	mkdir -p /etc/skt.d/data/$DOMAIN
+fi
 	#CREATE NEW ZONE ID
 	source /etc/skt.d/data/cloudflare/cloudflare_${CF_NUMBER}.txt
 curl -X POST "https://api.cloudflare.com/client/v4/zones/" \
@@ -35,7 +36,7 @@ curl -X GET "https://api.cloudflare.com/client/v4/zones?name=$DOMAIN&status=pend
 
 	#CHANGE NAMESERVER
 	source /etc/skt.d/data/namesilo/namesilo_${NS_NUMBER}.txt
-	printf "`sed -n '1p' /etc/skt.d/data/namesilo/namesilo_$NUMBER.txt`" | cat > /root/$DOMAIN/api_ns.txt
+	printf "`sed -n '1p' /etc/skt.d/data/namesilo/namesilo_${NS_NUMBER}.txt`" | cat > /root/$DOMAIN/api_ns.txt
 	yes | cp -rf /root/$DOMAIN/api_ns.txt /etc/skt.d/data/$DOMAIN/api_ns.txt
 	curl -X POST "https://www.namesilo.com/api/changeNameServers?version=1&type=xml&key=`sed -n '1p' /etc/skt.d/data/$DOMAIN/api_ns.txt`&domain=$DOMAIN&ns1=`sed -n '1p' /root/$DOMAIN/ns_cf.txt `&ns2=`sed -n '2p' /root/$DOMAIN/ns_cf.txt `&ns3="
 
