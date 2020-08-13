@@ -61,8 +61,8 @@ curl -X POST "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /root/$DOM
 	--data '{"type":"MX","name":"'"$DOMAIN"'","content":"mx.yandex.net","ttl":'"$TTL"',"priority":10}' ; \
 	#PAUSE CLOUDLARE
 
-curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /root/$DOMAIN/api_cf.txt.txt`" \
+curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /root/$DOMAIN/api_cf.txt`" \
 	-H "X-Auth-Email: $EMAIL" \
 	-H "X-Auth-Key: ${CF_API}" \
 	-H "Content-Type: application/json" \
-	--data '{"paused":true}'	
+	--data '{"paused":'true'}'	

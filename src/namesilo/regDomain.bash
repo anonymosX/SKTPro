@@ -11,11 +11,9 @@ curl -X GET "https://www.namesilo.com/api/getAccountBalance?version=1&type=xml&k
 
 #NAMESILO 7
 curl -X GET "https://www.namesilo.com/api/getAccountBalance?version=1&type=xml&key=`sed -n '1p' /etc/skt.d/data/namesilo/namesilo_7.txt`" | cat > /etc/skt.d/tool/data/balance_`sed -n '1p' /etc/skt.d/data/namesilo/namesilo_7.txt`.xml
-clear
 namesilo1="/etc/skt.d/tool/data/balance_`sed -n '1p' /etc/skt.d/data/namesilo/namesilo_1.txt`.xml"
 namesilo7="/etc/skt.d/tool/data/balance_`sed -n '1p' /etc/skt.d/data/namesilo/namesilo_7.txt`.xml"
-
-
+clear
 
 printf " ============================\n"
 printf " NINJA TOOL | REGISTER DOMAIN\n"
@@ -93,7 +91,7 @@ elif [ $QUESTION = 'Y' -o $QUESTION = 'y' ]; then
 		 -H "X-Auth-Email: $EMAIL" \
 		 -H "X-Auth-Key: ${CF_API}" \
 		 -H "Content-Type: application/json" \
-		 --data '{"paused":true}'
+		 --data '{"paused":'true'}'
 		 
 }
 elif [ $QUESTION = 'N' -o $QUESTION = 'n' ]; then
