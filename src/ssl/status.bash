@@ -3,7 +3,7 @@
 printf "LIST DOMAINS:\n"
 for D in /home/* ; do
 	if [ -d ${D} ]; then
-	printf " * ${D##*/}n" 
+	printf " * ${D##*/}\n" 
 	fi
 done
 # GUI interface with user
