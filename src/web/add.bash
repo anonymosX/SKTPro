@@ -174,13 +174,31 @@ define('WP_DEBUG', false);
 define('FS_METHOD','direct');
 PHP
 
-printf "${DOMAIN^^}" | cat > /etc/skt.d/data/$DOMAIN/title
-TITLE=`sed "s/.COM/ /g" /etc/skt.d/data/$DOMAIN/title`
-#${d^^}&nbsp;|&nbsp;Online&nbsp;Store
+#REMOVE .NET .COM .SHOP .TOP IN TITLE
+printf "${DOMAIN^^}" | cat > /root/$DOMAIN.txt
+if [ $DOMAIN = *.net ]; then
+	printf $DOMAIN | cat > $DOMAIN.txt 
+	sed -i "s/.net//g" /root/$DOMAIN.txt
+fi
+if [ $DOMAIN = *.shop ]; then
+	printf $DOMAIN | cat > $DOMAIN.txt 
+	sed -i "s/.shop//g" /root/$DOMAIN.txt
+fi
+if [ $DOMAIN = *.com ]; then
+	printf $DOMAIN | cat > $DOMAIN.txt 
+	sed -i "s/.com//g" /root/$DOMAIN.txt
+fi
+if [ $DOMAIN = *.top ]; then
+	printf $DOMAIN | cat > $DOMAIN.txt 
+	sed -i "s/.top//g" /root/$DOMAIN.txt
+fi
+
+TITLE=`sed -n "1p" /root/$DOMAIN.txt`
+
 # INSTALL WORDPRESS
 wp core install --url=$DOMAIN  --title=$TITLE --admin_user=${WP_USER} --admin_password=${WP_PASS} --admin_email=$EMAIL --path=/home/$DOMAIN/public_html
 # REMOVE TRASH
-rm -f /etc/skt.d/data/$DOMAIN/title
+rm -f /root/$DOMAIN/title
 # FIX ERROR INSTALLATION FAILED: COULD NOT CREATE DIRECTORY.
 #chmod 777 -R /home/$DOMAIN/public_html/wp-content
 chmod 777 /home/$DOMAIN/public_html/wp-config.php

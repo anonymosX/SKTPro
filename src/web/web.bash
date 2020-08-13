@@ -4,10 +4,10 @@ printf "        WEBSITE MANAGE | FOUND `find /home -mindepth 1 -maxdepth 1 -type
 printf "       ---------------------------------\n"
 printf "\n"
 printf "OPTIONS:\n"
-printf "1. ADD                         5. UPDATE PLUGIN\n"
-printf "2. DELETE                      6. WORDPRESS UPDATE\n"
-printf "3. BACKUP                      7. LOGIN DETAIL      \n"
-printf "4. RESTORE                     8. LIST DOMAINS\n" 
+printf "1. ADD                         5. Update Plugins\n"
+printf "2. DELETE                      6. Update Wordpress\n"
+printf "3. BACKUP                      7. Login Detail      \n"
+printf "4. RESTORE                     8. List Domains\n" 
 printf "ENTER: " 
 read OPTION
 clear
