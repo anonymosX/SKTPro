@@ -96,6 +96,7 @@ elif [ $QUESTION = 'Y' -o $QUESTION = 'y' ]; then
 		 --data '{"paused":'true'}'
 		 
 	rm -rf /root/$DOMAIN
+	sh /etc/skt.d/tool/namesilo/manDomain.bash
 }
 elif [ $QUESTION = 'N' -o $QUESTION = 'n' ]; then
 	clear
