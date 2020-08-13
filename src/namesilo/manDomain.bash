@@ -1,6 +1,6 @@
 #!/bin/bash
 printf " ----------------------\n"
-printf "      DOMAIN MANAGE\n"
+printf "      NAMESILO MANAGE\n"
 printf " ----------------------\n"
 printf "OPTIONS:\n"
 printf " 1. Register\n"
