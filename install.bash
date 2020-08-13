@@ -3,10 +3,10 @@ clear
 printf "========================================================================\n"
 printf " NINJA TOOL | TODAY: `date +%d-%m` |  DOMAINS: `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` | IP: `hostname -I | awk '{print $1}'`\n"
 printf "========================================================================\n"
-printf "1. WOOCOMMERCE                5. SSL    \n"
-printf "2. DOMAIN                     6. TOOL       \n"
-printf "3. CLOUDFLARE                 7. SERVER    \n"
-printf "4. DATABASE                   8. SYSTEM     \n"
+printf "1. WOOCOMMERCE                5. SSL  \n"
+printf "2. NAMESILO                   6. TOOL    \n"
+printf "3. CLOUDFLARE                 7. SERVER \n"
+printf "4. DATABASE                   8. SYSTEM \n"
 printf "Enter: "
 read OPTION
 
