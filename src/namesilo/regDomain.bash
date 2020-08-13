@@ -19,18 +19,18 @@ printf " ============================\n"
 printf " NINJA TOOL | REGISTER DOMAIN\n"
 printf " ============================\n"	
 printf "REGISTER DOMAIN\n"
-printf "ENTER DOMAIN: "
-read DOMAIN
-printf "\n"
-	if [ ! -d /etc/skt.d/data/$DOMAIN ]; then
-		mkdir -p /etc/skt.d/data/$DOMAIN
-	fi
 #NAMESILO ID
 printf "A) DOMAIN: \n"
 printf " 1. DNVN1 - Balance: `(grep -oP '(?<=balance>)[^<]+' "$namesilo1")` USD\n"
 printf " 7. DNVN7 - Balance: `(grep -oP '(?<=balance>)[^<]+' "$namesilo7")` USD\n"
 printf "ENTER: "
 read NS_NUMBER
+printf "ENTER DOMAIN: "
+read DOMAIN
+printf "\n"
+	if [ ! -d /etc/skt.d/data/$DOMAIN ]; then
+		mkdir -p /etc/skt.d/data/$DOMAIN
+	fi
 printf "B) CLOUDFLARE: \n"
 printf " 4: THANH TRUNG TEAM\n"
 printf " 5: HUYNH TAN SANG\n"
