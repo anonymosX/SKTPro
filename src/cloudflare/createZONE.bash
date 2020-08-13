@@ -11,7 +11,6 @@ printf " ============================================\n"
 	cd /root
 	mkdir -p $DOMAIN
 if [ ! -d /etc/skt.d/data/$DOMAIN ]; then
-	printf "test"
 	mkdir -p /etc/skt.d/data/$DOMAIN
 fi
 	#CREATE NEW ZONE ID

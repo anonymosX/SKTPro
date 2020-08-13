@@ -34,3 +34,4 @@ else
 	clear
 	sh /etc/skt.d/tool/namesilo/manDomain.bash
 fi
+
