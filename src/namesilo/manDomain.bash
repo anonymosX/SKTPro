@@ -8,7 +8,7 @@ printf " 2. Renew Domain\n"
 printf " 3. Check Exp\n"
 printf " 4. New Account\n"
 printf " 5. Update API\n"
-printf "ENTER: \n"
+printf "ENTER: "
 read OPTION
 
 
