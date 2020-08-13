@@ -93,9 +93,11 @@ elif [ $QUESTION = 'Y' -o $QUESTION = 'y' ]; then
 		 -H "X-Auth-Email: $EMAIL" \
 		 -H "X-Auth-Key: ${CF_API}" \
 		 -H "Content-Type: application/json" \
-		 --data '{"paused":'true'}'
-		 
+		 --data '{"paused":'true'}'		 
 	rm -rf /root/$DOMAIN
+	clear
+	printf "BOUGHT ${DOMAIN^^} AND ADDED TO CLOUDFLARE ${CF_NUMBER}\n"
+	printf "BOUGHT ${DOMAIN^^} AND ADDED TO CLOUDFLARE ${CF_NUMBER}\n"
 	sh /etc/skt.d/tool/namesilo/manDomain.bash
 }
 elif [ $QUESTION = 'N' -o $QUESTION = 'n' ]; then
