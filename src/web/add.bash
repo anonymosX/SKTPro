@@ -348,7 +348,7 @@ curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.
      -H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
      -H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
      -H "Content-Type: application/json" \
-     --data '{"paused":false}'
+     --data '{"paused":'false'}'
 #FULL SSL
 curl -X PATCH "https://api.cloudflare.com/client/v4/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`/settings/ssl" \
      -H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
