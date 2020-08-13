@@ -33,6 +33,7 @@ cloudflare/manCloudflare
 cloudflare/newAPI
 cloudflare/updateAPI
 cloudflare/updateDNS
+cloudflare/createZONE
 
 
 
