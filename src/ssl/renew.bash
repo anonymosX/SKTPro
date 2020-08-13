@@ -24,9 +24,9 @@ elif [ $CONFIRM = 'Y' -o $CONFIRM = 'y' ]; then
 		 -H "X-Auth-Email: `sed -n "1p" /ect/skt.d/data/$DOMAIN/api_cf.txt`" \
 		 -H "X-Auth-Key: `sed -n "2p" /ect/skt.d/data/$DOMAIN/api_cf.txt`" \
 		 -H "Content-Type: application/json" \
-		 --data '{"paused":true}'	
+		 --data '{"paused":'true'}'	
 	# WAIT 60s TO A RECORD UPDATE
-	sleep(60)
+	sleep 60
 	# CERTBOT RENEW - SSL
 	certbot renew --cert-name $DOMAIN
 	# ENABLE CLOUDFLARE AGAIN - ENABLE ZONE ID
@@ -34,7 +34,7 @@ elif [ $CONFIRM = 'Y' -o $CONFIRM = 'y' ]; then
 		 -H "X-Auth-Email: `sed -n "1p" /ect/skt.d/data/$DOMAIN/api_cf.txt`" \
 		 -H "X-Auth-Key: `sed -n "2p" /ect/skt.d/data/$DOMAIN/api_cf.txt`" \
 		 -H "Content-Type: application/json" \
-		 --data '{"paused":false}'		
+		 --data '{"paused":'false'}'		
 elif [ $CONFIRM = 'N' -o $CONFIRM = 'n' ]; then
 	clear
 	printf "YOU HAVE CHOOSE NO\n"
