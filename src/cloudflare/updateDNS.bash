@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #UPDATE DNS RECORD( 2 A RECORD): REPLACE 2 A RECORD DNS
-#DNS ID: /ect/skt.d/data/$DOMAIN/current_dns_id_cloudflare
-#ZONE ID: /ect/skt.d/data/$DOMAIN/api_cf.txt
+#DNS ID: /etc/skt.d/data/$DOMAIN/current_dns_id_cloudflare
+#ZONE ID: /etc/skt.d/data/$DOMAIN/api_cf.txt
 PROXIED="true"
 TTL="1"
 HOST=`hostname -I | awk '{print $1}'`
@@ -31,42 +31,42 @@ elif [ $OPTION = 1 ]; then
 	if [ $QUESTION = 'Y' -o $QUESTION = 'y' ]; then
 	{
 		clear
+		mkdir -p /root/$DOMAIN
 		#GET DNS RECORD ID
-		curl -X GET "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /ect/skt.d/data/$DOMAIN/api_cf.txt`/dns_records?type=A&proxied=true&page=1&per_page=20&order=type&direction=desc&match=all" \
-			 -H "X-Auth-Email: `sed -n "1p" /ect/skt.d/data/$DOMAIN/api_cf.txt`" \
-			 -H "X-Auth-Key: `sed -n "2p" /ect/skt.d/data/$DOMAIN/api_cf.txt`" \
+		curl -X GET "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`/dns_records?type=A&proxied=true&page=1&per_page=20&order=type&diretcion=desc&match=all" \
+			 -H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
+			 -H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
 			 -H "Content-Type: application/json" \
-			 | python -m json.tool | printf "`jq -r '.result[].id'`" | cat > /root/$DOMAIN/current_dns_id_cloudflare; \
-		yes | cp -rf /root/$DOMAIN/current_dns_id_cloudflare /etc/skt.d/data/$DOMAIN/current_dns_id_cloudflare
+			 | python -m json.tool | printf "`jq -r '.result[].id'`" | cat > /etc/skt.d/data/$DOMAIN/current_dns_id_cloudflare; \
 
 		#UPDATE NEW DNS RECORD
 
-		curl -X PUT "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /root/$DOMAIN/api_cf.txt`/dns_records/`sed -n "1p" /root/$DOMAIN/current_dns_id_cloudflare`" \
-			 -H "X-Auth-Email: `sed -n "1p" /ect/skt.d/data/$DOMAIN/api_cf.txt`" \
-			 -H "X-Auth-Key: `sed -n "2p" /ect/skt.d/data/$DOMAIN/api_cf.txt`" \
+		curl -X PUT "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`/dns_records/`sed -n "1p" /etc/skt.d/data/$DOMAIN/current_dns_id_cloudflare`" \
+			 -H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
+			 -H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
 			 -H "Content-Type: application/json" \
 			 --data '{"type":"A","name":"'"$DOMAIN"'","content":"'"$HOST"'","ttl":'"$TTL"',"proxied":'"$PROXIED"'}'; \
-		curl -X PUT "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /root/$DOMAIN/api_cf.txt`/dns_records/`sed -n "2p" /root/$DOMAIN/current_dns_id_cloudflare`" \
-			 -H "X-Auth-Email: `sed -n "1p" /ect/skt.d/data/$DOMAIN/api_cf.txt`" \
-			 -H "X-Auth-Key: `sed -n "2p" /ect/skt.d/data/$DOMAIN/api_cf.txt`" \
+		curl -X PUT "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`/dns_records/`sed -n "2p" /etc/skt.d/data/$DOMAIN/current_dns_id_cloudflare`" \
+			 -H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
+			 -H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
 			 -H "Content-Type: application/json" \
 			 --data '{"type":"A","name":"wwww","content":"'"$HOST"'","ttl":'"$TTL"',"proxied":'"$PROXIED"'}';\
 		rm -rf /root/$DOMAIN
 		clear
 		printf "UPDATE DNS SUCCESFULL TO NEW IP: $HOST\n"
-		sh /etc/skt.d/tool/domain/manDomain.bash
-		rm -rf /root/$DOMAIN
+		#rm -rf /root/$DOMAIN
+		sh /etc/skt.d/tool/cloudflare/manCloudflare.bash
 	}
 	elif [ $QUESTION = 'N' -o $QUESTION = 'n' ]; then
 	{
 		clear
 		printf "YOU HAVE CANCEL UPDATE DNS FOR ${DOMAIN^^}\n"
-		sh /etc/skt.d/tool/domain/manDomain.bash
+		sh /etc/skt.d/tool/cloudflare/manCloudflare.bash
 	}
 	else
 		clear
 		printf "NINJA TOOL: ERORR CONFIRM\n"
-		sh /etc/skt.d/tool/domain/updateDNS.bash
+		sh /etc/skt.d/tool/cloudflare/updateDNS.bash
 	fi
 elif [ $OPTION = 2 ]; then
 	printf "DO YOU WANT TO UPDATE DNS FOR ALL DOMAINS - Y/N"
@@ -77,23 +77,23 @@ elif [ $OPTION = 2 ]; then
 			if [ -d $D ]; then
 			DOMAIN=${D##*/}
 			#GET DNS A RECORD ID
-			curl -X GET "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /ect/skt.d/data/$DOMAIN/api_cf.txt`/dns_records?type=A&proxied=true&page=1&per_page=20&order=type&direction=desc&match=all" \
-				 -H "X-Auth-Email: `sed -n "1p" /ect/skt.d/data/$DOMAIN/api_cf.txt`" \
-				 -H "X-Auth-Key: `sed -n "2p" /ect/skt.d/data/$DOMAIN/api_cf.txt`" \
+			curl -X GET "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`/dns_records?type=A&proxied=true&page=1&per_page=20&order=type&diretcion=desc&match=all" \
+				 -H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
+				 -H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
 				 -H "Content-Type: application/json" \
-				 | python -m json.tool | printf "`jq -r '.result[].id'`" | cat > /ect/skt.d/data/$DOMAIN/current_dns_id_cloudflare; \
+				 | python -m json.tool | printf "`jq -r '.result[].id'`" | cat > /etc/skt.d/data/$DOMAIN/current_dns_id_cloudflare; \
 
 			#UPDATE NEW DNS RECORD
 			PROXIED="true"; \
 			TTL="1"; \
-			curl -X PUT "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /ect/skt.d/data/$DOMAIN/api_cf.txt`/dns_records/`sed -n "1p" /ect/skt.d/data/$DOMAIN/current_dns_id_cloudflare`" \
-				 -H "X-Auth-Email: `sed -n "1p" /ect/skt.d/data/$DOMAIN/api_cf.txt`" \
-				 -H "X-Auth-Key: `sed -n "2p" /ect/skt.d/data/$DOMAIN/api_cf.txt`" \
+			curl -X PUT "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`/dns_records/`sed -n "1p" /etc/skt.d/data/$DOMAIN/current_dns_id_cloudflare`" \
+				 -H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
+				 -H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
 				 -H "Content-Type: application/json" \
 				 --data '{"type":"A","name":"'"$DOMAIN"'","content":"'"$HOST"'","ttl":'"$TTL"',"proxied":'"$PROXIED"'}'; \
-			curl -X PUT "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /ect/skt.d/data/$DOMAIN/api_cf.txt`/dns_records/`sed -n "2p" /ect/skt.d/data/$DOMAIN/current_dns_id_cloudflare`" \
-				 -H "X-Auth-Email: `sed -n "1p" /ect/skt.d/data/$DOMAIN/api_cf.txt`" \
-				 -H "X-Auth-Key: `sed -n "2p" /ect/skt.d/data/$DOMAIN/api_cf.txt`" \
+			curl -X PUT "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`/dns_records/`sed -n "2p" /etc/skt.d/data/$DOMAIN/current_dns_id_cloudflare`" \
+				 -H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
+				 -H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
 				 -H "Content-Type: application/json" \
 				 --data '{"type":"A","name":"wwww","content":"'"$HOST"'","ttl":'"$TTL"',"proxied":'"$PROXIED"'}'; \
 			printf "UPDATE DNS SUCESSFUL FOR ${DOMAIN^^}\n"
@@ -106,9 +106,9 @@ elif [ $OPTION = 2 ]; then
 	else 
 		clear
 		printf "NINJA TOOL: CONFIRM ERROR\n"
-		sh /etc/skt.d/tool/domain/updateDNS.bash
+		sh /etc/skt.d/tool/cloudflare/updateDNS.bash
 	fi
 else
 	clear
-	printf "NINJA TOOl: ERROR SELECT\n"
+	printf "NINJA TOOl: ERROR SELetc\n"
 fi
