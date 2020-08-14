@@ -14,7 +14,7 @@ if [ $OPTION = 0 ]; then
 	sh /root/install
 elif [ $OPTION = 1 ]; then
 {
-	mkdir -p /etc/skt.d/tool
+	mkdir -p /etc/skt.d/tool/data
 	# DƠWNLOAD CONFIG FILE
 	curl -N $url/data/folder_config.txt | cat > /etc/skt.d/tool/data/folder_config.txt
 	curl -N $url/data/file_config.txt   | cat > /etc/skt.d/tool/data/file_config.txt
