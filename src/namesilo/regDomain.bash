@@ -8,10 +8,13 @@
 #LOAD BALANCE:
 #NAMESILO 1
 curl -X GET "https://www.namesilo.com/api/getAccountBalance?version=1&type=xml&key=`sed -n '1p' /etc/skt.d/data/namesilo/namesilo_1.txt`" | cat > /etc/skt.d/tool/data/balance_`sed -n '1p' /etc/skt.d/data/namesilo/namesilo_1.txt`.xml
+#NAMESILO 5
+curl -X GET "https://www.namesilo.com/api/getAccountBalance?version=1&type=xml&key=`sed -n '1p' /etc/skt.d/data/namesilo/namesilo_5.txt`" | cat > /etc/skt.d/tool/data/balance_`sed -n '1p' /etc/skt.d/data/namesilo/namesilo_5.txt`.xml
 
 #NAMESILO 7
 curl -X GET "https://www.namesilo.com/api/getAccountBalance?version=1&type=xml&key=`sed -n '1p' /etc/skt.d/data/namesilo/namesilo_7.txt`" | cat > /etc/skt.d/tool/data/balance_`sed -n '1p' /etc/skt.d/data/namesilo/namesilo_7.txt`.xml
 namesilo1="/etc/skt.d/tool/data/balance_`sed -n '1p' /etc/skt.d/data/namesilo/namesilo_1.txt`.xml"
+namesilo5="/etc/skt.d/tool/data/balance_`sed -n '1p' /etc/skt.d/data/namesilo/namesilo_5.txt`.xml"
 namesilo7="/etc/skt.d/tool/data/balance_`sed -n '1p' /etc/skt.d/data/namesilo/namesilo_7.txt`.xml"
 clear
 
@@ -22,6 +25,7 @@ printf "REGISTER DOMAIN\n"
 #NAMESILO ID
 printf "A) DOMAIN: \n"
 printf " 1. DNVN1 - Balance: `(grep -oP '(?<=balance>)[^<]+' "$namesilo1")` USD\n"
+printf " 5. DNVN5 - Balance: `(grep -oP '(?<=balance>)[^<]+' "$namesilo5")` USD\n"
 printf " 7. DNVN7 - Balance: `(grep -oP '(?<=balance>)[^<]+' "$namesilo7")` USD\n"
 printf "ENTER: "
 read NS_NUMBER
