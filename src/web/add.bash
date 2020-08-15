@@ -191,7 +191,8 @@ TITLE=`sed -n "1p" /root/$DOMAIN.txt`
 # INSTALL WORDPRESS
 wp core install --url=$DOMAIN  --title=${TITLE^^} --admin_user=${WP_USER} --admin_password=${WP_PASS} --admin_email=$EMAIL --path=/home/$DOMAIN/public_html
 # REMOVE TRASH
-rm -rf /root/$DOMAIN
+cd /root
+rm -f $DOMAIN.txt
 # FIX ERROR INSTALLATION FAILED: COULD NOT CREATE DIRECTORY.
 #chmod 777 -R /home/$DOMAIN/public_html/wp-content
 chmod 777 /home/$DOMAIN/public_html/wp-config.php
