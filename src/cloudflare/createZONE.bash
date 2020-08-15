@@ -8,8 +8,9 @@ printf " ============================================\n"
 	read NS_NUMBER	
 	printf "3. CLOUDFLARE: "
 	read CF_NUMBER
-	cd /root
-	mkdir -p $DOMAIN
+	mkdir -p /root/$DOMAIN
+	CONTENT="`hostname -I | awk '{print $1}'`"; \
+	TTL="1"; \
 if [ ! -d /etc/skt.d/data/$DOMAIN ]; then
 	mkdir -p /etc/skt.d/data/$DOMAIN
 fi
@@ -34,15 +35,11 @@ curl -X GET "https://api.cloudflare.com/client/v4/zones?name=$DOMAIN&status=pend
 	yes | cp -rf /root/$DOMAIN/ns_cf.txt /etc/skt.d/data/$DOMAIN/ns_cf.txt
 
 	#CHANGE NAMESERVER
-	source /etc/skt.d/data/namesilo/namesilo_${NS_NUMBER}.txt
-	printf "`sed -n '1p' /etc/skt.d/data/namesilo/namesilo_${NS_NUMBER}.txt`" | cat > /root/$DOMAIN/api_ns.txt
+	cat /etc/skt.d/data/namesilo/namesilo_${NS_NUMBER}.txt | cat > /root/$DOMAIN/api_ns.txt
 	yes | cp -rf /root/$DOMAIN/api_ns.txt /etc/skt.d/data/$DOMAIN/api_ns.txt
 	curl -X POST "https://www.namesilo.com/api/changeNameServers?version=1&type=xml&key=`sed -n '1p' /root/$DOMAIN/api_ns.txt`&domain=$DOMAIN&ns1=`sed -n '1p' /root/$DOMAIN/ns_cf.txt `&ns2=`sed -n '2p' /root/$DOMAIN/ns_cf.txt `&ns3="
 
 	#CREATE DNS A and MX RECORD and PAUSE ZONE
-
-	CONTENT="`hostname -I | awk '{print $1}'`"; \
-	TTL="1"; \
 curl -X POST "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`/dns_records/" \
 	-H "X-Auth-Email: $EMAIL" \
 	-H "X-Auth-Key: ${CF_API}" \
