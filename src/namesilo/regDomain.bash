@@ -35,11 +35,12 @@ read DOMAIN
 		mkdir -p /etc/skt.d/data/$DOMAIN
 	fi
 printf "B) CLOUDFLARE: \n"
+printf " 3: NGO VAN QUOC\n"
 printf " 4: THANH TRUNG TEAM\n"
 printf " 5: HUYNH TAN SANG\n"
 printf "ENTER: "
 read CF_NUMBER
-printf "DO YOU WANT REGISTER ${DOMAIN^^} WITH DOMAIN ACCOUNT ${NS_NUMBER} AND CLOUDFLARE ${CF_NUMBER}? - Y/N: "
+printf "REGISTER ${DOMAIN^^} WITH ACCOUNT ${NS_NUMBER} + CLOUDFLARE ${CF_NUMBER}? - Y/N: "
 read QUESTION
 if [ $QUESTION = 0 ]; then
 	sh /root/install
