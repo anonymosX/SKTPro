@@ -43,24 +43,24 @@ curl -X GET "https://api.cloudflare.com/client/v4/zones?name=$DOMAIN&status=pend
 
 	CONTENT="`hostname -I | awk '{print $1}'`"; \
 	TTL="1"; \
-curl -X POST "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /root/$DOMAIN/api_cf.txt`/dns_records/" \
+curl -X POST "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`/dns_records/" \
 	-H "X-Auth-Email: $EMAIL" \
 	-H "X-Auth-Key: ${CF_API}" \
 	-H "Content-Type: application/json" \
-	--data '{"type":"A","name":"'"$DOMAIN"'","content":"'"$CONTENT"'","proxied":"true","ttl":'"$TTL"'}' \ | python -m json.tool
-curl -X POST "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /root/$DOMAIN/api_cf.txt`/dns_records/" \
+	--data '{"type":"A","name":"'"$DOMAIN"'","content":"'"$CONTENT"'","proxied":'true',"ttl":'"$TTL"'}' \ | python -m json.tool
+curl -X POST "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`/dns_records/" \
 	-H "X-Auth-Email: $EMAIL" \
 	-H "X-Auth-Key: ${CF_API}" \
 	-H "Content-Type: application/json" \
-	--data '{"type":"A","name":"www","content":"'"$CONTENT"'","proxied":"true","ttl":'"$TTL"'}'  \ | python -m json.tool
-curl -X POST "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /root/$DOMAIN/api_cf.txt`/dns_records/" \
+	--data '{"type":"A","name":"www","content":"'"$CONTENT"'","proxied":'true',"ttl":'"$TTL"'}'  \ | python -m json.tool
+curl -X POST "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`/dns_records/" \
 	-H "X-Auth-Email: $EMAIL" \
 	-H "X-Auth-Key: ${CF_API}" \
 	-H "Content-Type: application/json" \
 	--data '{"type":"MX","name":"'"$DOMAIN"'","content":"mx.yandex.net","ttl":'"$TTL"',"priority":10}' ; \ | python -m json.tool
 	#PAUSE CLOUDLARE
 
-curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /root/$DOMAIN/api_cf.txt`" \
+curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
 	-H "X-Auth-Email: $EMAIL" \
 	-H "X-Auth-Key: ${CF_API}" \
 	-H "Content-Type: application/json" \
