@@ -189,7 +189,7 @@ sed -i "s/.top//g" /root/$DOMAIN.txt
 TITLE=`sed -n "1p" /root/$DOMAIN.txt`
 
 # INSTALL WORDPRESS
-wp core install --url=$DOMAIN  --title=$TITLE --admin_user=${WP_USER} --admin_password=${WP_PASS} --admin_email=$EMAIL --path=/home/$DOMAIN/public_html
+wp core install --url=$DOMAIN  --title=${TITLE^^} --admin_user=${WP_USER} --admin_password=${WP_PASS} --admin_email=$EMAIL --path=/home/$DOMAIN/public_html
 # REMOVE TRASH
 rm -rf /root/$DOMAIN
 # FIX ERROR INSTALLATION FAILED: COULD NOT CREATE DIRECTORY.
