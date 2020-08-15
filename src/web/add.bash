@@ -370,24 +370,24 @@ curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.
      -H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
      -H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
      -H "Content-Type: application/json" \
-     --data '{"paused":'false'}' ; \ | python -m json.tool
+     --data '{"paused":'false'}' \ | python -m json.tool
 #FULL SSL
 curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`/settings/ssl" \
      -H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
      -H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
      -H "Content-Type: application/json" \
-     --data '{"value":"full"}' ; \ | python -m json.tool 
+     --data '{"value":"full"}' \ | python -m json.tool 
 #ALWAYS HTTPS
 curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`/settings/always_use_https" \
      -H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
      -H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
      -H "Content-Type: application/json" \
-	 --data '{"value":"on"}' ; \ | python -m json.tool
+	 --data '{"value":"on"}' \ | python -m json.tool
 
 
 #source /etc/skt.d/data/$DOMAIN/sql.txt
 #source /etc/skt.d/data/$DOMAIN/login.txt
 clear
-printf "${DOMAIN^^}\USERNAME: ${WP_USER}\PASSWORD: ${WP_PASS}\EMAIL: $EMAIL\n"
+printf "${DOMAIN^^}\nUSERNAME: ${WP_USER}\nPASSWORD: ${WP_PASS}\nEMAIL: $EMAIL\n"
 systemctl restart nginx php-fpm mariadb
 fi
