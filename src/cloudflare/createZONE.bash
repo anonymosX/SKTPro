@@ -62,4 +62,5 @@ curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.
 	-H "X-Auth-Key: ${CF_API}" \
 	-H "Content-Type: application/json" \
 	--data '{"paused":'true'}' \ | python -m json.tool
-rm -rf /root/$DOMAIn
+cd /root
+rm -rf $DOMAIN
