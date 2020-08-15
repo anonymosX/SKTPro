@@ -2,15 +2,15 @@
 printf " ============================================\n"
 printf " CREATE ZONE | CLOUDFLARE MANAGE | NINJA TOOL\n"
 printf " ============================================\n"
-	printf "1. DOMAIN: "
-	read DOMAIN
-	printf "2. NAMESILO: "
-	read NS_NUMBER	
-	printf "3. CLOUDFLARE: "
-	read CF_NUMBER
-	mkdir -p /root/$DOMAIN
-	CONTENT="`hostname -I | awk '{print $1}'`"; \
-	TTL="1"; \
+printf "1. DOMAIN: "
+read DOMAIN
+printf "2. NAMESILO: "
+read NS_NUMBER	
+printf "3. CLOUDFLARE: "
+read CF_NUMBER
+mkdir -p /root/$DOMAIN
+CONTENT="`hostname -I | awk '{print $1}'`"; \
+TTL="1"; \
 if [ ! -d /etc/skt.d/data/$DOMAIN ]; then
 	mkdir -p /etc/skt.d/data/$DOMAIN
 fi
@@ -62,3 +62,4 @@ curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.
 	-H "X-Auth-Key: ${CF_API}" \
 	-H "Content-Type: application/json" \
 	--data '{"paused":'true'}' \ | python -m json.tool
+rm -rf /root/$DOMAIn
