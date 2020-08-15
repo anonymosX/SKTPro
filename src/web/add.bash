@@ -255,7 +255,7 @@ wp widget add custom_html footer --content="<h4 style='color:white'>About Compan
 wp widget add custom_html footer --content="<h4 style='color:white'>Tools &amp; apps</h4><ul><li><a href='/my-account/'>My Account</a></li><li><a href='/payment'>Payment</a></li><li><a href='/track-order'>Track Orders</a></li><li><a href='/checkout/'>Checkout</a></li> <li><a href='/cart/'>Cart</a></li> </ul>" 2 --path=/home/$DOMAIN/public_html
 wp widget add custom_html footer --content="<h4 style='color:white'>Help & Contact</h4><ul><li><a href='/refund-policy'>Returns and Refund</a></li><li><a href='/privacy-policy'>Privacy Policy</a></li><li><a href='/term-of-service'>Terms &amp; Conditions</a></li><li><a href='/contact-us'>Contact Us</a></li><li><a href='/about-us'>About Us</a></li></ul> " 3 --path=/home/$DOMAIN/public_html
 wp widget add custom_html footer --content="
-<h4 style='color:white'>Company Info</h4><ul><li>Location: $ADDRESS</li><li>Phone: $PHONE </li><li>Email: $EMAIL </li></ul>" 4 --path=/home/$DOMAIN/public_html
+<h4 style='color:white'>Company Info</h4><ul><li>Location: ${ADDRESS} </li><li>Phone: $PHONE </li><li>Email: $EMAIL </li></ul>" 4 --path=/home/$DOMAIN/public_html
 wp widget add custom_html copyright --content="Copyright © 2012-2020 ${DOMAIN^^} Inc. All Rights Reserved<br/>" 1 --path=/home/$DOMAIN/public_html
 wp widget add custom_html copyright --content="<img class='alignright size-full wp-image-183' src='https://themedemo.commercegurus.com/shoptimizer-demodata/wp-content/uploads/sites/53/2018/05/credit-cards.png' alt='' width='718' height='78' />" 2 --path=/home/$DOMAIN/public_html
 }
