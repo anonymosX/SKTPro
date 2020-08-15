@@ -351,7 +351,7 @@ curl -N $url/page/payment.html | wp post generate --post_type=page --post_conten
 wp search-replace 'changedomainhere' $DOMAIN wp_posts --path=/home/$DOMAIN/public_html
 wp search-replace 'changeaddresshere' $ADDRESS wp_posts --path=/home/$DOMAIN/public_html
 wp search-replace 'changebusinessnamehere' ${DOMAIN^^} wp_posts --path=/home/$DOMAIN/public_html
-wp search-replace 'changemailhere' $EMAIl wp_posts --path=/home/$DOMAIN/public_html
+wp search-replace 'changemailhere' $EMAIL wp_posts --path=/home/$DOMAIN/public_html
 chmod 777 -R /home/$DOMAIN/public_html/wp-content
 
 # ENABLE ZONE - CLOUDFLARE
