@@ -175,34 +175,23 @@ define('FS_METHOD','direct');
 PHP
 
 #REMOVE .NET .COM .SHOP .TOP IN TITLE
-printf "${DOMAIN^^}" | cat > /root/$DOMAIN.txt
+printf "${DOMAIN}" | cat > /root/$DOMAIN.txt
 #REPLACE .NET
-if [ $DOMAIN = *.net ]; then
-	printf $DOMAIN | cat > $DOMAIN.txt 
-	sed -i "s/.net//g" /root/$DOMAIN.txt
-fi
+sed -i "s/.net//g" /root/$DOMAIN.txt
 #REPLACE .SHOP
-if [ $DOMAIN = *.shop ]; then
-	printf $DOMAIN | cat > $DOMAIN.txt 
-	sed -i "s/.shop//g" /root/$DOMAIN.txt
-fi
+sed -i "s/.shop//g" /root/$DOMAIN.txt
 #REPLACE .COM
-if [ $DOMAIN = *.com ]; then
-	printf $DOMAIN | cat > $DOMAIN.txt 
-	sed -i "s/.com//g" /root/$DOMAIN.txt
-fi
+sed -i "s/.com//g" /root/$DOMAIN.txt
 #REPLCAE .TOP
-if [ $DOMAIN = *.top ]; then
-	printf $DOMAIN | cat > $DOMAIN.txt 
-	sed -i "s/.top//g" /root/$DOMAIN.txt
-fi
+sed -i "s/.top//g" /root/$DOMAIN.txt
+
 
 TITLE=`sed -n "1p" /root/$DOMAIN.txt`
 
 # INSTALL WORDPRESS
 wp core install --url=$DOMAIN  --title=$TITLE --admin_user=${WP_USER} --admin_password=${WP_PASS} --admin_email=$EMAIL --path=/home/$DOMAIN/public_html
 # REMOVE TRASH
-rm -f /root/$DOMAIN/title
+rm -rf /root/$DOMAIN
 # FIX ERROR INSTALLATION FAILED: COULD NOT CREATE DIRECTORY.
 #chmod 777 -R /home/$DOMAIN/public_html/wp-content
 chmod 777 /home/$DOMAIN/public_html/wp-config.php
@@ -359,7 +348,7 @@ wget $url/img/paypal1.png && mv paypal1.png /home/$DOMAIN/public_html/img
 wget $url/img/paypal2.png && mv paypal2.png /home/$DOMAIN/public_html/img
 curl -N $url/page/payment.html | wp post generate --post_type=page --post_content --post_title="Payment" --count=1 --path=/home/$DOMAIN/public_html
 
-wp search-replace 'changedomainhere' ${DOMAIN^^} wp_posts --path=/home/$DOMAIN/public_html
+wp search-replace 'changedomainhere' $DOMAIN wp_posts --path=/home/$DOMAIN/public_html
 wp search-replace 'changeaddresshere' $ADDRESS wp_posts --path=/home/$DOMAIN/public_html
 wp search-replace 'changebusinessnamehere' ${DOMAIN^^} wp_posts --path=/home/$DOMAIN/public_html
 wp search-replace 'changemailhere' $EMAIl wp_posts --path=/home/$DOMAIN/public_html
