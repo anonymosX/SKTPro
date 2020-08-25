@@ -228,7 +228,7 @@ wp plugin install smart-woocommerce-search --path=/home/$DOMAIN/public_html --ac
 wp plugin install perfect-woocommerce-brands --path=/home/$DOMAIN/public_html --activate
 wp plugin install one-click-demo-import --path=/home/$DOMAIN/public_html --activate
 wp plugin install no-category-base-wpml --path=/home/$DOMAIN/public_html --activate
-wp plugin install elementor --path=/home/$DOMAIN/public_html --activate
+wp plugin install elementor --path=/home/$DOMAIN/public_html
 wp plugin install kirki --path=/home/$DOMAIN/public_html --activate
 wp plugin install hurrytimer --path=/home/$DOMAIN/public_html --activate
 wp plugin install $url/plugins/notification.zip --path=/home/$DOMAIN/public_html 
@@ -377,6 +377,7 @@ curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.
 
 #source /etc/skt.d/data/$DOMAIN/sql.txt
 #source /etc/skt.d/data/$DOMAIN/login.txt
+wp plugin activate elementor --path=/home/$DOMAIN/public_html
 clear
 printf "${DOMAIN^^}\nUSERNAME: ${WP_USER}\nPASSWORD: ${WP_PASS}\nEMAIL: $EMAIL\n"
 systemctl restart nginx php-fpm mariadb
