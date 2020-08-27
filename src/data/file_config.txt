@@ -34,7 +34,7 @@ cloudflare/newAPI
 cloudflare/updateAPI
 cloudflare/updateDNS
 cloudflare/createZONE
-
+cloudflare/70kcreatezone
 
 
 
