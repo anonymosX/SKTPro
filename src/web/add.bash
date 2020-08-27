@@ -289,6 +289,7 @@ wp plugin install really-simple-ssl --path=/home/$DOMAIN/public_html
 wp plugin install w3-total-cache --path=/home/$DOMAIN/public_html --activate
 wp plugin install autoptimize --path=/home/$DOMAIN/public_html --activate
 wp plugin install varnish-http-purge --path=/home/$DOMAIN/public_html --activate
+wp plugin install wpforms-lite --path=/home/$DOMAIN/public_html --activate
 chmod 777 -R /home/$DOMAIN/public_html/wp-content
 
 
