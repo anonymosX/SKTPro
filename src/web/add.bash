@@ -241,7 +241,7 @@ wp widget delete search-2 recent-posts-2 recent-comments-2 archives-2 categories
 
 wp widget add custom_html header-1 --content="The impact of the COVID-19 crisis made transit time potentially affected. We will try to serve you the best. Hope you are always well" --path=/home/$DOMAIN/public_html
 # Add a custom html to Single Product Custom Area
-wp widget add custom_html single-product-field --content="<strong>Free USA shipping on all orders</strong><ul><li>30 days easy returns</li><li>Order yours before 2.30pm for same day dispatch</li></ul><fieldset><legend>Guaranteed Safe Checkout</legend><img class='alignnone size-large wp-image-1191' src='https://themedemo.commercegurus.com/shoptimizer/wp-content/uploads/sites/52/2018/07/trust-symbols_a-1024x108.jpg' alt='' width='1024' height='108' /></fieldset>" --path=/home/$DOMAIN/public_html
+#wp widget add custom_html single-product-field --content="<strong>Free USA shipping on all orders</strong><ul><li>30 days easy returns</li><li>Order yours before 2.30pm for same day dispatch</li></ul><fieldset><legend>Guaranteed Safe Checkout</legend><img class='alignnone size-large wp-image-1191' src='https://themedemo.commercegurus.com/shoptimizer/wp-content/uploads/sites/52/2018/07/trust-symbols_a-1024x108.jpg' alt='' width='1024' height='108' /></fieldset>" --path=/home/$DOMAIN/public_html
 
 # Add a custom html to Cart Custom Area
 wp widget add custom_html cart-field --content="<img class='alignnone size-large wp-image-1192' src='https://themedemo.commercegurus.com/shoptimizer/wp-content/uploads/sites/52/2018/07/trust-symbols_b-1024x108.jpg' alt='' width='1024' height='108' />" --path=/home/$DOMAIN/public_html
