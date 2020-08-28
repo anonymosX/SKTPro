@@ -40,7 +40,7 @@ mv wordpress/* ./ && rm -rf wordpress latest.tar.gz
 chmod 777 /home/$DOMAIN/public_html ; chown -R nginx:nginx /home/$DOMAIN/public_html
 
 # CREATE DATABASE
-source /etc/skt.d/data/$DOMAIN/sql.txt
+
 printf "create database ${DB_NAME}" | mysql
 printf "create user '${DB_USER}'@'localhost' identified by '${DB_PASS}'" | mysql
 printf "grant all on ${DB_NAME}.* to ${DB_USER}@localhost" | mysql
