@@ -18,6 +18,7 @@ elif [ $OPTION = 1 ]; then
 #70k create zone
 elif [ $OPTION = 2 ]; then	
 	clear ; sh /etc/skt.d/tool/cloudflare/70kcreatezone.bash
+	sh /etc/skt.d/tool/web/add.bash
 #UPDATE DNS A RECORD
 elif [ $OPTION = 3 ]; then	
 	clear ; sh /etc/skt.d/tool/cloudflare/updateDNS.bash

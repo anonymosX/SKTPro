@@ -30,11 +30,11 @@ elif [ $CONFIRM = 'Y' -o $CONFIRM = 'y' ]; then
 	# CERTBOT RENEW - SSL
 	certbot renew --cert-name $DOMAIN
 	# ENABLE CLOUDFLARE AGAIN - ENABLE ZONE ID
-	curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /ecetct/skt.d/data/$DOMAIN/api_cf.txt`" \
-		 -H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
-		 -H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
-		 -H "Content-Type: application/json" \
-		 --data '{"paused":'false'}'		
+curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
+	-H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
+	-H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
+	-H "Content-Type: application/json" \
+	--data '{"paused":'false'}'		
 elif [ $CONFIRM = 'N' -o $CONFIRM = 'n' ]; then
 	clear
 	printf "YOU HAVE CHOOSE NO\n"

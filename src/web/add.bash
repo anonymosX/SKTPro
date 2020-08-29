@@ -383,3 +383,4 @@ clear
 printf "${DOMAIN^^}\nUSERNAME: ${WP_USER}\nPASSWORD: ${WP_PASS}\nEMAIL: $EMAIL\n"
 systemctl restart nginx php-fpm mariadb
 fi
+sh /etc/skt.d/tool/web/web.bash
