@@ -53,9 +53,8 @@ curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.
 	-H "Content-Type: application/json" \
 	--data '{"paused":'true'}' \ | python -m json.tool
 clear
-#show NS Cloudflare
-printf "NS Cloudflare: \n"
-cat /etc/skt.d/data/$DOMAIN/ns_cf.txt 
+
+printf "ĐÃ ÉP THÀNH CÔNG $DOMAIN VÀO CLOUDFLARE $CF\n"
 
 
 
