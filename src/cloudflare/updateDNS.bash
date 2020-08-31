@@ -76,7 +76,7 @@ elif [ $OPTION = 1 ]; then
 		sh /etc/skt.d/tool/cloudflare/updateDNS.bash
 	fi
 elif [ $OPTION = 2 ]; then
-	printf "DO YOU WANT TO UPDATE DNS FOR ALL DOMAINS - Y/N"
+	printf "Update A Record for all domain - Y/N: "
 	read QUESTION
 	if [ $QUESTION = 'Y' -o $QUESTION = 'y' ]; then
 	{
@@ -110,8 +110,7 @@ elif [ $OPTION = 2 ]; then
 				-H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
 				-H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
 				-H "Content-Type: application/json" \
-			--data '{"purge_everything":true}' \
-			| python -m json.tool
+			--data '{"purge_everything":true}' \ | python -m json.tool
 			#ENABLE CLOUDFLARE
 			curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
 				-H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \

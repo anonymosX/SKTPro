@@ -19,6 +19,11 @@ elif [ $CONFIRM = 'Y' -o $CONFIRM = 'y' ]; then
 {
 	clear
 	printf "PROCESS DELETE ${DOMAIN^^}\n"
+	# DELETE CLOUDFLARE ZONE ID
+	curl -X DELETE "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
+     -H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
+     -H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
+     -H "Content-Type: application/json"
 	# DELETE CODE
 	rm -rf /home/$DOMAIN
 	rm -rf /etc/nginx/conf.d/$DOMAIN.conf

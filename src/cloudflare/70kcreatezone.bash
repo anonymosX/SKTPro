@@ -1,17 +1,15 @@
 #!/bin/bash
 printf " ============================================\n"
-printf " CREATE ZONE 70k | CLOUDFLARE MANAGE | NINJA TOOL\n"
+printf " Domain FREE | CLOUDFLARE MANAGE | NINJA TOOL\n"
 printf " ============================================\n"
 printf "1. DOMAIN 70k: "
 read DOMAIN
 printf "2. CLOUDFLARE: "
 read CF_NUMBER
 
-CONTENT="`hostname -I | awk '{print $1}'`"; \
-TTL="1"; \
-
+CONTENT="`hostname -I | awk '{print $1}'`"
+TTL="1"
 	mkdir -p /etc/skt.d/data/$DOMAIN
-
 	#CREATE NEW ZONE ID
 	source /etc/skt.d/data/cloudflare/cloudflare_${CF_NUMBER}.txt
 curl -X POST "https://api.cloudflare.com/client/v4/zones/" \
