@@ -112,9 +112,10 @@ elif [ $OPTION = 2 ]; then
 				-H "Content-Type: application/json" \
 			--data '{"purge_everything":true}' \
 			| python -m json.tool
+			#ENABLE CLOUDFLARE
 			curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
-				-H "X-Auth-Email: $EMAIL" \
-				-H "X-Auth-Key: ${CF_API}" \
+				-H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
+				-H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
 				-H "Content-Type: application/json" \
 				--data '{"paused":'false'}' \ | python -m json.tool
 			printf "UPDATE DNS SUCESSFUL FOR ${DOMAIN^^}\n"
