@@ -45,20 +45,20 @@ elif [ $OPTION = 1 ]; then
 			 -H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
 			 -H "Content-Type: application/json" \
 			 --data '{"type":"A","name":"'"$DOMAIN"'","content":"'"$HOST"'","ttl":'"$TTL"',"proxied":'"$PROXIED"'}' \
-			 | python -m json.tool | jq -r '.suscess'
+			 | python -m json.tool
 		curl -X PUT "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`/dns_records/`sed -n "2p" /etc/skt.d/data/$DOMAIN/current_dns_id_cloudflare`" \
 			 -H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
 			 -H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
 			 -H "Content-Type: application/json" \
-			 --data '{"type":"A","name":"wwww","content":"'"$HOST"'","ttl":'"$TTL"',"proxied":'"$PROXIED"'}';\
-			 | python -m json.tool | jq -r '.suscess'
+			 --data '{"type":"A","name":"wwww","content":"'"$HOST"'","ttl":'"$TTL"',"proxied":'"$PROXIED"'}'\
+			 | python -m json.tool
 		#PURE CACHE
 			curl -X POST "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
 				-H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
 				-H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
 				-H "Content-Type: application/json" \
 			--data '{"purge_everything":true}' \
-			| python -m json.tool | jq -r '.suscess'			
+			| python -m json.tool		
 		clear
 		printf "UPDATE DNS SUCCESFULL TO NEW IP: $HOST\n"
 		#rm -rf /root/$DOMAIN
@@ -91,27 +91,27 @@ elif [ $OPTION = 2 ]; then
 				 | python -m json.tool | printf "`jq -r '.result[].id'`" | cat > /etc/skt.d/data/$DOMAIN/current_dns_id_cloudflare; \
 
 			#UPDATE NEW DNS RECORD
-			PROXIED="true"; \
-			TTL="1"; \
+			PROXIED="true"
+			TTL="1"
 			curl -X PUT "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`/dns_records/`sed -n "1p" /etc/skt.d/data/$DOMAIN/current_dns_id_cloudflare`" \
 				 -H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
 				 -H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
 				 -H "Content-Type: application/json" \
-				 --data '{"type":"A","name":"'"$DOMAIN"'","content":"'"$HOST"'","ttl":'"$TTL"',"proxied":'"$PROXIED"'}'; \
-			| python -m json.tool | jq -r '.suscess'
+				 --data '{"type":"A","name":"'"$DOMAIN"'","content":"'"$HOST"'","ttl":'"$TTL"',"proxied":'"$PROXIED"'}' \
+			| python -m json.tool
 			curl -X PUT "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`/dns_records/`sed -n "2p" /etc/skt.d/data/$DOMAIN/current_dns_id_cloudflare`" \
 				 -H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
 				 -H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
 				 -H "Content-Type: application/json" \
 				 --data '{"type":"A","name":"wwww","content":"'"$HOST"'","ttl":'"$TTL"',"proxied":'"$PROXIED"'}'; \
-			| python -m json.tool | jq -r '.suscess'
+			| python -m json.tool
 			#PURE CACHE
 			curl -X POST "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
 				-H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
 				-H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
 				-H "Content-Type: application/json" \
 			--data '{"purge_everything":true}' \
-			| python -m json.tool | jq -r '.suscess'
+			| python -m json.tool
 			printf "UPDATE DNS SUCESSFUL FOR ${DOMAIN^^}\n"
 			fi
 		done
