@@ -6,12 +6,12 @@ printf "1. DOMAIN 70k: "
 read DOMAIN
 printf "2. CLOUDFLARE: "
 read CF_NUMBER
-mkdir -p /root/$DOMAIN
+
 CONTENT="`hostname -I | awk '{print $1}'`"; \
 TTL="1"; \
-if [ ! -d /etc/skt.d/data/$DOMAIN ]; then
+
 	mkdir -p /etc/skt.d/data/$DOMAIN
-fi
+
 	#CREATE NEW ZONE ID
 	source /etc/skt.d/data/cloudflare/cloudflare_${CF_NUMBER}.txt
 curl -X POST "https://api.cloudflare.com/client/v4/zones/" \

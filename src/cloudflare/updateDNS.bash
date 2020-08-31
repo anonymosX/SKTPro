@@ -53,7 +53,7 @@ elif [ $OPTION = 1 ]; then
 			 --data '{"type":"A","name":"wwww","content":"'"$HOST"'","ttl":'"$TTL"',"proxied":'"$PROXIED"'}'\
 			 | python -m json.tool
 		#PURE CACHE
-			curl -X POST "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
+			curl -X POST "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`/purge_cache" \
 				-H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
 				-H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
 				-H "Content-Type: application/json" \
@@ -106,12 +106,17 @@ elif [ $OPTION = 2 ]; then
 				 --data '{"type":"A","name":"wwww","content":"'"$HOST"'","ttl":'"$TTL"',"proxied":'"$PROXIED"'}' \
 			| python -m json.tool
 			#PURE CACHE
-			curl -X POST "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
+			curl -X POST "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`/purge_cache" \
 				-H "X-Auth-Email: `sed -n "1p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
 				-H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
 				-H "Content-Type: application/json" \
 			--data '{"purge_everything":true}' \
 			| python -m json.tool
+			curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
+				-H "X-Auth-Email: $EMAIL" \
+				-H "X-Auth-Key: ${CF_API}" \
+				-H "Content-Type: application/json" \
+				--data '{"paused":'false'}' \ | python -m json.tool
 			printf "UPDATE DNS SUCESSFUL FOR ${DOMAIN^^}\n"
 			fi
 		done
