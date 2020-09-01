@@ -13,6 +13,7 @@ elif [ $CONFIRM = 'Y' -o $CONFIRM = 'y' ]; then
 	clear
 	# BackUp BLOCK
 	printf "1. PROCESS CODE AND CONFIG\n"
+	printf " - Backup full source code\n"
 	cd /root && tar fczP home.tar.gz /home /etc/skt.d/data /etc/letsencrypt /etc/nginx/conf.d
 	printf "\n"
     printf "2. PROCESS SQL\n"
@@ -20,6 +21,7 @@ elif [ $CONFIRM = 'Y' -o $CONFIRM = 'y' ]; then
 	for D in /home/*; do
 		if [ -d ${D} ]; then
 			DOMAIN=${D##*/}
+			printf " - Backup mysql for $DOMAIN\n"
 			source /etc/skt.d/data/$DOMAIN/sql.txt
 			mysqldump -u root -p$mdbp $dbn > $DOMAIN-$dbn.sql
 		fi
