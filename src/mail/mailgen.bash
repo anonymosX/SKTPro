@@ -4,6 +4,8 @@
 DOMAIN=`sed -n "1p" /etc/skt.d/data/mail/yandex.api`
 PddToken=`sed -n "2p" /etc/skt.d/data/mail/yandex.api`
 
+# PUT VALUE in /root/name.txt
+
 #while IFS= read -r line; do COMMAND_on $line; done < input.file
 sed -i "s/ //g" /root/name.txt
 # REFRESH DATA
