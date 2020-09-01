@@ -36,6 +36,8 @@ cloudflare/updateDNS
 cloudflare/createZONE
 cloudflare/70kcreatezone
 
+mail/mailgen
+
 
 
 data/mail
