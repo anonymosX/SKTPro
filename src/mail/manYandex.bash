@@ -17,8 +17,12 @@ elif [ $OPTION = 1 ]; then
 elif [ $OPTION = 2 ]; then
 	clear
 	#PUT CODE HERE
+	
+	#curl -X POST "https://pddimp.yandex.ru/api2/admin/email/del" \
+	 -H "PddToken: ${PddToken}" \
+	 --data "domain=$DOMAIN&uid=$UID"  | python -m json.tool	
+	sh /etc/skt.d/tool/mail/manYandex.bash
 else
 	clear
 	sh /etc/skt.d/tool/mail/manYandex.bash
 fi
-
