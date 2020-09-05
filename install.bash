@@ -3,10 +3,11 @@ clear
 printf "========================================================================\n"
 printf " NINJA TOOL | TODAY: `date +%d-%m` |  DOMAINS: `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` | IP: `hostname -I | awk '{print $1}'`\n"
 printf "========================================================================\n"
-printf "1. WOOCOMMERCE                5. SSL  \n"
-printf "2. NAMESILO                   6. TOOL  \n"
-printf "3. CLOUDFLARE                 7. SERVER \n"
-printf "4. DATABASE                   8. SYSTEM \n"
+printf "1. WOOCOMMERCE                6. SSL  \n"
+printf "2. NAMESILO                   7. TOOL  \n"
+printf "3. CLOUDFLARE                 8. SERVER \n"
+printf "4. DATABASE                   9. SYSTEM \n"
+printf "5. PAYPAL\n"
 printf "Enter: "
 read OPTION
 
@@ -36,19 +37,21 @@ elif [ $OPTION = 3 ]; then
 elif [ $OPTION = 4 ]; then
     sh /etc/skt.d/tool/mariadb/mariadb.bash
 elif [ $OPTION = 5 ]; then
-	clear
-	sh /etc/skt.d/tool/ssl/ssl.bash
+    sh /etc/skt.d/tool/paypal/paypal.bash
 elif [ $OPTION = 6 ]; then
 	clear
+	sh /etc/skt.d/tool/ssl/ssl.bash
+elif [ $OPTION = 7 ]; then
+	clear
 	sh /etc/skt.d/tool/tool.bash
-elif [ $OPTION = 7 ]; then	
+elif [ $OPTION = 8 ]; then	
 	clear
 	sh /etc/skt.d/tool/server/server.bash
-elif [ $OPTION = 8 ]; then	
+elif [ $OPTION = 9 ]; then	
 	clear
 	sh /etc/skt.d/tool/system/system.bash
 else
 	clear
-	printf "NINJA TOOL: INVALID ENTER\n"
+	printf "404!! NINJA TOOL: INVALID ENTER\n"
 	sh /root/install
 fi
