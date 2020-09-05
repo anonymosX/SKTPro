@@ -5,7 +5,8 @@ printf " --------------------------\n"
 printf " 1. Declare API\n"
 printf " 2. Fulfillment\n"
 printf " 3. Update Token\n"
-printf " 4. Previous/Back\n"
+printf " 4. Instructions\n"
+printf " 5. Previous/Back\n"
 printf "OPTION: "
 read OPTION
 #OPTION 0
@@ -30,16 +31,6 @@ elif [ $OPTION  = 2 ]; then
 printf " --------------------------\n"
 printf "   FULFILLMENT | PAYPAL\n"
 printf " --------------------------\n"
-printf " Instructions update file track.txt:\n"
-printf " Step 1: rm -rf  track.txt\n"
-printf " Step 2: vi track.txt and PRESS i\n"
-printf " Step 3: Copy and Paste to file track.txt\n"
-printf " Step 4: Press Esc and :wq then Press Enter \n"
-printf " Final running app and fulfill\n"   
-printf "FILE TRACK FORM:\n"
-printf "E4 8MC585209K146393H 9400109205568128990983\n"
-printf "E5 9MC585209K346391H 9400109205568743137961\n"
-printf "\n"
 printf "Do you want to update NEW ACCESS TOKEN?(Y/N): "
 read UPDATE
 if [ ${UPDATE} = Y -o ${UPDATE} = y ]; then
@@ -88,8 +79,21 @@ elif [ $OPTION  = 3 ]; then
 	  -d "grant_type=client_credentials" \ | python -m json.tool | printf `jq -r ".access_token"` | cat > /etc/skt.d/data/paypal/token/${VPS}_access_token
 	done < /etc/skt.d/data/paypal/vps.txt
 	sh /etc/skt.d/tool/paypal/fulfill.bash
-#OPTION 4
+#OPTION 4	
 elif [ $OPTION  = 4 ]; then
+clear
+printf " Instructions update file track.txt:\n"
+printf " Step 1: rm -rf  track.txt\n"
+printf " Step 2: vi track.txt and PRESS i\n"
+printf " Step 3: Copy and Paste to file track.txt\n"
+printf " Step 4: Press Esc and :wq then Press Enter \n"
+printf " Final running app and fulfill\n"   
+printf "FILE TRACK FORM:\n"
+printf "E4 8MC585209K146393H 9400109205568128990983\n"
+printf "E5 9MC585209K346391H 9400109205568743137961\n"
+printf "\n"	
+	sh /etc/skt.d/tool/paypal/fulfill.bash
+elif [ $OPTION  = 5 ]; then
 	clear
 	sh /etc/skt.d/tool/paypal/paypal.bash
 else
