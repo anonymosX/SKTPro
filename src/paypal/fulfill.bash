@@ -2,7 +2,6 @@
 printf " --------------------------\n"
 printf "   FULFILLMENT | PAYPAL\n"
 printf " --------------------------\n"
-printf "OPTION: \n"
 printf " 1. Declare API\n"
 printf " 2. Fulfillment\n"
 printf " 3. Update Token\n"
@@ -31,9 +30,19 @@ elif [ $OPTION  = 2 ]; then
 printf " --------------------------\n"
 printf "   FULFILLMENT | PAYPAL\n"
 printf " --------------------------\n"
-printf "Do you want to update new access token: "
-read OPTION-UPDATE
-if [ ${OPTION-UPDATE} = Y -o ${OPTION-UPDATE} = y ]; then
+printf " Instructions update file track.txt:\n"
+printf " Step 1: rm -rf  track.txt\n"
+printf " Step 2: vi track.txt and PRESS i\n"
+printf " Step 3: Copy and Paste to file track.txt\n"
+printf " Step 4: Press Esc and :wq then Press Enter \n"
+printf " Final running app and fulfill\n"   
+printf "FILE TRACK FORM:\n"
+printf "E4 8MC585209K146393H 9400109205568128990983\n"
+printf "E5 9MC585209K346391H 9400109205568743137961\n"
+printf "\n"
+printf "Do you want to update NEW ACCESS TOKEN?(Y/N): "
+read UPDATE
+if [ ${UPDATE} = Y -o ${UPDATE} = y ]; then
 	#UPDATE ALL ACCESS TOKEN
 	while IFS= read -r line; do
 	curl -v POST https://api.paypal.com/v1/oauth2/token \
@@ -42,7 +51,7 @@ if [ ${OPTION-UPDATE} = Y -o ${OPTION-UPDATE} = y ]; then
 	  -u "`sed -n "1p" /etc/skt.d/data/paypal/API/${line}_clientid_secret_key`" \
 	  -d "grant_type=client_credentials" \ | python -m json.tool | printf `jq  -r ".access_token"` | cat > /etc/skt.d/data/paypal/token/${line}_access_token
 	done < /etc/skt.d/data/paypal/vps.txt
-elif [ ${OPTION-UPDATE} = N -o ${OPTION-UPDATE} = n ]; then
+elif [ ${UPDATE} = N -o ${UPDATE} = n ]; then
 	printf "No update this time\n"
 else
 	printf "OTHER ERROR\n"
