@@ -22,11 +22,11 @@ elif [ $OPTION = 1 ]; then
 	# CREATE FOLDERS
 	while IFS= read -r line; do
 		mkdir -p /etc/skt.d/tool/$line
-	done < "/etc/skt.d/tool/data/folder_config.txt"
+	done < /etc/skt.d/tool/data/folder_config.txt
 	# CREATE FILES
 	while IFS= read -r line; do 
 		curl -N $url/$line.bash    | cat > /etc/skt.d/tool/$line.bash
-	done < "/etc/skt.d/tool/data/file_config.txt"
+	done < /etc/skt.d/tool/data/file_config.txt
 	clear
 	printf "\n"
 	printf "NINJA TOOL: INSTALLED\n"
@@ -42,7 +42,7 @@ elif [ $OPTION = 2 ]; then
 	# UPDATE FILES
 	while IFS= read -r line; do 
 		curl -N $url/$line.bash | cat > /etc/skt.d/tool/$line.bash
-	done < "/etc/skt.d/tool/data/file_config.txt"
+	done < /etc/skt.d/tool/data/file_config.txt
 	clear
 	printf "NINJA TOOl: UPDATED\n"
 	sh /etc/skt.d/tool/tool.bash
