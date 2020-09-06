@@ -57,18 +57,18 @@ curl -v -X POST https://api.paypal.com/v1/shipping/trackers-batch \
   "trackers": [
     {
       "transaction_id": "'${TRANSACTION[1]}'",
-      "tracking_number": "'${TRANSACTION[2]}'",
+      "tracking_number": "'${TRANSACTION[3]}'",
       "status": "SHIPPED",
       "carrier": "OTHER",
-      "carrier_name_other": "USPS",
+      "carrier_name_other": "'${TRANSACTION[4]}'",
       "notify_buyer":"true"
     }
   ]
 }' \ | python -m json.tool | printf "Đã ép thành công transaction id: `jq -r ".tracker_identifiers[].transaction_id"`: ${TRANSACTION[2]}\n"
-done < track.txt
+done < /root/track.txt
 #FORMAT track.txt file
-#E4 8MC585209K746392H 9400109205568128990983
-#E5 8MC585209K746392H 9400109205568743137961
+#E4 8MC585209K746392H WC5-27672 9400109205568128990983 USPS
+#E5 8MC585209K746392H WC5-27672 9400109205568743137961 USPS
 #OPTION 3
 elif [ $OPTION  = 3 ]; then
 	while IFS= read -r VPS; do
@@ -89,8 +89,8 @@ printf " Step 3: Copy and Paste to file track.txt\n"
 printf " Step 4: Press Esc and :wq then Press Enter \n"
 printf " Final running app and fulfill\n"   
 printf "FILE TRACK FORM:\n"
-printf "E4 8MC585209K146393H 9400109205568128990983\n"
-printf "E5 9MC585209K346391H 9400109205568743137961\n"
+printf "E4 8MC585209K146393H WC5-27672 9400109205568128990983 USPS\n"
+printf "E5 9MC585209K346391H WC5-27671 9400109205568743137961 USPS\n"
 printf "\n"	
 	sh /etc/skt.d/tool/paypal/fulfill.bash
 elif [ $OPTION  = 5 ]; then
