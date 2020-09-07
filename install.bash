@@ -1,14 +1,14 @@
 #!/bin/bash
 clear
-printf "========================================================================\n"
-printf " NINJA TOOL | TODAY: `date +%d-%m` |  DOMAINS: `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` | IP: `hostname -I | awk '{print $1}'`\n"
-printf "========================================================================\n"
+printf " ######################################################################\n"
+printf " NINJA TOOL |  TOTAL: `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` WEB | IP: `hostname -I | awk '{print $1}' | TODAY: `date +%d-%m` `\n"
+printf " ######################################################################\n"
 printf "1. WOOCOMMERCE                6. SSL  \n"
 printf "2. NAMESILO                   7. TOOL  \n"
 printf "3. CLOUDFLARE                 8. SERVER \n"
 printf "4. DATABASE                   9. SYSTEM \n"
 printf "5. PAYPAL\n"
-printf "Enter: "
+printf "ENTER: "
 read OPTION
 
 
@@ -53,5 +53,6 @@ elif [ $OPTION = 9 ]; then
 else
 	clear
 	printf "404!! NINJA TOOL: INVALID ENTER\n"
+	sleep 2
 	sh /root/install
 fi

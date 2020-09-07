@@ -175,8 +175,7 @@ done < /etc/skt.d/data/woocommerce/all-invoice.txt
 #WC6 url6 consumer_key6:consumer_secret6
 
 #REMOVE TRASH
-rm -rf /root/total_order_*
-rm -rf /root/export_orders/*
+rm -rf /root/total_order_* /root/export_orders_*
 clear
 #PRINT RESULTS
 
