@@ -89,7 +89,7 @@ curl -X GET https://${WOOCOMMERCER[1]}/wp-json/wc/v3/orders \
 	-H "Content-Type: application/json" \
 	-d '{
 	"status": "processing"	
-	}' \ | python -m json.tool | printf ${WOOCOMMERCER[0]},`jq -r "[.[$i].transaction_id,.[$i].id,.[$i].shipping.first_name,.[$i].shipping.last_name,.[$i].billing.phone,.[$i].shipping.address_1,.[$i].shipping.address_2,.[$i].shipping.city,.[$i].shipping.state,.[$i].shipping.postcode,.[$i].line_items[].sku] | @csv"`| cat > /root/${WOOCOMMERCER[0]}_orders.csv
+	}' \ | python -m json.tool | jq -r "[.[$i].transaction_id,.[$i].id,.[$i].shipping.first_name,.[$i].shipping.last_name,.[$i].billing.phone,.[$i].shipping.address_1,.[$i].shipping.address_2,.[$i].shipping.city,.[$i].shipping.state,.[$i].shipping.postcode,.[$i].line_items[].sku,.[$i].line_items[].quantity] | @csv"| cat >> /root/${WOOCOMMERCER[0]}_orders.csv
 done
 done < /etc/skt.d/data/woocommerce/all-invoice.txt
 
