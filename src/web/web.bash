@@ -4,10 +4,11 @@ printf "        WEBSITE MANAGE | FOUND `find /home -mindepth 1 -maxdepth 1 -type
 printf "       ---------------------------------\n"
 printf "\n"
 printf "OPTIONS:\n"
-printf "1. ADD                         5. Update Plugins\n"
-printf "2. DELETE                      6. Update Wordpress\n"
-printf "3. BACKUP                      7. Login Detail      \n"
-printf "4. RESTORE                     8. List Domains\n" 
+printf "1. ADD                         6. Update Plugins\n"
+printf "2. DELETE                      7. Update Wordpress\n"
+printf "3. BACKUP                      8. Login Detail      \n"
+printf "4. RESTORE                     9. List Domains\n" 
+printf "5. IMPORT/EXPORT ORDERS        \n" 
 printf "ENTER: " 
 read OPTION
 clear
@@ -22,6 +23,8 @@ elif  [ $OPTION = 3 ]; then
 elif  [ $OPTION = 4 ]; then
 	sh /etc/skt.d/tool/web/restore.bash
 elif  [ $OPTION = 5 ]; then
+	sh /etc/skt.d/tool/web/rest_api.bash
+elif  [ $OPTION = 6 ]; then
 	printf "       ---------------------------------\n"
 	printf "        UPDATE PLUGIN | FOUND `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` DOMAINS\n"
 	printf "       ---------------------------------\n"
@@ -64,14 +67,14 @@ elif  [ $OPTION = 5 ]; then
 		printf "CODE: INVALID VERSION\n"
 		sh /etc/skt.d/tool/web/web.bash
 	fi	
-elif  [ $OPTION = 6 ]; then
+elif  [ $OPTION = 7 ]; then
 		for D in /home/* ; do
 		if [ -d ${D} ];then
 			DOMAIN=${D##*/}
 			wp core update --path=/home/$DOMAIN/public_html
 		fi
 		done
-elif  [ $OPTION = 7 ]; then	
+elif  [ $OPTION = 8 ]; then	
 	printf "FOUND `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` DOMAINS:\n"
 	for D in /home/* ; do
 	if [ -d ${D} ];then
@@ -88,7 +91,7 @@ elif  [ $OPTION = 7 ]; then
 		printf "${DOMAIN^^}\n Username: ${wp_usr}\n Password: ${wp_pass}\n Email: $EMAIL\n"
 		printf "End Result.\n"
 	sh /etc/skt.d/tool/web/web.bash
-elif [ $OPTION = 8 ]; then
+elif [ $OPTION = 9 ]; then
 	printf "       ------------------------------------\n"
 	printf "        AVAILABLE DOMAIN | FOUND `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` DOMAINS\n"
 	printf "       -----------------------------------\n"

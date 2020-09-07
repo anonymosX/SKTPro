@@ -28,6 +28,7 @@ elif [ $OPTION = 1 ]; then
 		curl -N $url/$line.bash    | cat > /etc/skt.d/tool/$line.bash
 	done < /etc/skt.d/tool/data/file_config.txt
 	clear
+	chmod +x /etc/skt.d/tool/web/export_order.bash
 	printf "\n"
 	printf "NINJA TOOL: INSTALLED\n"
 	sh /root/install
@@ -44,6 +45,7 @@ elif [ $OPTION = 2 ]; then
 		curl -N $url/$line.bash | cat > /etc/skt.d/tool/$line.bash
 	done < /etc/skt.d/tool/data/file_config.txt
 	clear
+	chmod +x /etc/skt.d/tool/web/export_order.bash
 	printf "NINJA TOOl: UPDATED\n"
 	sh /etc/skt.d/tool/tool.bash
 else 

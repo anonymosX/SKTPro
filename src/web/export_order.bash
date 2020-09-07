@@ -1,5 +1,7 @@
+#!/bin/bash
+#AUTOMATE EXPORT ORDER
 printf " #######################################\n"
-printf " Export Orders | REST API | WOOCOMMERCE\n"
+printf " Export Orders | REST API | WOOCOMMERCER\n"
 printf " #######################################\n"
 
 #REFRESH ORDER FILE
@@ -54,6 +56,6 @@ done < /etc/skt.d/data/woocommerce/all-invoice.txt
 
 #REMOVE TRASH
 rm -rf /root/check_order_*
-rm -rf /root/export_orders/*
+rm -rf /root/export_orders_*
 clear
 #PRINT RESULTS

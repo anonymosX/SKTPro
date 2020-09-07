@@ -1,8 +1,7 @@
 #!/bin/bash
-printf " --------------------------\n"
-printf "   PAYPAL | API\n"
-printf " --------------------------\n"
-printf "OPTION: \n"
+printf " #######################################\n"
+printf "     PAYPAL | REST API | NINJA TOOL     \n"
+printf " #######################################\n"
 printf " 1. Fulfilment\n"
 printf " 2. Check Balance\n"
 printf " 3. Previous/Back\n"

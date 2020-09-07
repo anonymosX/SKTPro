@@ -1,9 +1,9 @@
 #!/bin/bash
 printf " ###############################\n"
-printf " REST API | WOOCOMMERCE\n"
+printf " REST API | WOOCOMMERCE | PAYPAL\n"
 printf " ###############################\n"
 printf "1. Declare REST API\n"
-printf "2. Import Tracking\n"
+printf "2. Import Track (PP + Woo)\n"
 printf "3. Export Order\n"
 printf "OPTION: "
 read OPTION
@@ -33,6 +33,8 @@ elif [ $OPTION = 1 ]; then
 #	sh /etc/skt.d/tool/web/rest_api.bash
 elif [ $OPTION = 2 ]; then
 clear
+printf "IMPORTANT: ORDER IS INCLUDED IMPORT TO WOOCOMMERCER AND PAYPAL ALSO\n" 
+sleep 5
 #READ FILE track.txt then find REST API
 while IFS=$'\t'	read -r -a TRACK
 do
@@ -57,7 +59,53 @@ done < /root/track.txt
 #E4 8MC585209K746392H WC5-27672 9400109205568128990983 USPS
 #E5 8MC585209K746392H WC5-27672 9400109205568743137961 USPS
 
+clear
+sleep 3
+printf "UPDATE: IMPORTED ORDER TO WOOCOMMERCE\n"
+sleep 5
 
+
+#FULFILLMENT ORDERS TO PAYPAL
+printf " ###############################\n"
+printf "     FULFILLMENT | PAYPAL API   \n"
+printf " ###############################\n"
+
+#UPDATE ALL ACCESS TOKEN
+while IFS= read -r line; do
+curl -v POST https://api.paypal.com/v1/oauth2/token \
+  -H "Accept: application/json" \
+  -H "Accept-Language: en_US" \
+  -u "`sed -n "1p" /etc/skt.d/data/paypal/API/${line}_clientid_secret_key`" \
+  -d "grant_type=client_credentials" \ | python -m json.tool | printf `jq  -r ".access_token"` | cat > /etc/skt.d/data/paypal/token/${line}_access_token
+done < /etc/skt.d/data/paypal/vps.txt
+
+#FULFIL TRACKING
+while IFS=$'\t' read -r -a TRANSACTION
+do
+curl -v -X POST https://api.paypal.com/v1/shipping/trackers-batch \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer `sed -n "1p" /etc/skt.d/data/paypal/token/${TRANSACTION[0]}_access_token`" \
+  -d '{
+  "trackers": [
+    {
+      "transaction_id": "'${TRANSACTION[1]}'",
+      "tracking_number": "'${TRANSACTION[3]}'",
+      "status": "SHIPPED",
+      "carrier": "OTHER",
+      "carrier_name_other": "'${TRANSACTION[4]}'",
+      "notify_buyer":"true"
+    }
+  ]
+}' \ | python -m json.tool | printf "Đã ép thành công transaction id: `jq -r ".tracker_identifiers[].transaction_id"`: ${TRANSACTION[2]}\n"
+done < /root/track.txt
+#FORMAT track.txt file
+#E4 8MC585209K746392H WC5-27672 9400109205568128990983 USPS
+#E5 8MC585209K746392H WC5-27672 9400109205568743137961 USPS
+clear
+printf "UPDATE: IMPORTED ORDER TO PAYPAL\n"
+sleep 5
+printf "DONE!!!\n"
+sleep 5
 elif [ $OPTION = 3 ]; then
 clear
 # REFRESH ORDER FILE
