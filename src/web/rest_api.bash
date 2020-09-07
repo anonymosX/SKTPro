@@ -34,7 +34,9 @@ elif [ $OPTION = 1 ]; then
 elif [ $OPTION = 2 ]; then
 clear
 printf "IMPORTANT: ORDER IS INCLUDED IMPORT TO WOOCOMMERCER AND PAYPAL ALSO\n" 
-sleep 5
+printf "DO YOU WANT TO IMPORT TRACKING NUMBER? - (Y/N): "
+read QUESTION
+If [ $QUESTION = Y -o $QUESTION = y ]; then
 #READ FILE track.txt then find REST API
 while IFS=$'\t'	read -r -a TRACK
 do
@@ -106,6 +108,11 @@ printf "UPDATE: IMPORTED ORDER TO PAYPAL\n"
 sleep 5
 printf "DONE!!!\n"
 sleep 5
+elif [ $QUESTION = N -o $QUESTION = n ]; then
+printf "STATUS: CANCEL UPDATE\n"
+else
+	sh /etc/skt.d/tool/web/rest_api.bash
+fi
 elif [ $OPTION = 3 ]; then
 clear
 # REFRESH ORDER FILE
