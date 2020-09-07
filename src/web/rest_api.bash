@@ -110,6 +110,8 @@ printf "DONE!!!\n"
 sleep 1
 elif [ $QUESTION = N -o $QUESTION = n ]; then
 printf "STATUS: CANCEL UPDATE\n"
+sleep 1
+sh /etc/skt.d/tool/web/rest_api.bash
 else
 	sh /etc/skt.d/tool/web/rest_api.bash
 fi
