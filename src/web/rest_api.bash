@@ -5,6 +5,7 @@ printf " ###############################\n"
 printf "1. Declare REST API\n"
 printf "2. Import Track (PP + Woo)\n"
 printf "3. Export Order\n"
+printf "4. Previous/Back\n"
 printf "OPTION: "
 read OPTION
 
@@ -178,7 +179,9 @@ done < /etc/skt.d/data/woocommerce/all-invoice.txt
 rm -rf /root/total_order_* /root/export_orders_*
 clear
 #PRINT RESULTS
-
+sh /etc/skt.d/tool/web/rest_api.bash
+elif [ $OPTION = 4 ]; then
+sh /etc/skt.d/tool/web/web.bash
 else 
 	printf "404!! Other\n"
 fi
