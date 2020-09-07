@@ -1,7 +1,7 @@
 #!/bin/bash
 clear
 printf " ######################################################################\n"
-printf " NINJA TOOL |  TOTAL: `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` WEB | IP: `hostname -I | awk '{print $1}' | TODAY: `date +%d-%m` `\n"
+printf " NINJA TOOL |  TOTAL: `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` WEB | IP: `hostname -I | awk '{print $1}' | TODAY: `date +%d-%m`\n"
 printf " ######################################################################\n"
 printf "1. WOOCOMMERCE                6. SSL  \n"
 printf "2. NAMESILO                   7. TOOL  \n"
