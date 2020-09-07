@@ -44,7 +44,3 @@ mail/mailgen
 paypal/paypal
 paypal/fulfill
 paypal/balance
-
-data/mail
-
-

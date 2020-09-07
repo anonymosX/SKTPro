@@ -1,4 +1,7 @@
 #!/bin/bash
+printf " ###############################\n"
+printf "  BACKUP | WEBSITE | WOOCOMMERCE n"
+printf " ###############################\n"
 printf "FOUND `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` DOMAINS\n"
 for D in /home/* ; do
 	if [ -d $D ]; then
@@ -34,6 +37,7 @@ elif [ $CONFIRM = 'Y' -o $CONFIRM = 'y' ]; then
 		rm -rf  $DOMAIN.tar.gz $DOMAIN-$dbn.sql
 	clear
 	printf "==> THE $DOMAIN HAS BEEN BACKUPED\n"
+	sleep 5
 	printf "\n"
 	sh /etc/skt.d/tool/web/web.bash
 }

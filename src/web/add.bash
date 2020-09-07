@@ -1,6 +1,9 @@
 #!/bin/bash
 #FLOW: REGISTER DOMAIN -> CLOUDFLARE(PAUSE) -> "CAI WOOCOMMERCE" -> CLOUDFLARE(ENABLE)
-url=https://raw.githubusercontent.com/anonymosX/SKTPro/master
+source /etc/skt.d/data/host.txt
+printf " ###############################\n"
+printf "   CREATE WEBSITE| WOOCOMMERCE \n"
+printf " ###############################\n"
 printf "ENTER INFORMATIONS\n"
 printf "1. URL: "
 read DOMAIN
@@ -28,7 +31,7 @@ if [ ! -d /etc/skt.d/data/$DOMAIN ]; then
 	mkdir -p /etc/skt.d/data/$DOMAIN
 fi
 cd /root
-EMAIL="`shuf -n 1 /etc/skt.d/tool/data/mail.bash`@${DOMAIN}"
+EMAIL="`shuf -n 1 /etc/skt.d/tool/data/mail.txt`@${DOMAIN}"
 source /root/.my.cnf
 printf "#${DOMAIN^^}:\ndbn=${DB_NAME}\ndbu=${DB_USER}\ndbp=${DB_PASS}\nmdbp=$password\n" | cat > /etc/skt.d/data/$DOMAIN/sql.txt
 printf "#${DOMAIN^^}:\nwp_usr=${WP_USER}\nwp_pass=${WP_PASS}\nEMAIL=$EMAIL" | cat > /etc/skt.d/data/$DOMAIN/login.txt
@@ -205,13 +208,13 @@ if [ $OPTION = 1 ];then
 {
 # CAI DAT KONTE THEME
 wp plugin install woocommerce --path=/home/$DOMAIN/public_html --activate
-wp theme install $url/themes/konte/konte_1_6_4.zip --path=/home/$DOMAIN/public_html --activate
+wp theme install $host/themes/konte/konte_1_6_4.zip --path=/home/$DOMAIN/public_html --activate
 # CAT DAT PLUGIN CAN THIET CUA KONTE
 wp plugin install woocommerce-currency-switcher --path=/home/$DOMAIN/public_html --activate
-wp plugin install $url/plugins/fommerce.zip --path=/home/$DOMAIN/public_html
+wp plugin install $host/plugins/fommerce.zip --path=/home/$DOMAIN/public_html
 wp plugin install kirki --path=/home/$DOMAIN/public_html --activate
 wp plugin install variation-swatches-for-woocommerce --path=/home/$DOMAIN/public_html
-wp plugin install $url/plugins/js_composer/js_composer_62.zip --path=/home/$DOMAIN/public_html --activate
+wp plugin install $host/plugins/js_composer/js_composer_62.zip --path=/home/$DOMAIN/public_html --activate
 wp plugin install https://uix.store/plugins/konte-addons.zip --path=/home/$DOMAIN/public_html --activate
 wp plugin install https://uix.store/plugins/revslider.zip --path=/home/$DOMAIN/public_html --activate
 wp plugin install https://uix.store/plugins/soo-wishlist.zip --path=/home/$DOMAIN/public_html --activate
@@ -222,7 +225,7 @@ elif [ $OPTION = 2 ];then
 
 wp plugin install woocommerce --path=/home/$DOMAIN/public_html --activate
 wp plugin install woocommerce-google-dynamic-retargeting-tag --path=/home/$DOMAIN/public_html --activate
-wp theme install $url/themes/shoptimizer/shoptimizer.zip --path=/home/$DOMAIN/public_html --activate
+wp theme install $host/themes/shoptimizer/shoptimizer.zip --path=/home/$DOMAIN/public_html --activate
 wp plugin install https://files.commercegurus.com/commercegurus-commercekit.zip --path=/home/$DOMAIN/public_html --activate
 wp plugin install smart-woocommerce-search --path=/home/$DOMAIN/public_html --activate
 wp plugin install perfect-woocommerce-brands --path=/home/$DOMAIN/public_html --activate
@@ -231,7 +234,7 @@ wp plugin install no-category-base-wpml --path=/home/$DOMAIN/public_html --activ
 wp plugin install elementor --path=/home/$DOMAIN/public_html
 wp plugin install kirki --path=/home/$DOMAIN/public_html --activate
 wp plugin install hurrytimer --path=/home/$DOMAIN/public_html --activate
-wp plugin install $url/plugins/notification.zip --path=/home/$DOMAIN/public_html 
+wp plugin install $host/plugins/notification.zip --path=/home/$DOMAIN/public_html 
 wp plugin install product-tabs-manager-for-woocommerce --path=/home/$DOMAIN/public_html --activate
 # Widget for Shoptimized
 # Delete some widget is not nessecery
@@ -284,7 +287,7 @@ wp plugin install wp-mail-smtp --path=/home/$DOMAIN/public_html --activate
 wp plugin install kadence-woocommerce-email-designer --path=/home/$DOMAIN/public_html --activate
 wp plugin install woocommerce-google-adwords-conversion-tracking-tag --path=/home/$DOMAIN/public_html --activate
 wp plugin install meta-box --path=/home/$DOMAIN/public_html --activate
-wp plugin install $url/plugins/woocommerce-shipping-tracking.zip --path=/home/$DOMAIN/public_html --activate
+wp plugin install $host/plugins/woocommerce-shipping-tracking.zip --path=/home/$DOMAIN/public_html --activate
 wp plugin install really-simple-ssl --path=/home/$DOMAIN/public_html
 wp plugin install w3-total-cache --path=/home/$DOMAIN/public_html --activate
 wp plugin install autoptimize --path=/home/$DOMAIN/public_html --activate
@@ -325,30 +328,30 @@ wp post delete 3 --force --path=/home/$DOMAIN/public_html
 
 
 
-curl -N $url/page/about.html | wp post generate --post_type=page --post_content --post_title="About Us" --count=1 --path=/home/$DOMAIN/public_html
+curl -N $host/page/about.html | wp post generate --post_type=page --post_content --post_title="About Us" --count=1 --path=/home/$DOMAIN/public_html
 # contact us
-curl -N $url/page/contact.html | wp post generate --post_type=page --post_content --post_title="Contact Us" --count=1 --path=/home/$DOMAIN/public_html
+curl -N $host/page/contact.html | wp post generate --post_type=page --post_content --post_title="Contact Us" --count=1 --path=/home/$DOMAIN/public_html
 # privacy policy
-curl -N $url/page/privacy.html | wp post generate --post_type=page --post_content --post_title="Privacy Policy" --count=1 --path=/home/$DOMAIN/public_html
+curl -N $host/page/privacy.html | wp post generate --post_type=page --post_content --post_title="Privacy Policy" --count=1 --path=/home/$DOMAIN/public_html
 # refund and return
-curl -N $url/page/refund.html | wp post generate --post_type=page --post_content --post_title="Refund Policy" --count=1 --path=/home/$DOMAIN/public_html
+curl -N $host/page/refund.html | wp post generate --post_type=page --post_content --post_title="Refund Policy" --count=1 --path=/home/$DOMAIN/public_html
 # term of service
-curl -N $url/page/term.html | wp post generate --post_type=page --post_content --post_title="Term of Service" --count=1 --path=/home/$DOMAIN/public_html
+curl -N $host/page/term.html | wp post generate --post_type=page --post_content --post_title="Term of Service" --count=1 --path=/home/$DOMAIN/public_html
 # track order
-curl -N $url/page/track-order.html | wp post generate --post_type=page --post_content --post_title="Track Order" --count=1 --path=/home/$DOMAIN/public_html
+curl -N $host/page/track-order.html | wp post generate --post_type=page --post_content --post_title="Track Order" --count=1 --path=/home/$DOMAIN/public_html
 # thank you
-curl -N $url/page/thank-you.html | wp post generate --post_type=page --post_content --post_title="Thank You" --count=1 --path=/home/$DOMAIN/public_html
+curl -N $host/page/thank-you.html | wp post generate --post_type=page --post_content --post_title="Thank You" --count=1 --path=/home/$DOMAIN/public_html
 # home page
-curl -N $url/page/home.html | wp post generate --post_type=page --post_content --post_title="Home Page" --count=1 --path=/home/$DOMAIN/public_html
+curl -N $host/page/home.html | wp post generate --post_type=page --post_content --post_title="Home Page" --count=1 --path=/home/$DOMAIN/public_html
 # billing page
-curl -N $url/page/billing.html | wp post generate --post_type=page --post_content --post_title="Billing Terms" --count=1 --path=/home/$DOMAIN/public_html
+curl -N $host/page/billing.html | wp post generate --post_type=page --post_content --post_title="Billing Terms" --count=1 --path=/home/$DOMAIN/public_html
 
 
 #payment
 mkdir -p /home/$DOMAIN/public_html/img
-wget $url/img/paypal1.png && mv paypal1.png /home/$DOMAIN/public_html/img
-wget $url/img/paypal2.png && mv paypal2.png /home/$DOMAIN/public_html/img
-curl -N $url/page/payment.html | wp post generate --post_type=page --post_content --post_title="Payment" --count=1 --path=/home/$DOMAIN/public_html
+wget $host/img/paypal1.png && mv paypal1.png /home/$DOMAIN/public_html/img
+wget $host/img/paypal2.png && mv paypal2.png /home/$DOMAIN/public_html/img
+curl -N $host/page/payment.html | wp post generate --post_type=page --post_content --post_title="Payment" --count=1 --path=/home/$DOMAIN/public_html
 
 wp search-replace 'changedomainhere' $DOMAIN wp_posts --path=/home/$DOMAIN/public_html
 wp search-replace 'changeaddresshere' $ADDRESS wp_posts --path=/home/$DOMAIN/public_html

@@ -1,7 +1,8 @@
 #!/bin/bash
-printf "       ---------------------------------------\n"
-printf "        RESTORE DOMAIN | FOUND `find /root -name 'backup*' -type f | wc -l` BACK UP FILES\n"
-printf "       ---------------------------------------\n"
+printf " ################################\n"
+printf " RESTORE 1 WEBSITE | WOOCOMMERCE\n"
+printf " ################################\n"
+printf "FOUND `find /root -name 'backup*' -type f | wc -l` BACK UP FILES\n"
 printf "FOUND A LIST BACKUP FILES\n"
 find /root -name 'backup*' -type f
 printf "\nENTER: "
@@ -15,6 +16,7 @@ if [ $CONFIRM = 0 ]; then
 elif [ $CONFIRM = 'Y' -o $CONFIRM = 'y' ]; then
 	clear
 	printf "YOU HAVE CHOOSE YES\n"
+	sleep 5
 {
 # CREATE SERVER BLOCK, LOG
 	printf "PROCESS RESTORE CODE AND CONFIG\n"
@@ -75,6 +77,7 @@ elif [ $CONFIRM = 'Y' -o $CONFIRM = 'y' ]; then
 # FINAL
 	clear
 	printf "${DOMAIN^^} HAS RESTORED\n"
+	sleep 5
 	systemctl restart nginx
 	PROXIED="true"
 	TTL="1"
