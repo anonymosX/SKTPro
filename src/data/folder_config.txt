@@ -6,3 +6,4 @@ ssl
 system
 web
 paypal
+mail
