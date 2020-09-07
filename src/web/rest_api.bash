@@ -36,7 +36,7 @@ clear
 printf "IMPORTANT: ORDER IS INCLUDED IMPORT TO WOOCOMMERCER AND PAYPAL ALSO\n" 
 printf "DO YOU WANT TO IMPORT TRACKING NUMBER? - (Y/N): "
 read QUESTION
-If [ $QUESTION = Y -o $QUESTION = y ]; then
+if [ $QUESTION = Y -o $QUESTION = y ]; then
 #READ FILE track.txt then find REST API
 while IFS=$'\t'	read -r -a TRACK
 do
@@ -105,9 +105,9 @@ done < /root/track.txt
 #E5 8MC585209K746392H WC5-27672 9400109205568743137961 USPS
 clear
 printf "UPDATE: IMPORTED ORDER TO PAYPAL\n"
-sleep 5
+sleep 2
 printf "DONE!!!\n"
-sleep 5
+sleep 1
 elif [ $QUESTION = N -o $QUESTION = n ]; then
 printf "STATUS: CANCEL UPDATE\n"
 else
