@@ -122,7 +122,6 @@ rm -rf /root/total_order_*
 rm -rf /root/export_orders/*
 clear
 #PRINT RESULTS
-cat /root/orders.csv
 
 else 
 	printf "404!! Other\n"

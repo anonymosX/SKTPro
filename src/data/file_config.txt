@@ -3,6 +3,8 @@ web/backup
 web/delete
 web/restore
 web/web
+web/export_order
+web/rest_api
 
 ssl/install
 ssl/renew
