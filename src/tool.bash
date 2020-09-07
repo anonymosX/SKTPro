@@ -1,5 +1,5 @@
 #!/bin/bash
-source /etc/skt.d/data/host.txt
+host=https://raw.githubusercontent.com/anonymosX/SKTPro/master/src
 printf "   ##################################\n"
 printf "            TOOL | TOOL MANAGE \n"
 printf "   ##################################\n"
@@ -18,6 +18,7 @@ elif [ $OPTION = 1 ]; then
 	mkdir -p /etc/skt.d/tool/data
 	# DƠWNLOAD CONFIG FILE
 	curl -N https://raw.githubusercontent.com/anonymosX/SKTPro/master/src/data/host.txt        | cat > /etc/skt.d/tool/data/host.txt
+	source /etc/skt.d/tool/data/host.txt
 	curl -N $host/data/folder_config.txt | cat > /etc/skt.d/tool/data/folder_config.txt
 	curl -N $host/data/file_config.txt   | cat > /etc/skt.d/tool/data/file_config.txt
 	curl -N $host/data/mail.bash         | cat > /etc/skt.d/tool/data/mail.bash
