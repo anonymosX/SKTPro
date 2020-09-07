@@ -1,6 +1,6 @@
 #!/bin/bash
 #FLOW: REGISTER DOMAIN -> CLOUDFLARE(PAUSE) -> "CAI WOOCOMMERCE" -> CLOUDFLARE(ENABLE)
-source /etc/skt.d/data/host.txt
+source /etc/skt.d/tool/data/host.txt
 printf " ###############################\n"
 printf "   CREATE WEBSITE| WOOCOMMERCE \n"
 printf " ###############################\n"
