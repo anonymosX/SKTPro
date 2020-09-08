@@ -38,6 +38,7 @@ elif [ $OPTION = 1 ]; then
 	printf "\n"
 	printf "Status: Installed tools!\n"
 	sleep 2
+	clear
 	sh /root/install
 }
 elif [ $OPTION = 2 ]; then
@@ -56,6 +57,7 @@ elif [ $OPTION = 2 ]; then
 	chmod +x /etc/skt.d/tool/web/mail.bash
 	printf "Status: Updated tools!\n"
 	sleep 2
+	clear
 	sh /etc/skt.d/tool/tool.bash
 elif [ $OPTION = 3 ]; then
 	clear
