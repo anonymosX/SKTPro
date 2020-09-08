@@ -1,5 +1,6 @@
 #!/bin/bash
-host=https://raw.githubusercontent.com/anonymosX/SKTPro/master/src
+host="https://raw.githubusercontent.com/anonymosX/SKTPro/master/src"
+#source /etc/skt.d/tool/data/host.txt
 printf "   ##################################\n"
 printf "            TOOL | TOOL MANAGE \n"
 printf "   ##################################\n"
@@ -17,11 +18,10 @@ elif [ $OPTION = 1 ]; then
 {
 	mkdir -p /etc/skt.d/tool/data
 	# DƠWNLOAD CONFIG FILE
-	curl -N https://raw.githubusercontent.com/anonymosX/SKTPro/master/src/data/host.txt        | cat > /etc/skt.d/tool/data/host.txt
-	source /etc/skt.d/tool/data/host.txt
+	curl -N $host/data/host.txt        | cat > /etc/skt.d/tool/data/host.txt
 	curl -N $host/data/folder_config.txt | cat > /etc/skt.d/tool/data/folder_config.txt
 	curl -N $host/data/file_config.txt   | cat > /etc/skt.d/tool/data/file_config.txt
-	curl -N $host/data/mail.bash         | cat > /etc/skt.d/tool/data/mail.bash
+	curl -N $host/data/mail.txt | cat > /etc/skt.d/tool/data/mail.txt
 	# CREATE FOLDERS
 	while IFS= read -r line; do
 		mkdir -p /etc/skt.d/tool/$line
