@@ -147,7 +147,7 @@ done
 done < /etc/skt.d/data/woocommerce/all-invoice.txt
 
 
-
+printf "INVOICE NAME,TRANSACTION ID,ORDER ID,FIRST NAME,LAST NAME,PHONE NUMBER,ADDRESS 1,ADDRESS 2,CITY,STATES,ZIPCODE, SKU,QUANTITY"  | cat >> /root/orders.csv	
 #GET ORDER DETAILS
 while IFS=$'\t'	read -r -a WOOCOMMERCER
 do
