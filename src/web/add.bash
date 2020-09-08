@@ -260,7 +260,7 @@ wp widget add custom_html footer --content="<h4 style='color:white'>Help & Conta
 wp widget add custom_html footer --content="
 <h4 style='color:white'>Company Info</h4><ul><li>Location: ${ADDRESS} </li><li>Phone: $PHONE </li><li>Email: $EMAIL </li></ul>" 4 --path=/home/$DOMAIN/public_html
 wp widget add custom_html copyright --content="Copyright © 2012-2020 ${DOMAIN^^} Inc. All Rights Reserved<br/>" 1 --path=/home/$DOMAIN/public_html
-wp widget add custom_html copyright --content="<img class='alignright size-full wp-image-183' src='/img/paypal-trusted.jpg' alt='' width='718' height='78' />" 2 --path=/home/$DOMAIN/public_html
+wp widget add custom_html copyright --content="<img class='alignright size-full wp-image-183' src='/img/seal.jpg' alt='' width='718' height='78' />" 2 --path=/home/$DOMAIN/public_html
 }
 else
 	printf "Unknown themes\n"
@@ -351,7 +351,7 @@ curl -N $host/page/billing.html | wp post generate --post_type=page --post_conte
 mkdir -p /home/$DOMAIN/public_html/img
 wget $host/img/paypal1.png && mv paypal1.png /home/$DOMAIN/public_html/img
 wget $host/img/paypal2.png && mv paypal2.png /home/$DOMAIN/public_html/img
-wget $host/img/paypal-trusted.jpg && mv paypal2.png /home/$DOMAIN/public_html/img
+wget $host/img/seal.jpg && mv seal.jpg /home/$DOMAIN/public_html/img
 curl -N $host/page/payment.html | wp post generate --post_type=page --post_content --post_title="Payment" --count=1 --path=/home/$DOMAIN/public_html
 
 wp search-replace 'changedomainhere' $DOMAIN wp_posts --path=/home/$DOMAIN/public_html
