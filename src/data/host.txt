@@ -1,1 +1,1 @@
-host="https://raw.githubusercontent.com/anonymosX/SKTPro/master/src"
+host="https://raw.githubusercontent.com/anonymosX/SKTPro/master"
