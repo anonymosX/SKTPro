@@ -1,13 +1,14 @@
 #!/bin/bash
 host="https://raw.githubusercontent.com/anonymosX/SKTPro/master/src"
 #source /etc/skt.d/tool/data/host.txt
+if [ ! -f /etc/skt.d/tool/data/host.txt ]; then
+curl -N https://raw.githubusercontent.com/anonymosX/SKTPro/master/src/data/host.txt | cat > /etc/skt.d/tool/data/host.txt  
 printf "   ##################################\n"
 printf "            TOOL | TOOL MANAGE \n"
 printf "   ##################################\n"
-printf "OPTIONS: \n"
-printf " 1. INSTALL\n"
-printf " 2. UPDATE\n"
-printf " 3. PREVIOUS/BACK\n"
+printf " 1. Install\n"
+printf " 2. Update\n"
+printf " 3. Previous/back\n"
 printf "OPTION: "
 read OPTION
 
