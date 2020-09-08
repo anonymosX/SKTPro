@@ -3,6 +3,7 @@ host="https://raw.githubusercontent.com/anonymosX/SKTPro/master/src"
 #source /etc/skt.d/tool/data/host.txt
 if [ ! -f /etc/skt.d/tool/data/host.txt ]; then
 curl -N https://raw.githubusercontent.com/anonymosX/SKTPro/master/src/data/host.txt | cat > /etc/skt.d/tool/data/host.txt  
+fi
 printf "   ##################################\n"
 printf "            TOOL | TOOL MANAGE \n"
 printf "   ##################################\n"
