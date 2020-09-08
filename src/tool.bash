@@ -21,8 +21,8 @@ elif [ $OPTION = 1 ]; then
 	mkdir -p /etc/skt.d/tool/data
 	# DƠWNLOAD CONFIG FILE
 	curl -N $host/src/data/host.txt        | cat > /etc/skt.d/tool/data/host.txt
-	curl -N $host/src/data/folder_config.txt | cat > /etc/skt.d/tool/data/folder_config.txt
-	curl -N $host/src/data/file_config.txt   | cat > /etc/skt.d/tool/data/file_config.txt
+	curl -N $host/src/data/folder.txt | cat > /etc/skt.d/tool/data/folder.txt
+	curl -N $host/src/data/file.txt   | cat > /etc/skt.d/tool/data/file.txt
 	curl -N $host/src/data/mail.txt | cat > /etc/skt.d/tool/data/mail.txt
 	# CREATE FOLDERS
 	while IFS= read -r line; do
