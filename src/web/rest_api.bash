@@ -167,7 +167,7 @@ curl -X GET https://${WOOCOMMERCER[1]}/wp-json/wc/v3/orders \
 done		
 done
 done < /etc/skt.d/data/woocommerce/all-invoice.txt
-
+sed -i 's/"//g' /root/orders.csv
 
 
 
