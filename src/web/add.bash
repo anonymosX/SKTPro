@@ -254,13 +254,14 @@ wp widget add woocommerce_product_categories sidebar-1 1 --title="Product catego
 wp widget add woocommerce_recently_viewed_products sidebar-1 2 --title="Recently Viewed Products" --number=5 --path=/home/$DOMAIN/public_html
 # Add a custom html to Checkout Custom Area 
 wp widget add custom_html checkout-field --content="<img class='alignnone size-large wp-image-1192' src='https://themedemo.commercegurus.com/shoptimizer/wp-content/uploads/sites/52/2018/07/trust-symbols_b-1024x108.jpg' alt='' width='1024' height='108' /> <h4>What they are saying</h4><img class='alignleft wp-image-829 size-thumbnail' style='width: 60px; border-radius: 50%; margin-right: 1.5em;' src='https://themedemo.commercegurus.com/shoptimizer/wp-content/uploads/sites/52/2018/05/reviews02-150x150.jpg' alt='Joel B' width='150' height='150' />Amazing card and it's a Steal for the price" --path=/home/$DOMAIN/public_html
-wp widget add custom_html footer --content="<h4 style='color:white'>About Company</h4><ul><li><a href='/about-us'>Company info</a></li> <li><a href='/contact-us'>Contact Us</a></li> <li><a href='https://facebook.com'>Facebook</a></li>  <li><a href='https://twitter.com'>Twitter</a></li> <li><a href='https://instagram.com'>Instagram</a></li> </ul>" 1 --path=/home/$DOMAIN/public_html
+wp widget add custom_html footer --content="
+<img class='alignright size-full wp-image-183' src='/img/paymenttrusted.png' alt=''/>" 1 --path=/home/$DOMAIN/public_html
 wp widget add custom_html footer --content="<h4 style='color:white'>Tools &amp; apps</h4><ul><li><a href='/my-account/'>My Account</a></li><li><a href='/payment'>Payment</a></li><li><a href='/track-order'>Track Orders</a></li><li><a href='/checkout/'>Checkout</a></li> <li><a href='/cart/'>Cart</a></li> </ul>" 2 --path=/home/$DOMAIN/public_html
 wp widget add custom_html footer --content="<h4 style='color:white'>Help & Contact</h4><ul><li><a href='/refund-policy'>Returns and Refund</a></li><li><a href='/privacy-policy'>Privacy Policy</a></li><li><a href='/term-of-service'>Terms &amp; Conditions</a></li><li><a href='/contact-us'>Contact Us</a></li><li><a href='/about-us'>About Us</a></li></ul> " 3 --path=/home/$DOMAIN/public_html
 wp widget add custom_html footer --content="
 <h4 style='color:white'>Company Info</h4><ul><li>Location: ${ADDRESS} </li><li>Phone: $PHONE </li><li>Email: $EMAIL </li></ul>" 4 --path=/home/$DOMAIN/public_html
 wp widget add custom_html copyright --content="Copyright © 2012-2020 ${DOMAIN^^} Inc. All Rights Reserved<br/>" 1 --path=/home/$DOMAIN/public_html
-wp widget add custom_html copyright --content="<img class='alignright size-full wp-image-183' src='/img/seal.jpg' alt='' width='718' height='78' />" 2 --path=/home/$DOMAIN/public_html
+wp widget add custom_html copyright --content="<img class='alignright size-full wp-image-183' src='/img/paypal.png' alt='' />" 2 --path=/home/$DOMAIN/public_html
 }
 else
 	printf "Unknown themes\n"
@@ -351,7 +352,9 @@ curl -N $host/page/billing.html | wp post generate --post_type=page --post_conte
 mkdir -p /home/$DOMAIN/public_html/img
 wget $host/img/paypal1.png && mv paypal1.png /home/$DOMAIN/public_html/img
 wget $host/img/paypal2.png && mv paypal2.png /home/$DOMAIN/public_html/img
-wget $host/img/seal.jpg && mv seal.jpg /home/$DOMAIN/public_html/img
+wget $host/img/paypal.png && mv paypal.png /home/$DOMAIN/public_html/img
+wget $host/img/paymenttrusted.png && mv paymenttrusted.png /home/$DOMAIN/public_html/img
+
 curl -N $host/page/payment.html | wp post generate --post_type=page --post_content --post_title="Payment" --count=1 --path=/home/$DOMAIN/public_html
 
 wp search-replace 'changedomainhere' $DOMAIN wp_posts --path=/home/$DOMAIN/public_html

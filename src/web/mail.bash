@@ -1,0 +1,1 @@
+printf "ORDER NGÀY `date +'%d-%m-%Y'`" | mail -s "Export Order | Woocommerce | Ninja Team" -a /root/orders.csv quoc@seenomore.com , khoaphan1671996@gmail.com , uchkno2@gmail.com

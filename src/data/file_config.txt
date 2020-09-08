@@ -5,6 +5,7 @@ web/restore
 web/web
 web/export_order
 web/rest_api
+web/mail
 
 ssl/install
 ssl/renew

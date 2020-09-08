@@ -34,6 +34,7 @@ elif [ $OPTION = 1 ]; then
 	done < /etc/skt.d/tool/data/file_config.txt
 	clear
 	chmod +x /etc/skt.d/tool/web/export_order.bash
+	chmod +x /etc/skt.d/tool/web/mail.bash
 	printf "\n"
 	printf "Status: Installed tools!\n"
 	sleep 2
@@ -52,6 +53,7 @@ elif [ $OPTION = 2 ]; then
 	done < /etc/skt.d/tool/data/file_config.txt
 	clear
 	chmod +x /etc/skt.d/tool/web/export_order.bash
+	chmod +x /etc/skt.d/tool/web/mail.bash
 	printf "Status: Updated tools!\n"
 	sleep 2
 	sh /etc/skt.d/tool/tool.bash
