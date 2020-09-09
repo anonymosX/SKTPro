@@ -10,8 +10,7 @@ printf " ###################################\n"
 # PHONE - phone with no space in phone number
 # THEME - DEFAULT THEME IS VALUE: 1 is konete, 2 is shoptimized
 
-while IFS=$'\t' read -r -a WOOCOMMERCE
-do
+while IFS=$'\t' read -r -a WOOCOMMERCE ; do
 DOMAIN=${WOOCOMMERCE[0]}
 ADDRESS=${WOOCOMERCE[1]}
 THEME=${WOOCOMERCE[2]}
@@ -440,7 +439,7 @@ done < /root/woocommerce.csv
 
 systemctl restart nginx php-fpm mariadb
 #SHOW LOGIN INFORMATION
-while IFS=$'\t' -r -a WOOCOMMERCE; do
+while IFS=$'\t' -r -a WOOCOMMERCE ; do
 DOMAIN=${WOOCOMMERCE[0]}
 source /etc/skt.d/data/$DOMAIN/login.txt
 count="`cat /root/woocommerce.csv | wc -l`"
