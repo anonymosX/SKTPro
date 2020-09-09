@@ -76,12 +76,6 @@ DB_USER="`openssl rand -base64 32 | tr -d /=+ | cut -c -25`"
 DB_PASS="`openssl rand -base64 32 | tr -d /=+ | cut -c -25`"
 WP_PASS="`openssl rand -base64 32 | tr -d /=+ | cut -c -25`"
 WP_USER="qqteam`openssl rand -base64 32 | tr -d /=+ | cut -c -10`"
-
-#TRUONG HOP DANG KI DOMAIN TU TAO FOLDER THI KO CAN TAO THEM FOLDER, TRANH BI LOI
-if [ ! -d /etc/skt.d/data/$DOMAIN ]; then
-	mkdir -p /etc/skt.d/data/$DOMAIN
-fi
-cd /root
 EMAIL="`shuf -n 1 /etc/skt.d/tool/data/mail.txt`@${DOMAIN}"
 source /root/.my.cnf
 printf "#${DOMAIN^^}:\ndbn=${DB_NAME}\ndbu=${DB_USER}\ndbp=${DB_PASS}\nmdbp=$password\n" | cat > /etc/skt.d/data/$DOMAIN/sql.txt
@@ -441,6 +435,22 @@ curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.
 wp plugin activate elementor --path=/home/$DOMAIN/public_html
 done < /root/woocommerce.csv
 systemctl restart nginx php-fpm mariadb
+
+
+
+#SHOW LOGIN INFORMATION
+while IFS=$'\t' -r -a WOOCOMMERCE; do
+DOMAIN=${WOOCOMMERCE[0]}
+source /etc/skt.d/data/$DOMAIN/login.txt
+count="`cat /root/woocommerce.csv | wc -l`"
+printf "${DOMAIN^^}\n Username: ${wp_usr}\n Password: ${wp_pass}\n Email: $EMAIL\n," | cat >> woosetup.csv
+done < /root/woocommerce.csv
+
+
+
+
+
+
 elif [ $CONFIRM = N -o $CONFIRM = n ]; then
 	clear
 	printf "Status: Cancel request\n"

@@ -112,8 +112,8 @@ printf " #########################################\n"
 	printf "\n"
 	source /etc/skt.d/data/$DOMAIN/login.txt
 	printf " ###########\n"
-		printf "RESULT:\n"
-		printf "${DOMAIN^^}\n Username: ${wp_usr}\n Password: ${wp_pass}\n Email: $EMAIL\n"
+	printf "RESULT:\n"
+	printf "${DOMAIN^^}\n Username: ${wp_usr}\n Password: ${wp_pass}\n Email: $EMAIL\n"
 	sh /etc/skt.d/tool/web/web.bash
 elif [ $OPTION = 9 ]; then
 clear
