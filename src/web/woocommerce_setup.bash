@@ -23,7 +23,7 @@ if [ $CONFIRM = 0 ]
 	printf "Status: Return Home\n"
 	sleep 2
 	sh /root/install
-elif [ $CONFIRM = Y -or $CONFIRM = y ]; then
+elif [ $CONFIRM = 'Y' -or $CONFIRM = 'y' ]; then
 while IFS=$'\t' read -r -a WOOCOMMERCE ; do
 #VARIANT NEED
 # DOMAIN - for domain address like github.com

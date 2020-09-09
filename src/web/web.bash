@@ -2,7 +2,7 @@
 printf " ###############################\n"
 printf " WOOCOMMERCE MANAGE | `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` WEB\n"
 printf " ###############################\n"
-printf "1. ADD WEBSITE                    6. UPDATE PLUGINS\n"
+printf "1. ADD WEBSITE                      6. UPDATE PLUGINS\n"
 printf "2. DELETE 1 WEBSITE                 7. UPDATE WORDPRESS\n"
 printf "3. BACKUP 1 WEBSITE                 8. SHOW LOGIN      \n"
 printf "4. RESTORE 1 WEBSITE                9. LIST DOMAIN\n" 
