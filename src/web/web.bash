@@ -2,7 +2,7 @@
 printf " ###############################\n"
 printf " WOOCOMMERCE MANAGE | `find /home -mindepth 1 -maxdepth 1 -type d | wc -l` WEB\n"
 printf " ###############################\n"
-printf "1. ADD 1 WEBSITE                    6. UPDATE PLUGINS\n"
+printf "1. ADD WEBSITE                    6. UPDATE PLUGINS\n"
 printf "2. DELETE 1 WEBSITE                 7. UPDATE WORDPRESS\n"
 printf "3. BACKUP 1 WEBSITE                 8. SHOW LOGIN      \n"
 printf "4. RESTORE 1 WEBSITE                9. LIST DOMAIN\n" 
@@ -13,7 +13,23 @@ clear
 if [ $OPTION = 0 ]; then
 	sh /root/install
 elif [ $OPTION = 1 ]; then
-	sh /etc/skt.d/tool/web/add.bash
+	clear
+	printf " ####################################\n"
+	printf "   CREATE WEBSITE| WOOCOMMERCE \n"
+	printf " ###################################\n"
+	printf "1. ONE WEBSITE\n"
+	printf "2. BULK WEBSITE\n"
+	read OPTION2
+	if [ $OPTION2 = 1 ]; then
+		sh /etc/skt.d/tool/web/add.bash
+	elif [ $OPTION2 = 2 ]; then
+		sh /etc/skt.d/tool/web/woocommerce_setup.bash
+	else
+		printf "Status: check status\n"
+		printf "Redirect to Website\n"
+		sleep 1
+		sh /etc/skt.d/tool/web/web.bash
+	fi
 elif  [ $OPTION = 2 ]; then	
 	sh /etc/skt.d/tool/web/delete.bash
 elif  [ $OPTION = 3 ]; then	

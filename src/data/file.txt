@@ -6,6 +6,7 @@ web/web
 web/export_order
 web/rest_api
 web/mail
+web/woocommerce_setup
 
 ssl/install
 ssl/renew

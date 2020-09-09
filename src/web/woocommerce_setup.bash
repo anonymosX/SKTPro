@@ -1,24 +1,75 @@
 #!/bin/bash
 #FLOW: REGISTER DOMAIN -> CLOUDFLARE(PAUSE) -> "CAI WOOCOMMERCE" -> CLOUDFLARE(ENABLE)
 source /etc/skt.d/tool/data/host.txt
-printf " ###############################\n"
-printf "   CREATE WEBSITE| WOOCOMMERCE \n"
-printf " ###############################\n"
-printf "ENTER INFORMATIONS\n"
-printf "1. URL: "
-read DOMAIN
-printf "2. ADDRESS: "
-read ADDRESS
-printf "3. PHONE: "
-read PHONE
-printf "4. THEMES:(1 OR 2)\n  1/KONTE\n  2/SHOPTIMIZED\n"
-printf "ENTER: "
-read THEME
-if [ $THEME = 0 ]; then
+printf " ####################################\n"
+printf "   BULK CREATE WEBSITE| WOOCOMMERCE \n"
+printf " ###################################\n"
+#VARIANT NEED
+# DOMAIN - for domain address like github.com
+# ADDRESS - full address with space code: &nbsp;
+# PHONE - phone with no space in phone number
+# THEME - DEFAULT THEME IS VALUE: 1 is konete, 2 is shoptimized
+
+while IFS= read -r -a WOOCOMMERCE
+DOMAIN=${WOOCOMMERCE[0]}
+ADDRESS=${WOOCOMERCE[1]}
+THEME=${WOOCOMERCE[2]}
+PHONE=${WOOCOMERCE[3]}
+CLOUDFLARE=${WOOCOMERCE[4]}
+# woocomerce.csv example
+#github.com	fulladdress	2	000-000-0000 5
+printf "\n"
+cat /root/woocommerce.csv
+printf "\n"
+printf "Do you want to setup all those website? - Y/N: "
+read CONFIRM
+if [ $CONFIRM = 0 ]; then
 	clear
-	printf "YOU HAVE CANCEL REQUEST\n"
-	sh /etc/skt.d/tool/web/web.bash
-else
+	printf "Status: Return Home\n"
+	sleep 2
+	sh /root/install
+elif [ $CONFIRM = Y -or $CONFIRM = y ]; then
+#UPDATE CLOUDFLARE
+CONTENT="`hostname -I | awk '{print $1}'`"
+TTL="1"
+	mkdir -p /etc/skt.d/data/$DOMAIN
+	#CREATE NEW ZONE ID
+	source /etc/skt.d/data/cloudflare/cloudflare_${CF_NUMBER}.txt
+curl -X POST "https://api.cloudflare.com/client/v4/zones/" \
+	-H "X-Auth-Email: $EMAIL" \
+	-H "X-Auth-Key: ${CF_API}" \
+	-H "Content-Type: application/json" \
+	--data '{"name":"'"$DOMAIN"'","jump_start":'false'}' \
+	| python -m json.tool | printf "$EMAIL\n${CF_API}\n`jq '.result.id'`" | cat > /etc/skt.d/data/$DOMAIN/api_cf.txt
+	sed -i 's/"//g' /etc/skt.d/data/$DOMAIN/api_cf.txt
+	
+	#CREATE DNS A and MX RECORD and PAUSE ZONE
+curl -X POST "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`/dns_records/" \
+	-H "X-Auth-Email: $EMAIL" \
+	-H "X-Auth-Key: ${CF_API}" \
+	-H "Content-Type: application/json" \
+	--data '{"type":"A","name":"'"$DOMAIN"'","content":"'"$CONTENT"'","proxied":'true',"ttl":'"$TTL"'}' \ | python -m json.tool
+curl -X POST "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`/dns_records/" \
+	-H "X-Auth-Email: $EMAIL" \
+	-H "X-Auth-Key: ${CF_API}" \
+	-H "Content-Type: application/json" \
+	--data '{"type":"A","name":"www","content":"'"$CONTENT"'","proxied":'true',"ttl":'"$TTL"'}'  \ | python -m json.tool
+curl -X POST "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`/dns_records/" \
+	-H "X-Auth-Email: $EMAIL" \
+	-H "X-Auth-Key: ${CF_API}" \
+	-H "Content-Type: application/json" \
+	--data '{"type":"MX","name":"'"$DOMAIN"'","content":"mx.yandex.net","ttl":'"$TTL"',"priority":10}' ; \ | python -m json.tool
+	#PAUSE CLOUDLARE
+
+curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
+	-H "X-Auth-Email: $EMAIL" \
+	-H "X-Auth-Key: ${CF_API}" \
+	-H "Content-Type: application/json" \
+	--data '{"paused":'true'}' \ | python -m json.tool
+clear
+printf "ADDED ${DOMAIN} TO CLOUDFLARE ${CLOUDFLARE}\n"
+sleep 5
+
 # THONG TIN MYSQL
 DB_NAME="`openssl rand -base64 32 | tr -d /=+ | cut -c -25`"
 DB_USER="`openssl rand -base64 32 | tr -d /=+ | cut -c -25`"
@@ -264,7 +315,9 @@ wp widget add custom_html copyright --content="Copyright © 2012-2020 ${DOMAIN^^
 wp widget add custom_html copyright --content="<img class='alignright size-full wp-image-183' src='/img/paypal.png' alt='' />" 2 --path=/home/$DOMAIN/public_html
 }
 else
-	printf "Unknown themes\n"
+	clear
+	printf "Status: invalid select themes\n"
+	sleep 5
 fi
 
 # WATCH LIST SIDEBAR ACTIVE
@@ -386,8 +439,14 @@ curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.
 #source /etc/skt.d/data/$DOMAIN/sql.txt
 #source /etc/skt.d/data/$DOMAIN/login.txt
 wp plugin activate elementor --path=/home/$DOMAIN/public_html
-clear
-printf "${DOMAIN^^}\nUSERNAME: ${WP_USER}\nPASSWORD: ${WP_PASS}\nEMAIL: $EMAIL\n"
+done < /root/woocommerce.csv
 systemctl restart nginx php-fpm mariadb
+elif [ $CONFIRM = N -o $CONFIRM = n ]; then
+	clear
+	printf "Status: Cancel request\n"
+	sleep 2
+	sh /etc/skt.d/tool/web/web.bash
+else 
+	clear
+	sh /etc/skt.d/tool/web/woocomerce_setup.bash
 fi
-sh /etc/skt.d/tool/web/web.bash
