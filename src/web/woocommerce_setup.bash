@@ -4,16 +4,11 @@ source /etc/skt.d/tool/data/host.txt
 printf " ####################################\n"
 printf "   BULK CREATE WEBSITE| WOOCOMMERCE \n"
 printf " ###################################\n"
-#VARIANT NEED
-# DOMAIN - for domain address like github.com
-# ADDRESS - full address with space code: &nbsp;
-# PHONE - phone with no space in phone number
-# THEME - DEFAULT THEME IS VALUE: 1 is konete, 2 is shoptimized
 
 
 
-# woocomerce.csv example
-#github.com	fulladdress	2	000-000-0000 5
+
+
 printf "\n"
 cat /root/woocommerce.csv
 printf "\n"
@@ -27,11 +22,20 @@ if [ $CONFIRM = 0 ]
 	sh /root/install
 elif [ $CONFIRM = Y -or $CONFIRM = y ]; then
 while IFS=$'\t' read -r -a WOOCOMMERCE ; do
+#VARIANT NEED
+# DOMAIN - for domain address like github.com
+# ADDRESS - full address with space code: &nbsp;
+# PHONE - phone with no space in phone number
+# THEME - DEFAULT THEME IS VALUE: 1 is konete, 2 is shoptimized
+
 DOMAIN=${WOOCOMMERCE[0]}
 ADDRESS=${WOOCOMERCE[1]}
 THEME=${WOOCOMERCE[2]}
 PHONE=${WOOCOMERCE[3]}
 CLOUDFLARE=${WOOCOMERCE[4]}
+
+# woocomerce.csv example
+#github.com	fulladdress	2	000-000-0000 5
 #UPDATE CLOUDFLARE
 CONTENT="`hostname -I | awk '{print $1}'`"
 TTL="1"
