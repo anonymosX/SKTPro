@@ -10,12 +10,8 @@ printf " ###################################\n"
 # PHONE - phone with no space in phone number
 # THEME - DEFAULT THEME IS VALUE: 1 is konete, 2 is shoptimized
 
-while IFS=$'\t' read -r -a WOOCOMMERCE ; do
-DOMAIN=${WOOCOMMERCE[0]}
-ADDRESS=${WOOCOMERCE[1]}
-THEME=${WOOCOMERCE[2]}
-PHONE=${WOOCOMERCE[3]}
-CLOUDFLARE=${WOOCOMERCE[4]}
+
+
 # woocomerce.csv example
 #github.com	fulladdress	2	000-000-0000 5
 printf "\n"
@@ -23,12 +19,19 @@ cat /root/woocommerce.csv
 printf "\n"
 printf "Do you want to setup all those website? - Y/N: "
 read CONFIRM
-if [ $CONFIRM = 0 ]; then
+if [ $CONFIRM = 0 ]
+	then
 	clear
 	printf "Status: Return Home\n"
 	sleep 2
 	sh /root/install
 elif [ $CONFIRM = Y -or $CONFIRM = y ]; then
+while IFS=$'\t' read -r -a WOOCOMMERCE ; do
+DOMAIN=${WOOCOMMERCE[0]}
+ADDRESS=${WOOCOMERCE[1]}
+THEME=${WOOCOMERCE[2]}
+PHONE=${WOOCOMERCE[3]}
+CLOUDFLARE=${WOOCOMERCE[4]}
 #UPDATE CLOUDFLARE
 CONTENT="`hostname -I | awk '{print $1}'`"
 TTL="1"
@@ -311,7 +314,8 @@ wp widget add custom_html copyright --content="<img class='alignright size-full 
 else
 	clear
 	printf "Status: invalid select themes\n"
-	sleep 5
+	sleep 3
+	sh /etc/skt.d/tool/web/web.bash
 fi
 
 # WATCH LIST SIDEBAR ACTIVE
@@ -428,28 +432,18 @@ curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.
      -H "X-Auth-Key: `sed -n "2p" /etc/skt.d/data/$DOMAIN/api_cf.txt`" \
      -H "Content-Type: application/json" \
 	 --data '{"value":"on"}' \ | python -m json.tool
-
-
 #source /etc/skt.d/data/$DOMAIN/sql.txt
 #source /etc/skt.d/data/$DOMAIN/login.txt
 wp plugin activate elementor --path=/home/$DOMAIN/public_html
 done < /root/woocommerce.csv
-
-
-
 systemctl restart nginx php-fpm mariadb
 #SHOW LOGIN INFORMATION
-while IFS=$'\t' -r -a WOOCOMMERCE ; do
-DOMAIN=${WOOCOMMERCE[0]}
-source /etc/skt.d/data/$DOMAIN/login.txt
-count="`cat /root/woocommerce.csv | wc -l`"
-printf "${DOMAIN^^}\n Username: ${wp_usr}\n Password: ${wp_pass}\n Email: $EMAIL\n," | cat >> /root/woosetup.csv
+while IFS=$'\t' read -r -a WOOCOMMERCE ; do
+	DOMAIN=${WOOCOMMERCE[0]}
+	source /etc/skt.d/data/$DOMAIN/login.txt
+	count="`cat /root/woocommerce.csv | wc -l`"
+	printf "${DOMAIN^^}\n Username: ${wp_usr}\n Password: ${wp_pass}\n Email: $EMAIL\n," | cat >> /root/woosetup.csv
 done < /root/woocommerce.csv
-
-
-
-
-
 
 elif [ $CONFIRM = N -o $CONFIRM = n ]; then
 	clear
@@ -460,3 +454,4 @@ else
 	clear
 	sh /etc/skt.d/tool/web/woocomerce_setup.bash
 fi
+
