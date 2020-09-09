@@ -11,6 +11,7 @@ printf " ###################################\n"
 # THEME - DEFAULT THEME IS VALUE: 1 is konete, 2 is shoptimized
 
 while IFS=$'\t' read -r -a WOOCOMMERCE
+do
 DOMAIN=${WOOCOMMERCE[0]}
 ADDRESS=${WOOCOMERCE[1]}
 THEME=${WOOCOMERCE[2]}
@@ -434,16 +435,16 @@ curl -X PATCH "https://api.cloudflare.com/client/v4/zones/`sed -n "3p" /etc/skt.
 #source /etc/skt.d/data/$DOMAIN/login.txt
 wp plugin activate elementor --path=/home/$DOMAIN/public_html
 done < /root/woocommerce.csv
+
+
+
 systemctl restart nginx php-fpm mariadb
-
-
-
 #SHOW LOGIN INFORMATION
 while IFS=$'\t' -r -a WOOCOMMERCE; do
 DOMAIN=${WOOCOMMERCE[0]}
 source /etc/skt.d/data/$DOMAIN/login.txt
 count="`cat /root/woocommerce.csv | wc -l`"
-printf "${DOMAIN^^}\n Username: ${wp_usr}\n Password: ${wp_pass}\n Email: $EMAIL\n," | cat >> woosetup.csv
+printf "${DOMAIN^^}\n Username: ${wp_usr}\n Password: ${wp_pass}\n Email: $EMAIL\n," | cat >> /root/woosetup.csv
 done < /root/woocommerce.csv
 
 
