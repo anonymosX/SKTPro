@@ -10,8 +10,10 @@ printf " ###################################\n"
 
 
 printf "\n"
-cat /root/woocommerce.csv
-printf "\n"
+while IFS=$'\t' read -r -a WOOCOMMERCE ; do
+
+printf " - ${WOOCOMMERCE[0]}\n"
+done < /root/woocommerce.csv
 printf "Do you want to setup all those website? - Y/N: "
 read CONFIRM
 if [ $CONFIRM = 0 ]
@@ -456,6 +458,6 @@ elif [ $CONFIRM = N -o $CONFIRM = n ]; then
 	sh /etc/skt.d/tool/web/web.bash
 else 
 	clear
-	sh /etc/skt.d/tool/web/woocomerce_setup.bash
+	sh /etc/skt.d/tool/web/woocommerce_setup.bash
 fi
 
