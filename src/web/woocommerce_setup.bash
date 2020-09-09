@@ -10,8 +10,9 @@ printf " ###################################\n"
 
 
 printf "\n"
+count="`cat /root/woocommerce.csv | wc -l`"
+printf "Setup $count web\n"
 while IFS=$'\t' read -r -a WOOCOMMERCE ; do
-
 printf " - ${WOOCOMMERCE[0]}\n"
 done < /root/woocommerce.csv
 printf "Do you want to setup all those website? - Y/N: "
