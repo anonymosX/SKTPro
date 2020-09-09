@@ -46,7 +46,8 @@ elif [ $OPTION = 2 ]; then
 	curl -N $host/src/data/host.txt        | cat > /etc/skt.d/tool/data/host.txt
 	curl -N $host/src/data/folder.txt | cat > /etc/skt.d/tool/data/folder.txt
 	curl -N $host/src/data/file.txt   | cat > /etc/skt.d/tool/data/file.txt
-	curl -N $host/src/data/mail.txt | cat > /etc/skt.d/tool/data/mail.txt	curl -N https://raw.githubusercontent.com/anonymosX/SKTPro/master/install.bash | cat > /root/install
+	curl -N $host/src/data/mail.txt | cat > /etc/skt.d/tool/data/mail.txt	
+	curl -N https://raw.githubusercontent.com/anonymosX/SKTPro/master/install.bash | cat > /root/install
 
 	# UPDATE FILES
 	while IFS= read -r download; do 
