@@ -10,7 +10,7 @@ printf " ###################################\n"
 # PHONE - phone with no space in phone number
 # THEME - DEFAULT THEME IS VALUE: 1 is konete, 2 is shoptimized
 
-while IFS= read -r -a WOOCOMMERCE
+while IFS=$'\t' read -r -a WOOCOMMERCE
 DOMAIN=${WOOCOMMERCE[0]}
 ADDRESS=${WOOCOMERCE[1]}
 THEME=${WOOCOMERCE[2]}
@@ -34,7 +34,7 @@ CONTENT="`hostname -I | awk '{print $1}'`"
 TTL="1"
 	mkdir -p /etc/skt.d/data/$DOMAIN
 	#CREATE NEW ZONE ID
-	source /etc/skt.d/data/cloudflare/cloudflare_${CF_NUMBER}.txt
+	source /etc/skt.d/data/cloudflare/cloudflare_$CLOUDFLARE.txt
 curl -X POST "https://api.cloudflare.com/client/v4/zones/" \
 	-H "X-Auth-Email: $EMAIL" \
 	-H "X-Auth-Key: ${CF_API}" \
