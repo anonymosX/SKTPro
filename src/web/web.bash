@@ -19,6 +19,7 @@ elif [ $OPTION = 1 ]; then
 	printf " ###################################\n"
 	printf "1. ONE WEBSITE\n"
 	printf "2. BULK WEBSITE\n"
+	printf "OPTION: "
 	read OPTION2
 	if [ $OPTION2 = 1 ]; then
 		sh /etc/skt.d/tool/web/add.bash
