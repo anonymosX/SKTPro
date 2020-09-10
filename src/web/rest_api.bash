@@ -28,7 +28,7 @@ elif [ $OPTION = 1 ]; then
 	printf "${URL}\n${CONSUMER_KEY}:${CONSUMER_SECRET}" | cat > /etc/skt.d/data/woocommerce/API_${INVOICE}
 	printf "\n${INVOICE}	${URL}	${CONSUMER_KEY}:${CONSUMER_SECRET}" | cat >> /etc/skt.d/data/woocommerce/all-invoice.txt
 	
-	
+#/etc/skt.d/data/woocommerce/all-invoice.txt
 #WC5 url5 consumer_key5:consumer_secret5
 #WC6 url6 consumer_key6:consumer_secret6
 #	sh /etc/skt.d/tool/web/rest_api.bash
