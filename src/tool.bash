@@ -49,11 +49,11 @@ curl -N $host/src/data/folder.txt | cat > /etc/skt.d/tool/data/folder.txt;
 curl -N $host/src/data/file.txt   | cat > /etc/skt.d/tool/data/file.txt;
 curl -N $host/src/data/mail.txt | cat > /etc/skt.d/tool/data/mail.txt;
 curl -N https://raw.githubusercontent.com/anonymosX/SKTPro/master/install.bash | cat > /root/install;
-while IFS= read -r FOLDER
+while IFS=$'\t' read -r -a FOLDER
 do
 #check new folder
-if [ ! -d /etc/skt.d/tool/$FOLDER ]; then
-mkdir -p /etc/skt.d/tool/$FOLDER
+if [ ! -d /etc/skt.d/tool/${FOLDER[0]} ]; then
+mkdir -p /etc/skt.d/tool/${FOLDER[0]}
 fi
 done < /etc/skt.d/tool/data/folder.txt
 
