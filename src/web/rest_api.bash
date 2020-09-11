@@ -135,13 +135,12 @@ printf " #######################################\n"
 printf " Export Orders | REST API | WOOCOMMERCE\n"
 printf " #######################################\n"
 
-
-
+  
 #GET NUMBER OF ORDERS
 while IFS=$'\t' read -r -a WOOCOMMERCE 
 do
 curl -X GET "https://${WOOCOMMERCE[1]}/wp-json/wc/v3/orders?status=processing&per_page=100" \
-    -u "${WOOCOMMERCE[2]}" | python -m json.tool
+    -u "${WOOCOMMERCE[2]}" | python -m json.tool | jq -r ".[].id" | cat >> /root/export_orders_${WOOCOMMERCE[0]}
 done < /etc/skt.d/data/woocommerce/all-invoice.txt
 
 #CHECK QUANTITY VARIANT
