@@ -39,8 +39,6 @@ while IFS=$'\t' read -r -a API
 do
 curl -X GET "https://${API[1]}/admin/api/2020-07/orders.json?status=open&limit=250&fulfillment_status=unfulfilled" | python -m json.tool | jq -r ".orders[].id" | cat >> /root/shopify.${API[0]}.orders.unfufilled.id
 
-
-
 #COUNT UNFULFILLED ORDERS
 curl -X GET "https://${API[1]}/admin/api/2020-07/orders/count.json?fulfillment_status=unfulfilled" | python -m json.tool | jq -r ".count" | cat > /root/shopify.${API[0]}.orders.count
 
@@ -53,8 +51,7 @@ curl -X GET "https://${API[1]}/admin/api/2020-07/orders.json?ids=${ORDERID}" | p
 count2="`cat /root/shopify.${API[0]}.orders.${ORDERID}.checkquantity | wc -l`"
 for (( j=0; j <= ${count2} - 1; j++))
 do
-
-curl -X GET "https://${API[1]}/admin/api/2020-07/orders.json?ids=${ORDERID}" | python -m json.tool | printf "\n${API[0]},`curl -X GET "https://${API[1]}/admin/api/2020-07/orders/${ORDERID}/transactions.json" | python -m json.tool | jq -r ".transactions[].authorization"`, `jq -r "[.orders[].id,.orders[].shipping_address.first_name,.orders[].shipping_address.last_name,.orders[].shipping_address.phone,.orders[].shipping_address.address1,.orders[].shipping_address.address2,.orders[].shipping_address.city,.orders[].shipping_address.province_code,.orders[].shipping_address.zip,.orders[].line_items[$j].sku,.orders[].line_items[$j].quantity] | @csv"`" | cat >> orders.csv
+curl -X GET "https://${API[1]}/admin/api/2020-07/orders.json?ids=${ORDERID}" | python -m json.tool | printf "${API[0]},`curl -X GET "https://${API[1]}/admin/api/2020-07/orders/${ORDERID}/transactions.json" | python -m json.tool | jq -r ".transactions[].authorization"`, `jq -r "[.orders[].id,.orders[].shipping_address.first_name,.orders[].shipping_address.last_name,.orders[].shipping_address.phone,.orders[].shipping_address.address1,.orders[].shipping_address.address2,.orders[].shipping_address.city,.orders[].shipping_address.province_code,.orders[].shipping_address.zip,.orders[].line_items[$j].sku,.orders[].line_items[$j].quantity] | @csv"`\n" | cat >> orders.csv
 sed -i 's/"//g' /root/orders.csv
 done
 done
