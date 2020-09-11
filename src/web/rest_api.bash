@@ -136,7 +136,7 @@ printf " Export Orders | REST API | WOOCOMMERCE\n"
 printf " #######################################\n"
 
 
-  | jq -r ".[].id" | cat >> /root/export_orders_${WOOCOMMERCE[0]}
+
 #GET NUMBER OF ORDERS
 while IFS=$'\t' read -r -a WOOCOMMERCE 
 do
