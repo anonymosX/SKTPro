@@ -3,7 +3,7 @@ printf " ###############################\n"
 printf " REST API | SHOPIFY n"
 printf " ###############################\n"
 printf "1. Declare REST API\n"
-printf "2. Import Order"
+printf "2. Import Order\n"
 printf "3. Export Order\n"
 printf "4. Previous/Back\n"
 printf "OPTION: "
@@ -24,6 +24,28 @@ printf "Nhap INVOICE: "
 read INVOICE
 printf "${INVOICE}	${APIKEY}:${PASSWORD}@${HOST}" | cat > /etc/skt.d/data/shopify/api.txt
 elif [ $OPTION = 2 ]; then
+
+while IFS=$'\t' read -r -a TRACK
+do
+
+IFS="-" ; read -r -a INVOICE<<<"${TRACK[2]}" 
+if [ ${INVOICE[0]} = "S1" ]; then
+
+
+curl -X PUT "https://`sed -n "1p" /etc/skt.d/data/shopify/${INVOICE[0]}.txt`/admin/api/2020-07/orders/${INVOICE[1]}/fulfillments.json" \
+-H "Content-Type: application/json" \
+-d '{
+"fulfillment": {
+"location_id": 9932406827,
+"tracking_company": "'${TRACK[4]}'",
+"tracking_number": "'${TRACK[3]}'",
+"notify_customer": true
+}
+}' 
+fi
+done < /root/track.txt
+
+
 
 elif [ $OPTION = 3 ]; then
 clear
