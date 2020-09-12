@@ -32,7 +32,7 @@ IFS="-" ; read -r -a INVOICE<<<"${TRACK[2]}"
 if [ ${INVOICE[0]} = "S1" ]; then
 
 
-curl -X PUT "https://`sed -n "1p" /etc/skt.d/data/shopify/${INVOICE[0]}.txt`/admin/api/2020-07/orders/${INVOICE[1]}/fulfillments.json" \
+curl -X POST "https://`sed -n "1p" /etc/skt.d/data/shopify/${INVOICE[0]}.txt`/admin/api/2020-07/orders/${INVOICE[1]}/fulfillments.json" \
 -H "Content-Type: application/json" \
 -d '{
 "fulfillment": {
