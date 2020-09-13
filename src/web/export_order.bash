@@ -19,7 +19,7 @@ rm -rf /root/orders.csv
 #######################################START CODE WOOCOMMERCE #######################################
 #GET NUMBER OF ORDERS
 printf "PAYPAL,INVOICE NAME,TRANSACTION ID,ORDER ID,FIRST NAME,LAST NAME,PHONE NUMBER,ADDRESS 1,ADDRESS 2,CITY,STATES,ZIPCODE, SKU,QUANTITY\n"  | cat >> /root/orders.csv	
-while IFS=$'\t' read -r -a DATA 
+while IFS="|" read -r -a DATA 
 do
 if [ ${DATA[0]} == "W" ]; then
 curl -X GET "https://${DATA[2]}/wp-json/wc/v3/orders?status=processing&per_page=100" \

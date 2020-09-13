@@ -7,8 +7,8 @@
 
 
 #FORMAT track.txt file
-#E4 8MC585209K746392H W-5-27672 9400109205568128990983 USPS
-#E5 8MC585209K746392H W-5-27672 9400109205568743137961 USPS
+#E4 8MC585209K746392H W5-27672 9400109205568128990983 USPS
+#E5 8MC585209K746392H W5-27672 9400109205568743137961 USPS
 printf " ###############################\n"
 printf " REST API | WOOCOMMERCE | PAYPAL\n"
 printf " ###############################\n"
@@ -25,23 +25,34 @@ if [ $OPTION = 0 ]; then
 elif [ $OPTION = 1 ]; then
 	clear
 	printf " ###############################\n"
-	printf " Declare | REST API | WOOCOMMERCE\n"
+	printf " Declare | REST API | WEBSITE\n"
 	printf " ###############################\n"
-	printf "1. Invoice name: "
-	read INVOICE
-	printf "2. URL: "
+	printf "1. Platform: \n"
+	printf " 1.Woocommerce\n"
+	printf " 2.Shopify\n"
+	printf "Enter value-(1 or 2): "
+	read PLATFORM
+	printf "2. Platform number: "
+	read NUMBER
+	printf "3. URL: "
 	read URL
-	printf "3. Consumer key: "
-	read CONSUMER_KEY
-	printf "4. Consumer secret: "
-	read CONSUMER_SECRET
-	printf "${URL}\n${CONSUMER_KEY}:${CONSUMER_SECRET}" | cat > /etc/skt.d/data/woocommerce/API_${INVOICE}
-	printf "\n${INVOICE}	${URL}	${CONSUMER_KEY}:${CONSUMER_SECRET}" | cat >> /etc/skt.d/data/woocommerce/all-invoice.txt
+	printf "4. Key: "
+	read KEY
+	printf "5. Pass: "
+	read PASS
+	if [ $PLATFORM = 1 ]; then
+	printf "W|${NUMBER}|${URL}|${KEY}|${PASS}\n" | cat >> /etc/skt.d/data/team/api.txt
+	printf "${URL}|{KEY}|${PASS}\n" | cat > /etc/skt.d/data/team/W${NUMBER}
+	fi
+	if [ $PLATFORM = 2 ]; then
+	printf "S|${NUMBER}|${URL}|${KEY}|${PASS}\n" | cat >> /etc/skt.d/data/team/api.txt
+	printf "${URL}|{KEY}|${PASS}\n" | cat > /etc/skt.d/data/team/S${NUMBER}	
+	fi
 	
-#/etc/skt.d/data/woocommerce/all-invoice.txt
-#WC5 url5 consumer_key5:consumer_secret5
-#WC6 url6 consumer_key6:consumer_secret6
-#	sh /etc/skt.d/tool/web/rest_api.bash
+#/etc/skt.d/data/team/api.txt
+#W|1|url1|key1|pass1
+#W|2|url2|key2|pass2
+sh /etc/skt.d/tool/web/rest_api.bash
 
 
 
@@ -54,33 +65,34 @@ printf "DO YOU WANT TO IMPORT TRACKING NUMBER? - (Y/N): "
 read QUESTION
 if [ $QUESTION = Y -o $QUESTION = y ]; then
 #READ FILE track.txt then find REST API
-#####                 WOOCOMMERCE
+#IMPORT TRACK TO WOOCOMMERCE PLATFORM
 
 while IFS=$'\t'	read -r -a TRACK
 do
-IFS="-"; read -r -a PLATFORM<<<"${TRACK[2]}"
+PLATFORM="`printf "${TRACK[2]}" | head -c1`"
 #IMPORT TRACK TO WOOCOMMERCE
-if [ ${PLATFORM[0]} == "W" ]; then
-#spilit invoice name and invoice number, example WC1-21
-IFS="-" ; read -r -a INVOICE<<<"${TRACK[2]}" 
-curl -X POST https://`sed -n '1p' /etc/skt.d/data/team/W-${INVOICE[1]}`/wp-json/wc/v3/orders/${INVOICE[2]}/shipment-trackings \
-	-u "`sed -n '2p' /etc/skt.d/data/woocommerce/W-${INVOICE[1]}`" \
+if [ ${PLATFORM} == "W" ]; then
+IFS="-" ; read -r -a WOO<<<"${TRACK[2]}"
+IFS="|" ; read -r -a WOOCOMMERCE<<<"`cat /etc/skt.d/data/team/${WOO[0]}`"
+curl -X POST https://${WOOCOMMERCE[0]}/wp-json/wc/v3/orders/${WOO[1]}/shipment-trackings \
+	-u "${WOOCOMMERCE[1]}:${WOOCOMMERCE[2]}" \
 	-H "Content-Type: application/json" \
 	-d '{
 	"tracking_provider": "'${TRACK[4]}'",
 	"tracking_number": "'${TRACK[3]}'"  
 	}' \ | python -m json.tool
-curl -X PUT https://`sed -n '1p' /etc/skt.d/data/team/W-${INVOICE[1]}`/wp-json/wc/v3/orders/${INVOICE[2]} \
-    -u "`sed -n '2p' /etc/skt.d/data/woocommerce/W-${INVOICE[1]}`" \
+curl -X PUT https://${WOOCOMMERCE[0]}/wp-json/wc/v3/orders/${WOO[1]} \
+    -u "${WOOCOMMERCE[1]}:${WOOCOMMERCE[2]}"" \
     -H "Content-Type: application/json" \
     -d '{
   "status": "completed" 
   }' \ | python -m json.tool
 fi
-#IMPORT TRACK TO SHOPIFY
-if [ ${PLATFORM[0]} == "S" ]; then
-IFS="-" ; read -r -a INVOICE<<<"${TRACK[2]}" 
-curl -X POST "https://`sed -n "1p" /etc/skt.d/data/team/S-${INVOICE[1]}`/admin/api/2020-07/orders/${INVOICE[2]}/fulfillments.json" \
+#IMPORT TRACK TO SHOPIFY PLATFORM
+if [ ${PLATFORM} == "S" ]; then
+IFS="-" ; read -r -a SHOPIFY<<<"${TRACK[2]}"
+IFS="|" ; read -r -a SHOPIFYnumber<<<"`cat /etc/skt.d/data/team/${SHOPIFY[0]}`"
+curl -X POST "https://${SHOPIFYnumber[1]}:${SHOPIFYnumber[2]}@${SHOPIFYnumber[0]}/admin/api/2020-07/orders/${SHOPIFY[1]}/fulfillments.json" \
 -H "Content-Type: application/json" \
 -d '{
 "fulfillment": {
@@ -89,7 +101,7 @@ curl -X POST "https://`sed -n "1p" /etc/skt.d/data/team/S-${INVOICE[1]}`/admin/a
 "tracking_number": "'${TRACK[3]}'",
 "notify_customer": true
 }
-}' 
+}'
 fi
 done < /root/track.txt
 clear
