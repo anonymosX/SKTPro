@@ -83,7 +83,7 @@ do
 #REPLACE SPACE STRING
 CONVERT[2]="`echo "${CONVERT[2]}" | sed "s/ //"`"
 CONVERT[3]="`echo "${CONVERT[3]}" | sed "s/ //"`"
-
+CONVERT[7]="`echo "${CONVERT[3]}" | sed "s/,/ /"`"
 NAME="${CONVERT[4]} ${CONVERT[5]}"
 INVOICE="${CONVERT[1]}-${CONVERT[3]}"
 FULLADDRESS="${CONVERT[7]} ${CONVERT[8]}"
