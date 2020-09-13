@@ -1,4 +1,14 @@
 #!/bin/bash
+
+
+
+
+
+
+
+#FORMAT track.txt file
+#E4 8MC585209K746392H W-5-27672 9400109205568128990983 USPS
+#E5 8MC585209K746392H W-5-27672 9400109205568743137961 USPS
 printf " ###############################\n"
 printf " REST API | WOOCOMMERCE | PAYPAL\n"
 printf " ###############################\n"
@@ -39,51 +49,38 @@ elif [ $OPTION = 1 ]; then
 
 elif [ $OPTION = 2 ]; then
 clear
-printf "IMPORTANT: ORDER IS INCLUDED IMPORT TO WOOCOMMERCE AND PAYPAL ALSO\n" 
+printf "IMPORTANT: ORDER IS INCLUDED IMPORT TO WOOCOMMERCE, SHOPIFY AND PAYPAL ALSO\n" 
 printf "DO YOU WANT TO IMPORT TRACKING NUMBER? - (Y/N): "
 read QUESTION
 if [ $QUESTION = Y -o $QUESTION = y ]; then
 #READ FILE track.txt then find REST API
 #####                 WOOCOMMERCE
+
 while IFS=$'\t'	read -r -a TRACK
 do
-	#spilit invoice name and invoice number, example WC1-21
-	IFS="-" ; read -r -a INVOICE<<<"${TRACK[2]}" 
-	curl -X POST https://`sed -n '1p' /etc/skt.d/data/woocommerce/API_${INVOICE[0]}`/wp-json/wc/v3/orders/${INVOICE[1]}/shipment-trackings \
-		-u "`sed -n '2p' /etc/skt.d/data/woocommerce/API_${INVOICE[0]}`" \
-		-H "Content-Type: application/json" \
-		-d '{
-	  "tracking_provider": "'${TRACK[4]}'",
-	  "tracking_number": "'${TRACK[3]}'"
-	  
+IFS="-"; read -r -a PLATFORM<<<"${TRACK[2]}"
+#IMPORT TRACK TO WOOCOMMERCE
+if [ ${PLATFORM[0]} == "W" ]; then
+#spilit invoice name and invoice number, example WC1-21
+IFS="-" ; read -r -a INVOICE<<<"${TRACK[2]}" 
+curl -X POST https://`sed -n '1p' /etc/skt.d/data/team/W-${INVOICE[1]}`/wp-json/wc/v3/orders/${INVOICE[2]}/shipment-trackings \
+	-u "`sed -n '2p' /etc/skt.d/data/woocommerce/W-${INVOICE[1]}`" \
+	-H "Content-Type: application/json" \
+	-d '{
+	"tracking_provider": "'${TRACK[4]}'",
+	"tracking_number": "'${TRACK[3]}'"  
 	}' \ | python -m json.tool
-	
-	curl -X PUT https://`sed -n '1p' /etc/skt.d/data/woocommerce/API_${INVOICE[0]}`/wp-json/wc/v3/orders/${INVOICE[1]} \
-    -u "`sed -n '2p' /etc/skt.d/data/woocommerce/API_${INVOICE[0]}`" \
+curl -X PUT https://`sed -n '1p' /etc/skt.d/data/team/W-${INVOICE[1]}`/wp-json/wc/v3/orders/${INVOICE[2]} \
+    -u "`sed -n '2p' /etc/skt.d/data/woocommerce/W-${INVOICE[1]}`" \
     -H "Content-Type: application/json" \
     -d '{
-  "status": "completed"
-}' \ | python -m json.tool
-done < /root/track.txt
-#FORMAT track.txt file
-#E4 8MC585209K746392H WC5-27672 9400109205568128990983 USPS
-#E5 8MC585209K746392H WC5-27672 9400109205568743137961 USPS
-
-clear
-sleep 3
-printf "UPDATE: IMPORTED ORDER TO WOOCOMMERCE\n"
-sleep 5
-
-printf "IMPORT TRACK TO SHOPIFY\n"
-sleep 2
-while IFS=$'\t' read -r -a TRACK
-do
-
+  "status": "completed" 
+  }' \ | python -m json.tool
+fi
+#IMPORT TRACK TO SHOPIFY
+if [ ${PLATFORM[0]} == "S" ]; then
 IFS="-" ; read -r -a INVOICE<<<"${TRACK[2]}" 
-if [ ${INVOICE[0]} = "S1" ]; then
-
-
-curl -X POST "https://`sed -n "1p" /etc/skt.d/data/shopify/${INVOICE[0]}.txt`/admin/api/2020-07/orders/${INVOICE[1]}/fulfillments.json" \
+curl -X POST "https://`sed -n "1p" /etc/skt.d/data/team/S-${INVOICE[1]}`/admin/api/2020-07/orders/${INVOICE[2]}/fulfillments.json" \
 -H "Content-Type: application/json" \
 -d '{
 "fulfillment": {
@@ -95,7 +92,10 @@ curl -X POST "https://`sed -n "1p" /etc/skt.d/data/shopify/${INVOICE[0]}.txt`/ad
 }' 
 fi
 done < /root/track.txt
-
+clear
+sleep 1
+printf "DONE: IMPORTED ORDER TO WOOCOMMERCE AND SHOPIFY\n"
+sleep 2
 
 #####                 PAYPAL
 printf " ###############################\n"
