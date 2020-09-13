@@ -87,7 +87,7 @@ CONVERT[3]="`echo "${CONVERT[3]}" | sed "s/ //"`"
 NAME="${CONVERT[4]} ${CONVERT[5]}"
 INVOICE="${CONVERT[1]}-${CONVERT[3]}"
 FULLADDRESS="${CONVERT[7]} ${CONVERT[8]}"
-printf "${CONVERT[0]},${CONVERT[2]},${INVOICE},${CONVERT[3]},${NAME},${CONVERT[6]},${FULLADDRESS},${CONVERT[9]},${CONVERT[10]},${CONVERT[11]},${CONVERT[12]},${CONVERT[13]}\n" | cat >> /root/orders.csv
+printf "${CONVERT[0]},${CONVERT[2]},${INVOICE},${NAME},${CONVERT[6]},${FULLADDRESS},${CONVERT[9]},${CONVERT[10]},${CONVERT[11]},${CONVERT[12]},${CONVERT[13]}\n" | cat >> /root/orders.csv
 done <  /root/results.csv
 
 
