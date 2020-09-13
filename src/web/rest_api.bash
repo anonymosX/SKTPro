@@ -82,7 +82,7 @@ curl -X POST https://${WOOCOMMERCE[0]}/wp-json/wc/v3/orders/${WOO[1]}/shipment-t
 	"tracking_number": "'${TRACK[3]}'"  
 	}' \ | python -m json.tool
 curl -X PUT https://${WOOCOMMERCE[0]}/wp-json/wc/v3/orders/${WOO[1]} \
-    -u "${WOOCOMMERCE[1]}:${WOOCOMMERCE[2]}"" \
+    -u "${WOOCOMMERCE[1]}:${WOOCOMMERCE[2]}" \
     -H "Content-Type: application/json" \
     -d '{
   "status": "completed" 
