@@ -165,18 +165,21 @@ source /etc/skt.d/tool/web/export_order.bash
 sh /etc/skt.d/tool/web/rest_api.bash
 elif [ $OPTION = 4 ]; then
 clear
-while IFS=$'|' read -r -a DATA 
+while IFS='|' read -r -a DATA 
 do
+rm -rf /root/woocommerce*
 if [ ${DATA[0]} == "W" ]; then
 curl -X GET "https://${DATA[2]}/wp-json/wc/v3/orders?status=on-hold&per_page=100" \
     -u "${DATA[3]}:${DATA[4]}" | python -m json.tool | jq -r ".[].id" | cat >> /root/woocommerce.${DATA[0]}${DATA[1]}.orders.onhold.listID
 countOrdersOnHold="`cat /root/woocommerce.${DATA[0]}${DATA[1]}.orders.onhold.listID | wc -l`"
-for (( i = 1; i <= ${countOrdersOnhold} ; i ++ ))
+for (( i=1; i <= ${countOrdersOnHold}; i++))
 do
-curl -X DELETE "https://${DATA[2]}/wp-json/wc/v3/orders/`sed -n "${i}p" /root/woocommerce.${DATA[0]}${DATA[1]}.orders.onhold.listID`?force=true" \
-	-u "${DATA[3]}:${DATA[4]}" | python -m json.tool | printf "`jq -r ".status"`\n"
+orderID="`sed -n "${i}p" /root/woocommerce.${DATA[0]}${DATA[1]}.orders.onhold.listID`"
+curl -X DELETE "https://${DATA[2]}/wp-json/wc/v3/orders/${orderID}?force=true" \
+	-u "${DATA[3]}:${DATA[4]}" | python -m json.tool | printf " *** Deleted Order ${orderID}\nStatus: `jq -r ".status"`\n"
 done
 fi
+
 done < /etc/skt.d/data/team/api.txt
 
 
