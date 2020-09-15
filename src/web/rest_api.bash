@@ -43,7 +43,6 @@ elif [ $OPTION = 1 ]; then
 	printf "${URL}|{KEY}|${PASS}\n" | cat > /etc/skt.d/data/team/S${NUMBER}	
 	fi
 	
-<<<<<<< HEAD
 #/etc/skt.d/data/woocommerce/all-invoice.txt
 #WC5 url5 consumer_key5:consumer_secret5
 #WC6 url6 consumer_key6:consumer_secret6
@@ -55,10 +54,6 @@ elif [ $OPTION = 1 ]; then
 sh /etc/skt.d/tool/web/rest_api.bash
 
 
-
-
-
->>>>>>> 93c2cbe557db872aca2905c5dcc65ddb01f402ee
 elif [ $OPTION = 2 ]; then
 clear
 printf "IMPORTANT: ORDER IS INCLUDED IMPORT TO WOOCOMMERCE, SHOPIFY AND PAYPAL ALSO\n" 
