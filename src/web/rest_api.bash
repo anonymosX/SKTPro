@@ -1,11 +1,4 @@
 #!/bin/bash
-
-
-
-
-
-
-
 #FORMAT track.txt file
 #E4 8MC585209K746392H W-5-27672 9400109205568128990983 USPS
 #E5 8MC585209K746392H W-5-27672 9400109205568743137961 USPS
@@ -15,7 +8,8 @@ printf " ###############################\n"
 printf "1. Declare REST API\n"
 printf "2. Import Track (PP + Woo)\n"
 printf "3. Export Order\n"
-printf "4. Previous/Back\n"
+printf "4. Delete On Hold\n"
+printf "5. Previous/Back\n"
 printf "OPTION: "
 read OPTION
 
@@ -42,11 +36,6 @@ elif [ $OPTION = 1 ]; then
 #WC5 url5 consumer_key5:consumer_secret5
 #WC6 url6 consumer_key6:consumer_secret6
 #	sh /etc/skt.d/tool/web/rest_api.bash
-
-
-
-
-
 elif [ $OPTION = 2 ]; then
 clear
 printf "IMPORTANT: ORDER IS INCLUDED IMPORT TO WOOCOMMERCE, SHOPIFY AND PAYPAL ALSO\n" 
@@ -156,6 +145,23 @@ clear
 source /etc/skt.d/tool/web/export_order.bash
 sh /etc/skt.d/tool/web/rest_api.bash
 elif [ $OPTION = 4 ]; then
+clear
+while IFS=$'\t' read -r -a DATA 
+do
+if [ ${DATA[0]} == "W" ]; then
+curl -X GET "https://${DATA[2]}/wp-json/wc/v3/orders?status=on-hold&per_page=100" \
+    -u "${DATA[3]}:${DATA[4]}" | python -m json.tool | jq -r ".[].id" | cat >> /root/woocommerce.${DATA[0]}${DATA[1]}.orders.onhold.listID
+countOrdersOnHold="`cat /root/woocommerce.${DATA[0]}${DATA[1]}.orders.onhold.listID | wc -l`"
+for (( i = 1; i <= ${countOrdersOnhold} ; i ++ ))
+do
+curl -X DELETE "https://${DATA[2]}/wp-json/wc/v3/orders/`sed -n "${i}p" /root/woocommerce.${DATA[0]}${DATA[1]}.orders.onhold.listID`?force=true" \
+	-u "${DATA[3]}:${DATA[4]}" | python -m json.tool | printf "`jq -r ".status"`\n"
+done
+fi
+done < /etc/skt.d/data/team/api.txt
+
+
+elif [ $OPTION = 5 ]; then
 sh /etc/skt.d/tool/web/web.bash
 else 
 	printf "404!! Other\n"
