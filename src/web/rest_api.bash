@@ -165,7 +165,7 @@ source /etc/skt.d/tool/web/export_order.bash
 sh /etc/skt.d/tool/web/rest_api.bash
 elif [ $OPTION = 4 ]; then
 clear
-while IFS=$'\t' read -r -a DATA 
+while IFS=$'|' read -r -a DATA 
 do
 if [ ${DATA[0]} == "W" ]; then
 curl -X GET "https://${DATA[2]}/wp-json/wc/v3/orders?status=on-hold&per_page=100" \
