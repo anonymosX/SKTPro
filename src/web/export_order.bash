@@ -18,8 +18,7 @@ printf " #######################################\n"
 rm -rf /root/orders.csv
 #######################################START CODE WOOCOMMERCE #######################################
 #GET NUMBER OF ORDERS
-printf "INVOICE NAME,TRANSACTION ID,ORDER ID,FIRST NAME,LAST NAME,PHONE NUMBER,ADDRESS 1,ADDRESS 2,CITY,STATES,ZIPCODE, SKU,QUANTITY\n"  | cat >> /root/orders.csv	
-while IFS=$'\t' read -r -a DATA 
+while IFS="|" read -r -a DATA 
 do
 if [ ${DATA[0]} == "W" ]; then
 curl -X GET "https://${DATA[2]}/wp-json/wc/v3/orders?status=processing&per_page=100" \
@@ -49,7 +48,7 @@ PAYPAL="`curl -X GET "https://${DATA[2]}/wp-json/wc/v3/payment_gateways/paypal" 
 
 for (( j=0; j <= ${qttProducts}-1; j++)); do
 curl -X GET "https://${DATA[2]}/wp-json/wc/v3/orders?status=processing&per_page=100" \
-    -u "${DATA[3]}:${DATA[4]}" | python -m json.tool | printf "${DATA[0]}${DATA[1]}, `jq -r "[.[$i].transaction_id,.[$i].id,.[$i].shipping.first_name,.[$i].shipping.last_name,.[$i].billing.phone,.[$i].shipping.address_1,.[$i].shipping.address_2,.[$i].shipping.city,.[$i].shipping.state,.[$i].shipping.postcode,.[$i].line_items[$j].sku,.[$i].line_items[$j].quantity] | @csv"`\n" | cat >> /root/orders.csv	
+    -u "${DATA[3]}:${DATA[4]}" | python -m json.tool | printf "${PAYPAL},${DATA[0]}${DATA[1]}, `jq -r "[.[$i].transaction_id,.[$i].id,.[$i].shipping.first_name,.[$i].shipping.last_name,.[$i].billing.phone,.[$i].shipping.address_1,.[$i].shipping.address_2,.[$i].shipping.city,.[$i].shipping.state,.[$i].shipping.postcode,.[$i].line_items[$j].sku,.[$i].line_items[$j].quantity] | @csv"`\n" | cat >> /root/results.csv	
 
 done		
 done
@@ -71,15 +70,43 @@ curl -X GET "https://${DATA[3]}:${DATA[4]}@${DATA[2]}/admin/api/2020-07/orders.j
 qttProducts="`cat /root/shopify.${DATA[0]}${DATA[1]}.orders.${orderID}.qttProducts | wc -l`"
 for (( j=0; j <= ${qttProducts} - 1; j++))
 do
-curl -X GET "https://${DATA[3]}:${DATA[4]}@${DATA[2]}/admin/api/2020-07/orders.json?ids=${orderID}" | python -m json.tool | printf "${DATA[0]}${DATA[1]},`curl -X GET "https://${DATA[3]}:${DATA[4]}@${DATA[2]}/admin/api/2020-07/orders/${orderID}/transactions.json" | python -m json.tool | jq -r ".transactions[].authorization"`, `jq -r "[.orders[].id,.orders[].shipping_address.first_name,.orders[].shipping_address.last_name,.orders[].shipping_address.phone,.orders[].shipping_address.address1,.orders[].shipping_address.address2,.orders[].shipping_address.city,.orders[].shipping_address.province_code,.orders[].shipping_address.zip,.orders[].line_items[$j].sku,.orders[].line_items[$j].quantity] | @csv"`\n" | cat >> /root/orders.csv
+curl -X GET "https://${DATA[3]}:${DATA[4]}@${DATA[2]}/admin/api/2020-07/orders.json?ids=${orderID}" | python -m json.tool | printf "D90,${DATA[0]}${DATA[1]},`curl -X GET "https://${DATA[3]}:${DATA[4]}@${DATA[2]}/admin/api/2020-07/orders/${orderID}/transactions.json" | python -m json.tool | jq -r ".transactions[].authorization"`, `jq -r "[.orders[].id,.orders[].shipping_address.first_name,.orders[].shipping_address.last_name,.orders[].shipping_address.phone,.orders[].shipping_address.address1,.orders[].shipping_address.address2,.orders[].shipping_address.city,.orders[].shipping_address.province_code,.orders[].shipping_address.zip,.orders[].line_items[$j].sku,.orders[].line_items[$j].quantity] | @csv"`\n" | cat >> /root/results.csv
 done
 done
 fi
 done < /etc/skt.d/data/team/api.txt
-sed -i 's/"//g' /root/orders.csv
+sed -i 's/"//g' /root/results.csv
+
+#ARANGE DATA
+while IFS="," read -r -a CONVERT
+do
+#REPLACE SPACE STRING
+CONVERT[2]="`echo "${CONVERT[2]}" | sed "s/ //"`"
+CONVERT[3]="`echo "${CONVERT[3]}" | sed "s/ //"`"
+CONVERT[7]="`echo "${CONVERT[7]}" | sed "s/,/ /"`"
+NAME="${CONVERT[4]} ${CONVERT[5]}"
+INVOICE="${CONVERT[1]}-${CONVERT[3]}"
+FULLADDRESS="${CONVERT[7]} ${CONVERT[8]}"
+printf "${CONVERT[0]},${CONVERT[2]},${INVOICE},${NAME},${CONVERT[6]},${FULLADDRESS},${CONVERT[9]},${CONVERT[10]},${CONVERT[11]},${CONVERT[12]},${CONVERT[13]}\n" | cat >> /root/orders.csv
+done <  /root/results.csv
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 #REMOVE TRASH
-rm -rf /root/woocommerce* /root/shopify*
+rm -rf /root/woocommerce* /root/shopify* /root/results.csv
 clear
