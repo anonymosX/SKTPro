@@ -124,7 +124,7 @@ sleep 3
 #FULFIL TRACKING
 while IFS=$'\t' read -r -a TRANSACTION
 do
-curl -v -X POST https://api.paypal.com/v1/shipping/trackers-batch \
+curl -X POST "https://api.paypal.com/v1/shipping/trackers-batch" \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer `sed -n "1p" /etc/skt.d/data/paypal/token/${TRANSACTION[0]}_access_token`" \
   -d '{
@@ -138,7 +138,7 @@ curl -v -X POST https://api.paypal.com/v1/shipping/trackers-batch \
       "notify_buyer":"true"
     }
   ]
-}' \ | python -m json.tool | printf "Đã ép thành công transaction id: `jq -r ".tracker_identifiers[].transaction_id"`: ${TRANSACTION[2]}\n"
+}' | python -m json.tool | printf "${TRANSACTION[2]} - Transaction : `jq -r ".tracker_identifiers[].transaction_id"` - DONE!!! \n"
 done < /root/track.txt
 
 
