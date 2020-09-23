@@ -29,6 +29,8 @@ elif [ $OPTION = 1 ]; then
 	sh /etc/skt.d/tool/paypal/balance.bash		
 elif [ $OPTION = 2 ]; then
 	clear
+	#refresh balance
+	rm -f /etc/skt.d/data/paypal/balance/*
 	while IFS= read -r VPS
 	do
 	curl -X GET "https://api.paypal.com/v1/reporting/balances?currency_code=USD" \
