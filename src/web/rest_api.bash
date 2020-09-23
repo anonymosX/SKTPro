@@ -179,9 +179,8 @@ curl -X DELETE "https://${DATA[2]}/wp-json/wc/v3/orders/${orderID}?force=true" \
 	-u "${DATA[3]}:${DATA[4]}" | python -m json.tool | printf " *** Deleted Order ${orderID}\nStatus: `jq -r ".status"`\n"
 done
 fi
-sh /etc/skt.d/tool/web/rest_api.bash
 done < /etc/skt.d/data/team/api.txt
-
+sh /etc/skt.d/tool/web/rest_api.bash
 
 elif [ $OPTION = 5 ]; then
 sh /etc/skt.d/tool/web/web.bash
