@@ -46,6 +46,7 @@ orderID="`sed -n "${n}p" /root/woocommerce.${DATA[0]}${DATA[1]}.orders.listID`"
 qttProducts="`cat /root/woocommerce.${DATA[0]}${DATA[1]}.order.id.${orderID} | wc -l`"
 #GET PAYPAL ACCOUNT LABEL
 PAYPAL="`curl -X GET "https://${DATA[2]}/wp-json/wc/v3/payment_gateways/paypal" \
+-# \
 -u "${DATA[3]}:${DATA[4]}" | python -m json.tool | jq -r ".settings.invoice_prefix.value"`"
 
 for (( j=0; j <= ${qttProducts}-1; j++)); do
@@ -77,7 +78,7 @@ qttProducts="`cat /root/shopify.${DATA[0]}${DATA[1]}.orders.${orderID}.qttProduc
 for (( j=0; j <= ${qttProducts} - 1; j++))
 do
 curl -X GET "https://${DATA[3]}:${DATA[4]}@${DATA[2]}/admin/api/2020-07/orders.json?ids=${orderID}" \
-	-# | python -m json.tool | printf "D90,${DATA[0]}${DATA[1]},`curl -X GET "https://${DATA[3]}:${DATA[4]}@${DATA[2]}/admin/api/2020-07/orders/${orderID}/transactions.json" \ -#  | python -m json.tool | jq -r ".transactions[].authorization"`, `jq -r "[.orders[].id,.orders[].shipping_address.first_name,.orders[].shipping_address.last_name,.orders[].shipping_address.phone,.orders[].shipping_address.address1,.orders[].shipping_address.address2,.orders[].shipping_address.city,.orders[].shipping_address.province_code,.orders[].shipping_address.zip,.orders[].line_items[$j].sku,.orders[].line_items[$j].quantity] | @csv"`\n" | cat >> /root/results.csv
+	-# | python -m json.tool | printf "D90,${DATA[0]}${DATA[1]},`curl -# -GET "https://${DATA[3]}:${DATA[4]}@${DATA[2]}/admin/api/2020-07/orders/${orderID}/transactions.json" | python -m json.tool | jq -r ".transactions[].authorization"`, `jq -r "[.orders[].id,.orders[].shipping_address.first_name,.orders[].shipping_address.last_name,.orders[].shipping_address.phone,.orders[].shipping_address.address1,.orders[].shipping_address.address2,.orders[].shipping_address.city,.orders[].shipping_address.province_code,.orders[].shipping_address.zip,.orders[].line_items[$j].sku,.orders[].line_items[$j].quantity] | @csv"`\n" | cat >> /root/results.csv
 done
 done
 fi
