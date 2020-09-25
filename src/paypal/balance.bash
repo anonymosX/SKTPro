@@ -49,7 +49,8 @@ elif [ $OPTION = 3 ]; then
 	#UPDATE ALL ACCESS TOKEN
 	while IFS= read -r line
 	do
-	curl -X POST "https://api.paypal.com/v1/oauth2/token" \
+printf "Loading: "
+	curl -# -POST "https://api.paypal.com/v1/oauth2/token" \
 	-H "Accept: application/json" \
 	-H "Accept-Language: en_US" \
 	-u "`sed -n "1p" /etc/skt.d/data/paypal/API/${line}_clientid_secret_key`" \
