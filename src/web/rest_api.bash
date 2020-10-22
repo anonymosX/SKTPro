@@ -36,11 +36,11 @@ elif [ $OPTION = 1 ]; then
 	read PASS
 	if [ $PLATFORM = 1 ]; then
 	printf "W|${NUMBER}|${URL}|${KEY}|${PASS}\n" | cat >> /etc/skt.d/data/team/api.txt
-	printf "${URL}|{KEY}|${PASS}\n" | cat > /etc/skt.d/data/team/W${NUMBER}
+	printf "${URL}|${KEY}|${PASS}\n" | cat > /etc/skt.d/data/team/W${NUMBER}
 	fi
 	if [ $PLATFORM = 2 ]; then
 	printf "S|${NUMBER}|${URL}|${KEY}|${PASS}\n" | cat >> /etc/skt.d/data/team/api.txt
-	printf "${URL}|{KEY}|${PASS}\n" | cat > /etc/skt.d/data/team/S${NUMBER}	
+	printf "${URL}|${KEY}|${PASS}\n" | cat > /etc/skt.d/data/team/S${NUMBER}	
 	fi
 	
 #/etc/skt.d/data/woocommerce/all-invoice.txt
