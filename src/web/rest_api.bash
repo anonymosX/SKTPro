@@ -71,6 +71,7 @@ if [ ${PLATFORM} == "W" ]; then
 IFS="-" ; read -r -a WOO<<<"${TRACK[2]}"
 IFS="|" ; read -r -a WOOCOMMERCE<<<"`cat /etc/skt.d/data/team/${WOO[0]}`"
 curl -X POST https://${WOOCOMMERCE[0]}/wp-json/wc/v3/orders/${WOO[1]}/shipment-trackings \
+	-# \
 	-u "${WOOCOMMERCE[1]}:${WOOCOMMERCE[2]}" \
 	-H "Content-Type: application/json" \
 	-d '{
@@ -78,6 +79,7 @@ curl -X POST https://${WOOCOMMERCE[0]}/wp-json/wc/v3/orders/${WOO[1]}/shipment-t
 	"tracking_number": "'${TRACK[3]}'"  
 	}' \ | python -m json.tool
 curl -X PUT https://${WOOCOMMERCE[0]}/wp-json/wc/v3/orders/${WOO[1]} \
+	-# \
     -u "${WOOCOMMERCE[1]}:${WOOCOMMERCE[2]}" \
     -H "Content-Type: application/json" \
     -d '{
@@ -89,6 +91,7 @@ if [ ${PLATFORM} == "S" ]; then
 IFS="-" ; read -r -a SHOPIFY<<<"${TRACK[2]}"
 IFS="|" ; read -r -a SHOPIFYnumber<<<"`cat /etc/skt.d/data/team/${SHOPIFY[0]}`"
 curl -X POST "https://${SHOPIFYnumber[1]}:${SHOPIFYnumber[2]}@${SHOPIFYnumber[0]}/admin/api/2020-07/orders/${SHOPIFY[1]}/fulfillments.json" \
+-# \
 -H "Content-Type: application/json" \
 -d '{
 "fulfillment": {
@@ -112,7 +115,8 @@ printf " ###############################\n"
 
 #UPDATE ALL ACCESS TOKEN
 while IFS= read -r VPS; do
-curl -v POST "https://api.paypal.com/v1/oauth2/token" \
+curl POST "https://api.paypal.com/v1/oauth2/token" \
+  -# \
   -H "Accept: application/json" \
   -H "Accept-Language: en_US" \
   -u "`sed -n '1p' /etc/skt.d/data/paypal/API/${VPS}_clientid_secret_key`" \
@@ -125,6 +129,7 @@ sleep 3
 while IFS=$'\t' read -r -a TRANSACTION
 do
 curl -X POST "https://api.paypal.com/v1/shipping/trackers-batch" \
+  -# \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer `sed -n "1p" /etc/skt.d/data/paypal/token/${TRANSACTION[0]}_access_token`" \
   -d '{
@@ -168,15 +173,18 @@ clear
 while IFS='|' read -r -a DATA 
 do
 rm -rf /root/woocommerce*
-if [ ${DATA[0]} == "W" ]; then
+if [ ${DATA[0]} = "W" ]; then
+printf "Loading: ##"
 curl -X GET "https://${DATA[2]}/wp-json/wc/v3/orders?status=on-hold&per_page=100" \
+	-# \
     -u "${DATA[3]}:${DATA[4]}" | python -m json.tool | jq -r ".[].id" | cat >> /root/woocommerce.${DATA[0]}${DATA[1]}.orders.onhold.listID
 countOrdersOnHold="`cat /root/woocommerce.${DATA[0]}${DATA[1]}.orders.onhold.listID | wc -l`"
 for (( i=1; i <= ${countOrdersOnHold}; i++))
 do
 orderID="`sed -n "${i}p" /root/woocommerce.${DATA[0]}${DATA[1]}.orders.onhold.listID`"
 curl -X DELETE "https://${DATA[2]}/wp-json/wc/v3/orders/${orderID}?force=true" \
-	-u "${DATA[3]}:${DATA[4]}" | python -m json.tool | printf " *** Deleted Order ${orderID}\nStatus: `jq -r ".status"`\n"
+	-# \
+	-u "${DATA[3]}:${DATA[4]}" | python -m json.tool | printf "${i}. Deleted Order ${orderID}: `jq -r ".total"` USD\n"
 done
 fi
 done < /etc/skt.d/data/team/api.txt
