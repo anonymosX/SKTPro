@@ -5,7 +5,10 @@ printf " ####################################\n"
 printf "   BULK CREATE WEBSITE| WOOCOMMERCE \n"
 printf " ###################################\n"
 
-
+#EXAMPLE woocommerce.csv
+#daniellydeazevedoprime.com	1500&nbsp;Shady&nbsp;Lane&nbsp;Columbia&nbsp;SC&nbsp;29206	2	5	803-463-5447	1500&nbsp;Shady&nbsp;Lane	Columbia
+#kailynhagerty.com	2008&nbsp;Palisades&nbsp;Drive&nbsp;Blakeslee&nbsp;PA&nbsp;18610	2	5	(646)&nbsp;942-6499	2008&nbsp;Palisades&nbsp;Drive	Blakeslee
+#jamierowestore.com	5305&nbsp;Hillcroft&nbsp;Avenue&nbsp;Arlington&nbsp;TX&nbsp;76018	2	5	817-915-8703	5305&nbsp;Hillcroft&nbsp;Avenue	Arlington
 
 
 

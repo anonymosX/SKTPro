@@ -15,12 +15,12 @@ printf " #######################################\n"
 
 
 #REFRESH ORDER FILE
-rm -rf /root/Orders.csv
+rm -rf /root/orders.csv
 #######################################START CODE WOOCOMMERCE #######################################
 #GET NUMBER OF ORDERS
 while IFS="|" read -r -a DATA 
 do
-if [ ${DATA[0]} == "W" ]; then
+if [ $DATA[0] == "W" ]; then
 curl -X GET "https://${DATA[2]}/wp-json/wc/v3/orders?status=processing&per_page=100" \
 	-# \
     -u "${DATA[3]}:${DATA[4]}" | python -m json.tool | jq -r ".[].id" | cat >> /root/woocommerce.${DATA[0]}${DATA[1]}.orders.listID
@@ -95,7 +95,7 @@ CONVERT[7]="`echo "${CONVERT[7]}" | sed "s/,/ /"`"
 NAME="${CONVERT[4]} ${CONVERT[5]}"
 INVOICE="${CONVERT[1]}-${CONVERT[3]}"
 FULLADDRESS="${CONVERT[7]} ${CONVERT[8]}"
-printf "${CONVERT[0]},${CONVERT[2]},${INVOICE},${NAME},${CONVERT[6]},${FULLADDRESS},${CONVERT[9]},${CONVERT[10]},${CONVERT[11]},${CONVERT[12]},${CONVERT[13]}\n" | cat >> /root/Orders.csv
+printf "${CONVERT[0]},${CONVERT[2]},${INVOICE},${NAME},${CONVERT[6]},${FULLADDRESS},${CONVERT[9]},${CONVERT[10]},${CONVERT[11]},${CONVERT[12]},${CONVERT[13]}\n" | cat >> /root/orders.csv
 done <  /root/results.csv
 
 
