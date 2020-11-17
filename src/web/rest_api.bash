@@ -157,6 +157,8 @@ printf "UPDATE: IMPORTED ORDER TO PAYPAL\n"
 sleep 1
 printf "DONE!!!\n"
 
+python3 /etc/skt.d/tool/python/ImportOrdersEbay.py
+
 elif [ $QUESTION = N -o $QUESTION = n ]; then
 printf "STATUS: CANCEL UPDATE\n"
 sleep 1
