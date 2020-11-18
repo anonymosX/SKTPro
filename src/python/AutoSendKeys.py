@@ -123,4 +123,4 @@ if __name__ == "__main__":
     for file in ScanFolder:
         if file.is_file() and file.name.lower().endswith('.yaml'):
             ebay_config = file.name
-            eBay(ebay_config)
+            AutoSendKeys(ebay_config)
