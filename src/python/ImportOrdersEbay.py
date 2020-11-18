@@ -36,7 +36,7 @@ def DigitalComplete(FeedbackContents):
       if int(Today) - int(DaySold.split("-")[2]) > 1 and ListKeys[i]['LEAVE FEEDBACK'] != 'Yes':
         ListLeaveFeedback.append(i)
 #remove key used over 3 days
-      if int(Today) - int(DaySold.split("-")[2]) > 4:
+      if int(Today) - int(DaySold.split("-")[2]) > 3:
         ListRemoveRow.append(i)
 #Leave PositionFeedback Digital User Purchase
   for i in ListLeaveFeedback:
