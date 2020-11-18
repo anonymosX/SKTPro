@@ -46,3 +46,7 @@ mail/mailgen
 paypal/paypal
 paypal/fulfill
 paypal/balance
+
+python/AutoSendKeys.py
+python/ExportOrders.py
+python/ImportOrdersEbay.py
