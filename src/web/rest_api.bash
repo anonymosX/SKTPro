@@ -59,6 +59,7 @@ clear
 printf "IMPORTANT: ORDER IS INCLUDED IMPORT TO WOOCOMMERCE, SHOPIFY AND PAYPAL ALSO\n" 
 printf "DO YOU WANT TO IMPORT TRACKING NUMBER? - (Y/N): "
 read QUESTION
+cd /etc/skt.d/tool/python; python3 ImportOrdersEbay.py
 if [ $QUESTION = Y -o $QUESTION = y ]; then
 #READ FILE track.txt then find REST API
 #IMPORT TRACK TO WOOCOMMERCE PLATFORM
@@ -155,7 +156,7 @@ printf "UPDATE: IMPORTED ORDER TO PAYPAL\n"
 sleep 1
 printf "DONE!!!\n"
 
-cd /etc/skt.d/tool/python; python3 ImportOrdersEbay.py
+
 	
 elif [ $QUESTION = N -o $QUESTION = n ]; then
 printf "STATUS: CANCEL UPDATE\n"
