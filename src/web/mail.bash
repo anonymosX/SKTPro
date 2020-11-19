@@ -1,1 +1,1 @@
-printf "ORDER NGÀY `date +'%d-%m-%Y'`" | mail -s "Export Order | Woocommerce | Ninja Team" -a /root/orders.csv quoc@seenomore.com , khoaphan1671996@gmail.com , uchkno2@gmail.com
+python3 /etc/skt.d/tool/KeyStockIn.py | mail -s "Export Order | Stock In" -a /root/Orders.csv quoc@seenomore.com , khoaphan@ninja1team.com

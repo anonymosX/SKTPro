@@ -85,6 +85,11 @@ if __name__ == '__main__':
     Feedback = [row for row in csv.DictReader(fb)]
   for i in range(0, sum(1 for a in Feedback)):
     FeedbackContents.append(Feedback[i]['CONTENT'])
+  with open('/root/track.csv', 'r') as Refile:
+    Order = [row for row in csv.read(Refile, delimiter = '\t')]
+    rewrite = csv.writer(Order)
+    for i in Order:
+      rewrite.writerow(i)
   HEADER = ['PAYPAL', 'TRANSACTION ID', 'INVOICE', 'TRACK NUMBER', 'LOGICSTICS']
   with open('/root/track.csv', 'r', newline='') as TrackDetails:
     OrderDetails = [row for row in csv.DictReader(TrackDetails, fieldnames = HEADER)]
