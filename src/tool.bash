@@ -35,8 +35,8 @@ mkdir -p /etc/skt.d/tool/$FOLDER
 done < /etc/skt.d/tool/data/folder.txt
 # CREATE FILES
 while IFS= read -r download; do 
-curl -N $host/src/$download.bash \
--# | cat > /etc/skt.d/tool/$download.bash
+curl -N $host/src/$download \
+-# | cat > /etc/skt.d/tool/$download
 done < /etc/skt.d/tool/data/file.txt
 clear
 chmod +x /etc/skt.d/tool/web/export_order.bash
@@ -69,8 +69,8 @@ done < /etc/skt.d/tool/data/folder.txt
 
 # UPDATE FILES
 while IFS= read -r download; do 
-curl -N $host/src/$download.bash \
--# | cat > /etc/skt.d/tool/$download.bash
+curl -N $host/src/$download \
+-# | cat > /etc/skt.d/tool/$download
 done < /etc/skt.d/tool/data/file.txt
 clear
 chmod +x /etc/skt.d/tool/web/export_order.bash

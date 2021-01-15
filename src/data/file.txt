@@ -1,48 +1,53 @@
-web/add
-web/backup
-web/delete
-web/restore
-web/web
-web/export_order
-web/rest_api
-web/mail
-web/woocommerce_setup
+web/add.bash
+web/backup.bash
+web/delete.bash
+web/restore.bash
+web/web.bash
+web/export_order.bash
+web/rest_api.bash
+web/mail.bash
+web/woocommerce_setup.bash
 
-ssl/install
-ssl/renew
-ssl/ssl
-ssl/status
+ssl/install.bash
+ssl/renew.bash
+ssl/ssl.bash
+ssl/status.bash
 
-system/lemp
-system/mod_pagespeed
-system/system
-server/move
-server/restore
-server/server
+system/lemp.bash
+system/mod_pagespeed.bash
+system/system.bash
+server/move.bash
+server/restore.bash
+server/server.bash
 
-mariadb/mariadb
+mariadb/mariadb.bash
 
-tool
+tool.bash
 
-namesilo/manDomain
-namesilo/regDomain
-namesilo/renewDomain
-namesilo/statusDomain
-namesilo/newAccount
-namesilo/updateAPI
+namesilo/manDomain.bash
+namesilo/regDomain.bash
+namesilo/renewDomain.bash
+namesilo/statusDomain.bash
+namesilo/newAccount.bash
+namesilo/updateAPI.bash
 
-cloudflare/changeSSLsetting
-cloudflare/manAPI
-cloudflare/manCloudflare
-cloudflare/newAPI
-cloudflare/updateAPI
-cloudflare/updateDNS
-cloudflare/createZONE
-cloudflare/70kcreatezone
+cloudflare/changeSSLsetting.bash
+cloudflare/manAPI.bash
+cloudflare/manCloudflare.bash
+cloudflare/newAPI.bash
+cloudflare/updateAPI.bash
+cloudflare/updateDNS.bash
+cloudflare/createZONE.bash
+cloudflare/70kcreatezone.bash
 
-mail/mailgen
+mail/mailgen.bash
 
 
-paypal/paypal
-paypal/fulfill
-paypal/balance
+paypal/paypal.bash
+paypal/fulfill.bash
+paypal/balance.bash
+
+python/AutoSendKeys.py
+python/ExportOrders.py
+python/ImportOrdersEbay.py
+python/GetUserToken_Ebay.py

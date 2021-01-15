@@ -59,11 +59,12 @@ clear
 printf "IMPORTANT: ORDER IS INCLUDED IMPORT TO WOOCOMMERCE, SHOPIFY AND PAYPAL ALSO\n" 
 printf "DO YOU WANT TO IMPORT TRACKING NUMBER? - (Y/N): "
 read QUESTION
+cd /etc/skt.d/tool/python; python3 ImportOrdersEbay.py
 if [ $QUESTION = Y -o $QUESTION = y ]; then
 #READ FILE track.txt then find REST API
 #IMPORT TRACK TO WOOCOMMERCE PLATFORM
 
-while IFS=$'\t'	read -r -a TRACK
+while IFS=',' read -r -a TRACK
 do
 PLATFORM="`printf "${TRACK[2]}" | head -c1`"
 #IMPORT TRACK TO WOOCOMMERCE
@@ -91,7 +92,6 @@ if [ ${PLATFORM} == "S" ]; then
 IFS="-" ; read -r -a SHOPIFY<<<"${TRACK[2]}"
 IFS="|" ; read -r -a SHOPIFYnumber<<<"`cat /etc/skt.d/data/team/${SHOPIFY[0]}`"
 curl -X POST "https://${SHOPIFYnumber[1]}:${SHOPIFYnumber[2]}@${SHOPIFYnumber[0]}/admin/api/2020-07/orders/${SHOPIFY[1]}/fulfillments.json" \
--# \
 -H "Content-Type: application/json" \
 -d '{
 "fulfillment": {
@@ -102,7 +102,7 @@ curl -X POST "https://${SHOPIFYnumber[1]}:${SHOPIFYnumber[2]}@${SHOPIFYnumber[0]
 }
 }'
 fi
-done < /root/track.txt
+done < /root/track.csv
 clear
 sleep 1
 printf "DONE: IMPORTED ORDER TO WOOCOMMERCE AND SHOPIFY\n"
@@ -116,7 +116,6 @@ printf " ###############################\n"
 #UPDATE ALL ACCESS TOKEN
 while IFS= read -r VPS; do
 curl POST "https://api.paypal.com/v1/oauth2/token" \
-  -# \
   -H "Accept: application/json" \
   -H "Accept-Language: en_US" \
   -u "`sed -n '1p' /etc/skt.d/data/paypal/API/${VPS}_clientid_secret_key`" \
@@ -126,7 +125,7 @@ done < /etc/skt.d/data/paypal/vps.txt
 sleep 3
 
 #FULFIL TRACKING
-while IFS=$'\t' read -r -a TRANSACTION
+while IFS=',' read -r -a TRANSACTION
 do
 curl -X POST "https://api.paypal.com/v1/shipping/trackers-batch" \
   -# \
@@ -144,7 +143,7 @@ curl -X POST "https://api.paypal.com/v1/shipping/trackers-batch" \
     }
   ]
 }' | python -m json.tool | printf "${TRANSACTION[2]} - Transaction : `jq -r ".tracker_identifiers[].transaction_id"` - DONE!!! \n"
-done < /root/track.txt
+done < /root/track.csv
 
 
 
@@ -157,6 +156,8 @@ printf "UPDATE: IMPORTED ORDER TO PAYPAL\n"
 sleep 1
 printf "DONE!!!\n"
 
+
+	
 elif [ $QUESTION = N -o $QUESTION = n ]; then
 printf "STATUS: CANCEL UPDATE\n"
 sleep 1
